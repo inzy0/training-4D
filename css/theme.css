@@ -1,0 +1,139 @@
+/* Meridian 4D theme layer: loaded after lab.css / training.css. Re-skins the whole app through tokens and a few
+   component rules; the dynamic background (aurora, perspective grid, rotating tesseract + star field) is drawn by
+   js/backdrop.js. Presets: aurora (default), ocean, ember, mono, chosen with the Theme chip, saved per browser. */
+
+:root, :root[data-theme="aurora"] {
+  --bg: #03050d; --bg2: #070b1c;
+  --panel: rgba(13, 19, 40, 0.74); --panel-2: rgba(18, 26, 54, 0.62);
+  --line: rgba(150, 170, 255, 0.14); --line-strong: rgba(150, 170, 255, 0.28);
+  --text: #e6ecff; --muted: #8b98bd;
+  --accent: #5ee7ff; --accent2: #8b7bff; --accent3: #ff5ecf;
+  --hot: #ffc067; --ok: #5ef0b0; --warn: #ffb36b;
+  --grad: linear-gradient(120deg, var(--accent) 0%, var(--accent2) 52%, var(--accent3) 100%);
+  --glow: 0 0 0 1px rgba(139, 123, 255, 0.35), 0 10px 40px -10px rgba(94, 231, 255, 0.45);
+  --radius: 16px;
+  --aur1: rgba(94, 231, 255, 0.20); --aur2: rgba(139, 123, 255, 0.22); --aur3: rgba(255, 94, 207, 0.14);
+}
+:root[data-theme="ocean"] {
+  --accent: #38e1d4; --accent2: #3b8bff; --accent3: #7cf3ff; --aur1: rgba(56, 225, 212, 0.20); --aur2: rgba(59, 139, 255, 0.22); --aur3: rgba(124, 243, 255, 0.12);
+}
+:root[data-theme="ember"] {
+  --accent: #ffb547; --accent2: #ff5e7a; --accent3: #ff9de2; --aur1: rgba(255, 181, 71, 0.16); --aur2: rgba(255, 94, 122, 0.20); --aur3: rgba(255, 157, 226, 0.12);
+  --line: rgba(255, 190, 160, 0.14); --line-strong: rgba(255, 190, 160, 0.28);
+}
+:root[data-theme="mono"] {
+  --accent: #e8eefc; --accent2: #9aa7c7; --accent3: #c7d2ee; --aur1: rgba(200, 215, 255, 0.10); --aur2: rgba(150, 165, 210, 0.12); --aur3: rgba(255, 255, 255, 0.06);
+}
+
+html { background: var(--bg); }
+body {
+  background: transparent !important; isolation: isolate;
+  font-family: "Inter", "Segoe UI Variable Text", "Segoe UI", system-ui, -apple-system, sans-serif; letter-spacing: 0.005em;
+  -webkit-font-smoothing: antialiased; text-rendering: optimizeLegibility;
+}
+::selection { background: rgba(139, 123, 255, 0.45); color: #fff; }
+
+/* ---------------------------------------------------------------- background layers (js/backdrop.js) */
+.bg-layer { position: fixed; inset: 0; z-index: -1; pointer-events: none; }
+#bg-base { background: radial-gradient(1400px 900px at 50% -20%, var(--bg2), var(--bg) 70%); }
+#bg-aurora { filter: blur(60px) saturate(130%); opacity: 0.9; }
+#bg-aurora i { position: absolute; border-radius: 50%; mix-blend-mode: screen; will-change: transform; }
+#bg-aurora i:nth-child(1) { width: 60vw; height: 60vw; left: -15vw; top: -25vw; background: radial-gradient(circle, var(--aur1), transparent 65%); animation: aur1 48s ease-in-out infinite alternate; }
+#bg-aurora i:nth-child(2) { width: 55vw; height: 55vw; right: -18vw; top: -10vw; background: radial-gradient(circle, var(--aur2), transparent 65%); animation: aur2 56s ease-in-out infinite alternate; }
+#bg-aurora i:nth-child(3) { width: 50vw; height: 50vw; left: 25vw; bottom: -30vw; background: radial-gradient(circle, var(--aur3), transparent 65%); animation: aur3 64s ease-in-out infinite alternate; }
+@keyframes aur1 { to { transform: translate(18vw, 12vw) scale(1.15); } }
+@keyframes aur2 { to { transform: translate(-14vw, 16vw) scale(0.9); } }
+@keyframes aur3 { to { transform: translate(-12vw, -14vw) scale(1.2); } }
+#bg-grid { perspective: 700px; overflow: hidden; -webkit-mask-image: linear-gradient(to top, #000 0%, rgba(0,0,0,.55) 22%, transparent 48%); mask-image: linear-gradient(to top, #000 0%, rgba(0,0,0,.55) 22%, transparent 48%); }
+#bg-grid::before {
+  content: ""; position: absolute; left: -50%; right: -50%; bottom: -10%; height: 70%; transform-origin: 50% 100%; transform: rotateX(72deg);
+  background-image: linear-gradient(to right, var(--line-strong) 1px, transparent 1px), linear-gradient(to bottom, var(--line-strong) 1px, transparent 1px);
+  background-size: 64px 64px; animation: gridrun 9s linear infinite; opacity: 0.55;
+}
+@keyframes gridrun { to { background-position: 0 64px, 0 64px; } }
+#bg-field { width: 100%; height: 100%; }
+#bg-vignette { background: radial-gradient(120% 90% at 50% 40%, transparent 55%, rgba(0, 0, 0, 0.55) 100%); }
+@media (prefers-reduced-motion: reduce) { #bg-aurora i, #bg-grid::before, .author-ring::before, .hdr::after { animation: none !important; } }
+
+/* ---------------------------------------------------------------- header */
+.hdr { background: linear-gradient(180deg, rgba(6, 9, 22, 0.82), rgba(6, 9, 22, 0.58)) !important; backdrop-filter: blur(18px) saturate(160%); -webkit-backdrop-filter: blur(18px) saturate(160%); border-bottom: 1px solid var(--line); box-shadow: 0 10px 40px -20px rgba(0, 0, 0, 0.8); }
+.hdr::after { background: var(--grad) !important; background-size: 40% 100% !important; background-repeat: no-repeat !important; opacity: 0.85; height: 1.5px; }
+.brand h1 { font-weight: 700; letter-spacing: 0.18em; font-size: 17px; }
+.brand h1 span { background: var(--grad); -webkit-background-clip: text; background-clip: text; color: transparent; }
+.mark { color: var(--accent); filter: drop-shadow(0 0 10px color-mix(in srgb, var(--accent) 70%, transparent)); }
+.tabs { background: rgba(255, 255, 255, 0.03); border: 1px solid var(--line); box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.04); padding: 4px; }
+.tabs button { color: var(--muted); transition: color 0.2s, background 0.25s, box-shadow 0.25s; letter-spacing: 0.01em; }
+.tabs button:hover { color: var(--text); background: rgba(255, 255, 255, 0.05); }
+.tabs button[aria-selected="true"] {
+  color: #fff; background: linear-gradient(135deg, color-mix(in srgb, var(--accent) 30%, transparent), color-mix(in srgb, var(--accent2) 34%, transparent), color-mix(in srgb, var(--accent3) 22%, transparent));
+  box-shadow: inset 0 0 0 1px color-mix(in srgb, var(--accent) 45%, transparent), 0 6px 22px -8px color-mix(in srgb, var(--accent2) 80%, transparent);
+}
+.chip { background: rgba(255, 255, 255, 0.035); border-color: var(--line); backdrop-filter: blur(6px); }
+button.chip { color: var(--text); }
+button.chip:hover { border-color: var(--line-strong); background: rgba(255, 255, 255, 0.07); }
+
+/* author */
+.author { display: inline-flex; align-items: center; gap: 10px; padding: 3px 12px 3px 3px; border-radius: 999px; text-decoration: none; color: var(--text);
+  background: linear-gradient(rgba(10, 14, 30, 0.75), rgba(10, 14, 30, 0.75)) padding-box, var(--grad) border-box; border: 1px solid transparent; transition: transform 0.25s, box-shadow 0.25s; }
+.author:hover { transform: translateY(-1px); box-shadow: var(--glow); }
+.author-ring { position: relative; width: 34px; height: 34px; border-radius: 50%; display: grid; place-items: center; flex: none; }
+.author-ring::before { content: ""; position: absolute; inset: -2px; border-radius: 50%; background: conic-gradient(from 0deg, var(--accent), var(--accent2), var(--accent3), var(--accent)); animation: spin 6s linear infinite; }
+.author-ring img { position: relative; width: 30px; height: 30px; border-radius: 50%; object-fit: cover; border: 2px solid var(--bg); }
+.author-txt { display: grid; line-height: 1.1; }
+.author-txt small { font-size: 9.5px; letter-spacing: 0.12em; text-transform: uppercase; color: var(--muted); }
+.author-txt b { font-size: 12.5px; font-weight: 650; letter-spacing: 0.02em; }
+.author svg { width: 15px; height: 15px; color: #8fb7ff; flex: none; }
+.author:hover svg { color: #fff; }
+
+/* ---------------------------------------------------------------- surfaces */
+.card, .layers, .tr-grid .card, section.card {
+  background: linear-gradient(165deg, var(--panel-2), var(--panel)) !important; border: 1px solid var(--line) !important;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.045), 0 18px 50px -28px rgba(0, 0, 0, 0.9); transition: border-color 0.25s, box-shadow 0.25s;
+}
+.card:hover { border-color: var(--line-strong) !important; }
+h2 { color: color-mix(in srgb, var(--text) 78%, var(--accent)); letter-spacing: 0.1em; }
+.card > h2::before, .card-h h2::before { content: ""; display: inline-block; width: 6px; height: 6px; border-radius: 2px; margin-right: 8px; vertical-align: 2px; background: var(--grad); box-shadow: 0 0 10px color-mix(in srgb, var(--accent) 60%, transparent); }
+.stage, .atlas-stage { border: 1px solid var(--line) !important; box-shadow: 0 0 0 1px rgba(255, 255, 255, 0.02), 0 30px 90px -30px color-mix(in srgb, var(--accent2) 45%, transparent), 0 30px 80px rgba(0, 0, 0, 0.55) !important; }
+.atlas-stage { background: radial-gradient(900px 700px at 50% 35%, color-mix(in srgb, var(--accent2) 14%, #0a1230), #03050d) !important; }
+
+/* buttons and inputs */
+.primary { background: var(--grad) !important; color: #050816 !important; box-shadow: 0 8px 30px -8px color-mix(in srgb, var(--accent2) 80%, transparent) !important; position: relative; overflow: hidden; transition: transform 0.2s, box-shadow 0.2s, filter 0.2s; }
+.primary:hover { transform: translateY(-1px); filter: brightness(1.08) saturate(1.1); }
+.primary::after { content: ""; position: absolute; inset: 0; background: linear-gradient(110deg, transparent 30%, rgba(255, 255, 255, 0.35) 50%, transparent 70%); transform: translateX(-120%); transition: transform 0.7s; }
+.primary:hover::after { transform: translateX(120%); }
+.ghost-btn { border-color: var(--line-strong) !important; background: rgba(255, 255, 255, 0.03) !important; transition: background 0.2s, border-color 0.2s; }
+.ghost-btn:hover { background: rgba(255, 255, 255, 0.08) !important; border-color: color-mix(in srgb, var(--accent) 50%, transparent) !important; }
+input[type="search"], input[type="text"], input[type="number"], input[type="password"], select, textarea {
+  background: rgba(4, 7, 18, 0.65); border: 1px solid var(--line-strong); color: var(--text); border-radius: 10px; transition: border-color 0.2s, box-shadow 0.2s;
+}
+input:focus-visible, select:focus-visible, textarea:focus-visible, button:focus-visible { outline: none; border-color: color-mix(in srgb, var(--accent) 70%, transparent); box-shadow: 0 0 0 3px color-mix(in srgb, var(--accent) 22%, transparent); }
+input[type="range"], input[type="checkbox"], input[type="radio"] { accent-color: var(--accent2); }
+th { color: color-mix(in srgb, var(--muted) 85%, var(--accent)); }
+tr.sel td, .results li:hover { background: color-mix(in srgb, var(--accent2) 16%, transparent) !important; }
+
+/* scrollbars */
+* { scrollbar-width: thin; scrollbar-color: color-mix(in srgb, var(--accent2) 55%, transparent) transparent; }
+::-webkit-scrollbar { width: 9px; height: 9px; }
+::-webkit-scrollbar-thumb { background: linear-gradient(var(--accent), var(--accent2)); border-radius: 9px; border: 2px solid transparent; background-clip: padding-box; }
+::-webkit-scrollbar-track { background: transparent; }
+
+/* public-site banner: quieter */
+body #static-banner { background: linear-gradient(90deg, rgba(255, 192, 103, 0.10), rgba(139, 123, 255, 0.10)) !important; color: #f4d9a8 !important; border-bottom: 1px solid var(--line) !important; font-size: 11.5px !important; backdrop-filter: blur(10px); }
+
+/* entrance */
+.mode:not([hidden]) > * { animation: rise 0.45s cubic-bezier(0.2, 0.7, 0.2, 1) both; }
+.mode:not([hidden]) > *:nth-child(2) { animation-delay: 0.06s; }
+@keyframes rise { from { opacity: 0; transform: translateY(8px); } }
+@media (prefers-reduced-motion: reduce) { .mode:not([hidden]) > * { animation: none; } }
+@media (max-width: 900px) { .author-txt { display: none; } .author { padding-right: 3px; } }
+
+/* header arrangement: brand + chips on the first row, the tab bar centred on its own row */
+.hdr { grid-template-columns: auto 1fr auto !important; grid-template-areas: "brand . chips" "tabs tabs tabs"; row-gap: 10px !important; padding: 12px 24px 10px !important; }
+.hdr > .brand { grid-area: brand; }
+.hdr > .tabs { grid-area: tabs; justify-self: center; max-width: 100%; overflow-x: auto; scrollbar-width: none; }
+.hdr > .tabs::-webkit-scrollbar { display: none; }
+.hdr > .chips { grid-area: chips; align-items: center; flex-wrap: nowrap; }
+.tabs button { white-space: nowrap; }
+.brand h1 { white-space: nowrap; }
+.brand p { white-space: nowrap; }
+@media (max-width: 760px) { .hdr { grid-template-areas: "brand chips" "tabs tabs"; grid-template-columns: 1fr auto !important; } .brand p, .hdr .chip.warn { display: none; } }
