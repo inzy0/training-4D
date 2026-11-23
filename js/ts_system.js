@@ -129,6 +129,7 @@ async function profile(main) {
 // ================================================================= SYNC & UPDATES
 let syncTimer = null;
 async function sync(main) {
+  if (window.__STATIC_API) return syncPublic(main);
   const st = await fetch('/api/ts/sync/status').then((r) => r.json());
   const c = st.config, cur = st.current, v = cur.validation || {};
   main.innerHTML = `${header('Sync & updates', 'Keep this app in step with your workbook. Point it at your Google Sheet (or a local / Google Drive for desktop file), choose how often to check, or upload an .xlsx. When the workbook changes the app rebuilds itself, keeps the previous version and records exactly what changed. Your profile, athletes and logs are never touched by a rebuild.', 'System')}
@@ -153,6 +154,18 @@ async function sync(main) {
   $('#sy-force').onclick = async () => { const r = await post('/api/ts/sync/now', { force: true }); msg(r.ok ? 'Rebuilding…' : r.error); poll(main); };
   $('#sy-up').onchange = async (e) => { const f = e.target.files[0]; if (!f) return; msg(`Uploading ${f.name}…`); const r = await fetch('/api/ts/upload', { method: 'POST', body: f }).then((x) => x.json()); msg(r.ok ? 'Uploaded: rebuilding…' : r.error); poll(main); };
   if (st.busy) poll(main);
+}
+// Public site: the workbook copy is fixed (privacy-cleaned); syncing a workbook is part of the owner's local app.
+async function syncPublic(main) {
+  const v = await fetch('/training-4D/rt/training_system/validation.json').then((r) => r.json()).catch(() => ({}));
+  const sum = v.summary || {}, n = Array.isArray(v.checks) ? v.checks.length : null, ok = Array.isArray(v.checks) ? v.checks.filter((c) => c.ok === true || c.pass === true || c.status === 'pass').length : null;
+  const tables = Object.entries(S.B?.tables || {}).map(([k, t]) => [k, Array.isArray(t?.rows) ? t.rows.length : null]).filter(([, x]) => x != null).sort((a, b) => b[1] - a[1]);
+  const acct = window.__ACCOUNT?.name;
+  main.innerHTML = `${header('Sync & updates', 'This public site runs a fixed, privacy-cleaned copy of the training workbook in your browser.')}
+    <div class="tr-grid"><section class="card s7"><div class="card-h"><h2>This copy</h2><span class="pill ok">public copy</span></div>
+      ${kv({ 'Workbook build': v.built || S.B?.built || '—', 'Source': S.B?.source || '—', 'Checks': n ? `${ok}/${n}` : (sum.passed != null ? `${sum.passed}/${sum.checks}` : '—'), 'Where your own data lives': acct ? `your account (${esc(acct)}) in this browser` : 'this browser (guest)' })}
+      <p class="fine">Linking a Google Sheet, uploading an .xlsx and the automatic update loop run in the owner's local app, where the workbook is rebuilt and validated on the owner's computer. They are not part of the public copy. Your own profile, athletes, sessions and plan overrides are saved as you use the pages; to keep them safe or move them to another device, use <b>Sign in → Export my data</b> in the header.</p></section>
+      <section class="card s5"><div class="card-h"><h2>Tables in this copy</h2></div><div class="tt-wrap" style="max-height:420px"><table class="tt"><tbody>${tables.map(([k, x]) => `<tr><td>${esc(k)}</td><td class="num">${fmt(x)}</td></tr>`).join('')}</tbody></table></div></section></div>`;
 }
 function poll(main) {
   clearTimeout(syncTimer);

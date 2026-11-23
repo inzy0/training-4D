@@ -106,7 +106,7 @@ async function annGet(k) { const d = await annDb(); return new Promise((res) => 
 async function annPut(k, v) { const d = await annDb(); return new Promise((res, rej) => { const t = d.transaction('ann', 'readwrite'); t.objectStore('ann').put(v, k); t.oncomplete = () => res(); t.onerror = () => rej(t.error); }); }
 
 window.fetch = async (input, init = {}) => {
-  const url = new URL(typeof input === 'string' ? input : input.url, location.href);
+  const url = new URL(input instanceof URL ? input.href : typeof input === 'string' ? input : input.url, location.href);
   const ann = url.pathname.match(/\/rt\/annotations\/([A-Za-z0-9_-]+)\/(\d+)\.json$/);
   if (ann) { const v = await annGet(`${ann[1]}/${ann[2]}`); return v ? json(v) : json({ error: 'none' }, 404); }
   if (/\/api\/annotations$/.test(url.pathname) && (init.method || 'GET').toUpperCase() === 'POST') {
