@@ -1,0 +1,3481 @@
+{
+ "rule": "for each muscle whose StatPearls chapter matched by its OWN name\n(atlas/explain/index.json entries without \"via\"), every sentence of the\nchapter that contains \"origin\"/\"originat\" (origin sentences) or \"insert\"\n(insertion sentences). A bone counts as named in a sentence when any of its\nsynonyms below appears (word match). The rule is mechanical and stated:\n  origin agrees    = an inferred origin bone is named in an origin sentence\n  insertion agrees = an inferred insertion bone is named in an insertion sentence\n  (lenient: a sentence naming both ends counts for both). STRICT scores use only\n  the clause from \"origin\"/\"originat\" up to \"insert\" (and from \"insert\" up to\n  \"origin\"), so the other end's bones in the same sentence do not count.",
+ "muscles_with_own_chapter": 135,
+ "unlabelled_ends": 46,
+ "origin": {
+  "evaluable": 83,
+  "agree": 81,
+  "rate": 0.9759036144578314
+ },
+ "insertion": {
+  "evaluable": 78,
+  "agree": 64,
+  "rate": 0.8205128205128205
+ },
+ "strict_origin": {
+  "evaluable": 83,
+  "agree": 75
+ },
+ "strict_insertion": {
+  "evaluable": 78,
+  "agree": 62
+ },
+ "rows": [
+  {
+   "muscle": "abdominal part of left pectoralis major",
+   "chapter": "Anatomy, Thorax, Pectoralis Major Major",
+   "inferred_origin": [
+    "humerus"
+   ],
+   "inferred_insertion": [],
+   "unlabelled_ends": false,
+   "text_origin_bones": [
+    "clavicle",
+    "humerus",
+    "rib",
+    "sternum"
+   ],
+   "text_insertion_bones": [
+    "clavicle",
+    "humerus",
+    "rib",
+    "sternum"
+   ],
+   "strict_origin_bones": [
+    "clavicle",
+    "rib",
+    "sternum"
+   ],
+   "strict_insertion_bones": [
+    "clavicle",
+    "humerus"
+   ],
+   "origin_agrees": true,
+   "insertion_agrees": false,
+   "strict_origin_agrees": false,
+   "strict_insertion_agrees": false
+  },
+  {
+   "muscle": "abdominal part of right pectoralis major",
+   "chapter": "Anatomy, Thorax, Pectoralis Major Major",
+   "inferred_origin": [
+    "humerus"
+   ],
+   "inferred_insertion": [],
+   "unlabelled_ends": false,
+   "text_origin_bones": [
+    "clavicle",
+    "humerus",
+    "rib",
+    "sternum"
+   ],
+   "text_insertion_bones": [
+    "clavicle",
+    "humerus",
+    "rib",
+    "sternum"
+   ],
+   "strict_origin_bones": [
+    "clavicle",
+    "rib",
+    "sternum"
+   ],
+   "strict_insertion_bones": [
+    "clavicle",
+    "humerus"
+   ],
+   "origin_agrees": true,
+   "insertion_agrees": false,
+   "strict_origin_agrees": false,
+   "strict_insertion_agrees": false
+  },
+  {
+   "muscle": "acromial part of left deltoid",
+   "chapter": "Anatomy, Shoulder and Upper Limb, Deltoid Muscle",
+   "inferred_origin": [
+    "scapula"
+   ],
+   "inferred_insertion": [
+    "humerus"
+   ],
+   "unlabelled_ends": false,
+   "text_origin_bones": [
+    "clavicle",
+    "scapula"
+   ],
+   "text_insertion_bones": [
+    "humerus"
+   ],
+   "strict_origin_bones": [
+    "clavicle",
+    "scapula"
+   ],
+   "strict_insertion_bones": [
+    "humerus"
+   ],
+   "origin_agrees": true,
+   "insertion_agrees": true,
+   "strict_origin_agrees": true,
+   "strict_insertion_agrees": true
+  },
+  {
+   "muscle": "acromial part of right deltoid",
+   "chapter": "Anatomy, Shoulder and Upper Limb, Deltoid Muscle",
+   "inferred_origin": [
+    "scapula"
+   ],
+   "inferred_insertion": [
+    "humerus"
+   ],
+   "unlabelled_ends": false,
+   "text_origin_bones": [
+    "clavicle",
+    "scapula"
+   ],
+   "text_insertion_bones": [
+    "humerus"
+   ],
+   "strict_origin_bones": [
+    "clavicle",
+    "scapula"
+   ],
+   "strict_insertion_bones": [
+    "humerus"
+   ],
+   "origin_agrees": true,
+   "insertion_agrees": true,
+   "strict_origin_agrees": true,
+   "strict_insertion_agrees": true
+  },
+  {
+   "muscle": "clavicular part of left deltoid",
+   "chapter": "Anatomy, Shoulder and Upper Limb, Deltoid Muscle",
+   "inferred_origin": [
+    "clavicle"
+   ],
+   "inferred_insertion": [
+    "humerus"
+   ],
+   "unlabelled_ends": false,
+   "text_origin_bones": [
+    "clavicle",
+    "scapula"
+   ],
+   "text_insertion_bones": [
+    "humerus"
+   ],
+   "strict_origin_bones": [
+    "clavicle",
+    "scapula"
+   ],
+   "strict_insertion_bones": [
+    "humerus"
+   ],
+   "origin_agrees": true,
+   "insertion_agrees": true,
+   "strict_origin_agrees": true,
+   "strict_insertion_agrees": true
+  },
+  {
+   "muscle": "clavicular part of left pectoralis major",
+   "chapter": "Anatomy, Thorax, Pectoralis Major Major",
+   "inferred_origin": [
+    "clavicle"
+   ],
+   "inferred_insertion": [
+    "humerus"
+   ],
+   "unlabelled_ends": false,
+   "text_origin_bones": [
+    "clavicle",
+    "humerus",
+    "rib",
+    "sternum"
+   ],
+   "text_insertion_bones": [
+    "clavicle",
+    "humerus",
+    "rib",
+    "sternum"
+   ],
+   "strict_origin_bones": [
+    "clavicle",
+    "rib",
+    "sternum"
+   ],
+   "strict_insertion_bones": [
+    "clavicle",
+    "humerus"
+   ],
+   "origin_agrees": true,
+   "insertion_agrees": true,
+   "strict_origin_agrees": true,
+   "strict_insertion_agrees": true
+  },
+  {
+   "muscle": "clavicular part of right deltoid",
+   "chapter": "Anatomy, Shoulder and Upper Limb, Deltoid Muscle",
+   "inferred_origin": [
+    "clavicle"
+   ],
+   "inferred_insertion": [
+    "humerus"
+   ],
+   "unlabelled_ends": false,
+   "text_origin_bones": [
+    "clavicle",
+    "scapula"
+   ],
+   "text_insertion_bones": [
+    "humerus"
+   ],
+   "strict_origin_bones": [
+    "clavicle",
+    "scapula"
+   ],
+   "strict_insertion_bones": [
+    "humerus"
+   ],
+   "origin_agrees": true,
+   "insertion_agrees": true,
+   "strict_origin_agrees": true,
+   "strict_insertion_agrees": true
+  },
+  {
+   "muscle": "clavicular part of right pectoralis major",
+   "chapter": "Anatomy, Thorax, Pectoralis Major Major",
+   "inferred_origin": [
+    "clavicle"
+   ],
+   "inferred_insertion": [
+    "humerus"
+   ],
+   "unlabelled_ends": false,
+   "text_origin_bones": [
+    "clavicle",
+    "humerus",
+    "rib",
+    "sternum"
+   ],
+   "text_insertion_bones": [
+    "clavicle",
+    "humerus",
+    "rib",
+    "sternum"
+   ],
+   "strict_origin_bones": [
+    "clavicle",
+    "rib",
+    "sternum"
+   ],
+   "strict_insertion_bones": [
+    "clavicle",
+    "humerus"
+   ],
+   "origin_agrees": true,
+   "insertion_agrees": true,
+   "strict_origin_agrees": true,
+   "strict_insertion_agrees": true
+  },
+  {
+   "muscle": "diaphragm",
+   "chapter": "Anatomy, Thorax: Diaphragm",
+   "inferred_origin": [],
+   "inferred_insertion": [],
+   "unlabelled_ends": true,
+   "text_origin_bones": [
+    "rib",
+    "sternum",
+    "vertebra"
+   ],
+   "text_insertion_bones": [],
+   "strict_origin_bones": [
+    "rib",
+    "sternum",
+    "vertebra"
+   ],
+   "strict_insertion_bones": []
+  },
+  {
+   "muscle": "flexor retinaculum of left wrist",
+   "chapter": "Anatomy, Shoulder and Upper Limb, Wrist Flexor Retinaculum",
+   "inferred_origin": [],
+   "inferred_insertion": [],
+   "unlabelled_ends": true,
+   "text_origin_bones": [
+    "humerus",
+    "phalanx",
+    "radius",
+    "ulna"
+   ],
+   "text_insertion_bones": [
+    "phalanx",
+    "radius",
+    "ulna"
+   ],
+   "strict_origin_bones": [
+    "humerus",
+    "radius",
+    "ulna"
+   ],
+   "strict_insertion_bones": [
+    "phalanx",
+    "ulna"
+   ]
+  },
+  {
+   "muscle": "flexor retinaculum of right wrist",
+   "chapter": "Anatomy, Shoulder and Upper Limb, Wrist Flexor Retinaculum",
+   "inferred_origin": [],
+   "inferred_insertion": [],
+   "unlabelled_ends": true,
+   "text_origin_bones": [
+    "humerus",
+    "phalanx",
+    "radius",
+    "ulna"
+   ],
+   "text_insertion_bones": [
+    "phalanx",
+    "radius",
+    "ulna"
+   ],
+   "strict_origin_bones": [
+    "humerus",
+    "radius",
+    "ulna"
+   ],
+   "strict_insertion_bones": [
+    "phalanx",
+    "ulna"
+   ]
+  },
+  {
+   "muscle": "humeral head of left flexor carpi ulnaris",
+   "chapter": "Anatomy, Shoulder and Upper Limb, Forearm Flexor Carpi Ulnaris Muscle",
+   "inferred_origin": [
+    "humerus"
+   ],
+   "inferred_insertion": [
+    "metacarpal bone"
+   ],
+   "unlabelled_ends": false,
+   "text_origin_bones": [
+    "humerus"
+   ],
+   "text_insertion_bones": [
+    "metacarpal bone"
+   ],
+   "strict_origin_bones": [
+    "humerus"
+   ],
+   "strict_insertion_bones": [
+    "metacarpal bone"
+   ],
+   "origin_agrees": true,
+   "insertion_agrees": true,
+   "strict_origin_agrees": true,
+   "strict_insertion_agrees": true
+  },
+  {
+   "muscle": "humeral head of left pronator teres",
+   "chapter": "Anatomy, Shoulder and Upper Limb, Pronator Teres",
+   "inferred_origin": [
+    "humerus"
+   ],
+   "inferred_insertion": [
+    "radius"
+   ],
+   "unlabelled_ends": false,
+   "text_origin_bones": [
+    "humerus",
+    "radius",
+    "ulna"
+   ],
+   "text_insertion_bones": [
+    "radius",
+    "ulna"
+   ],
+   "strict_origin_bones": [
+    "humerus",
+    "ulna"
+   ],
+   "strict_insertion_bones": [
+    "radius"
+   ],
+   "origin_agrees": true,
+   "insertion_agrees": true,
+   "strict_origin_agrees": true,
+   "strict_insertion_agrees": true
+  },
+  {
+   "muscle": "humeral head of right flexor carpi ulnaris",
+   "chapter": "Anatomy, Shoulder and Upper Limb, Forearm Flexor Carpi Ulnaris Muscle",
+   "inferred_origin": [
+    "humerus"
+   ],
+   "inferred_insertion": [
+    "metacarpal bone"
+   ],
+   "unlabelled_ends": false,
+   "text_origin_bones": [
+    "humerus"
+   ],
+   "text_insertion_bones": [
+    "metacarpal bone"
+   ],
+   "strict_origin_bones": [
+    "humerus"
+   ],
+   "strict_insertion_bones": [
+    "metacarpal bone"
+   ],
+   "origin_agrees": true,
+   "insertion_agrees": true,
+   "strict_origin_agrees": true,
+   "strict_insertion_agrees": true
+  },
+  {
+   "muscle": "humeral head of right pronator teres",
+   "chapter": "Anatomy, Shoulder and Upper Limb, Pronator Teres",
+   "inferred_origin": [
+    "humerus"
+   ],
+   "inferred_insertion": [
+    "radius"
+   ],
+   "unlabelled_ends": false,
+   "text_origin_bones": [
+    "humerus",
+    "radius",
+    "ulna"
+   ],
+   "text_insertion_bones": [
+    "radius",
+    "ulna"
+   ],
+   "strict_origin_bones": [
+    "humerus",
+    "ulna"
+   ],
+   "strict_insertion_bones": [
+    "radius"
+   ],
+   "origin_agrees": true,
+   "insertion_agrees": true,
+   "strict_origin_agrees": true,
+   "strict_insertion_agrees": true
+  },
+  {
+   "muscle": "lateral head of left gastrocnemius",
+   "chapter": "Anatomy, Bony Pelvis and Lower Limb: Gastrocnemius Muscle",
+   "inferred_origin": [
+    "femur"
+   ],
+   "inferred_insertion": [],
+   "unlabelled_ends": false,
+   "text_origin_bones": [
+    "femur",
+    "fibula",
+    "tibia"
+   ],
+   "text_insertion_bones": [
+    "calcaneus",
+    "femur"
+   ],
+   "strict_origin_bones": [
+    "femur",
+    "fibula",
+    "tibia"
+   ],
+   "strict_insertion_bones": [
+    "calcaneus"
+   ],
+   "origin_agrees": true,
+   "insertion_agrees": false,
+   "strict_origin_agrees": true,
+   "strict_insertion_agrees": false
+  },
+  {
+   "muscle": "lateral head of right gastrocnemius",
+   "chapter": "Anatomy, Bony Pelvis and Lower Limb: Gastrocnemius Muscle",
+   "inferred_origin": [
+    "femur"
+   ],
+   "inferred_insertion": [],
+   "unlabelled_ends": false,
+   "text_origin_bones": [
+    "femur",
+    "fibula",
+    "tibia"
+   ],
+   "text_insertion_bones": [
+    "calcaneus",
+    "femur"
+   ],
+   "strict_origin_bones": [
+    "femur",
+    "fibula",
+    "tibia"
+   ],
+   "strict_insertion_bones": [
+    "calcaneus"
+   ],
+   "origin_agrees": true,
+   "insertion_agrees": false,
+   "strict_origin_agrees": true,
+   "strict_insertion_agrees": false
+  },
+  {
+   "muscle": "left adductor magnus",
+   "chapter": "Anatomy, Bony Pelvis and Lower Limb: Thigh Adductor Magnus Muscle",
+   "inferred_origin": [
+    "femur",
+    "hip bone"
+   ],
+   "inferred_insertion": [
+    "femur"
+   ],
+   "unlabelled_ends": false,
+   "text_origin_bones": [
+    "femur",
+    "hip bone",
+    "tibia"
+   ],
+   "text_insertion_bones": [
+    "femur",
+    "hip bone"
+   ],
+   "strict_origin_bones": [
+    "femur",
+    "hip bone",
+    "tibia"
+   ],
+   "strict_insertion_bones": [
+    "femur"
+   ],
+   "origin_agrees": true,
+   "insertion_agrees": true,
+   "strict_origin_agrees": true,
+   "strict_insertion_agrees": true
+  },
+  {
+   "muscle": "left brachialis",
+   "chapter": "Anatomy, Shoulder and Upper Limb, Brachialis Muscle",
+   "inferred_origin": [
+    "humerus"
+   ],
+   "inferred_insertion": [
+    "radius",
+    "ulna"
+   ],
+   "unlabelled_ends": false,
+   "text_origin_bones": [
+    "humerus",
+    "ulna"
+   ],
+   "text_insertion_bones": [
+    "humerus",
+    "ulna"
+   ],
+   "strict_origin_bones": [
+    "humerus"
+   ],
+   "strict_insertion_bones": [
+    "humerus",
+    "ulna"
+   ],
+   "origin_agrees": true,
+   "insertion_agrees": true,
+   "strict_origin_agrees": true,
+   "strict_insertion_agrees": true
+  },
+  {
+   "muscle": "left brachioradialis",
+   "chapter": "Anatomy, Shoulder and Upper Limb, Forearm Brachioradialis Muscle",
+   "inferred_origin": [
+    "humerus"
+   ],
+   "inferred_insertion": [
+    "radius"
+   ],
+   "unlabelled_ends": false,
+   "text_origin_bones": [
+    "humerus",
+    "ulna"
+   ],
+   "text_insertion_bones": [
+    "humerus",
+    "metacarpal bone"
+   ],
+   "strict_origin_bones": [
+    "humerus",
+    "ulna"
+   ],
+   "strict_insertion_bones": [
+    "metacarpal bone"
+   ],
+   "origin_agrees": true,
+   "insertion_agrees": false,
+   "strict_origin_agrees": true,
+   "strict_insertion_agrees": false
+  },
+  {
+   "muscle": "left digastric",
+   "chapter": "Anatomy, Head and Neck, Digastric Muscle",
+   "inferred_origin": [],
+   "inferred_insertion": [],
+   "unlabelled_ends": true,
+   "text_origin_bones": [],
+   "text_insertion_bones": [],
+   "strict_origin_bones": [],
+   "strict_insertion_bones": []
+  },
+  {
+   "muscle": "left extensor carpi radialis brevis",
+   "chapter": "Anatomy, Shoulder and Upper Limb, Forearm Extensor Carpi Radialis Brevis Muscle",
+   "inferred_origin": [
+    "humerus"
+   ],
+   "inferred_insertion": [
+    "metacarpal bone"
+   ],
+   "unlabelled_ends": false,
+   "text_origin_bones": [
+    "humerus",
+    "metacarpal bone",
+    "ulna"
+   ],
+   "text_insertion_bones": [
+    "metacarpal bone"
+   ],
+   "strict_origin_bones": [
+    "humerus",
+    "ulna"
+   ],
+   "strict_insertion_bones": [
+    "metacarpal bone"
+   ],
+   "origin_agrees": true,
+   "insertion_agrees": true,
+   "strict_origin_agrees": true,
+   "strict_insertion_agrees": true
+  },
+  {
+   "muscle": "left extensor carpi ulnaris",
+   "chapter": "Anatomy, Shoulder and Upper Limb, Forearm Extensor Carpi Ulnaris Muscle",
+   "inferred_origin": [
+    "ulna"
+   ],
+   "inferred_insertion": [
+    "metacarpal bone"
+   ],
+   "unlabelled_ends": false,
+   "text_origin_bones": [
+    "humerus",
+    "ulna"
+   ],
+   "text_insertion_bones": [
+    "humerus",
+    "metacarpal bone",
+    "ulna"
+   ],
+   "strict_origin_bones": [
+    "humerus",
+    "ulna"
+   ],
+   "strict_insertion_bones": [
+    "humerus",
+    "metacarpal bone",
+    "ulna"
+   ],
+   "origin_agrees": true,
+   "insertion_agrees": true,
+   "strict_origin_agrees": true,
+   "strict_insertion_agrees": true
+  },
+  {
+   "muscle": "left extensor hallucis longus",
+   "chapter": "Anatomy, Bony Pelvis and Lower Limb: Extensor Hallucis Longus Muscle",
+   "inferred_origin": [
+    "fibula"
+   ],
+   "inferred_insertion": [
+    "metatarsal bone",
+    "phalanx"
+   ],
+   "unlabelled_ends": false,
+   "text_origin_bones": [
+    "fibula",
+    "phalanx"
+   ],
+   "text_insertion_bones": [
+    "fibula",
+    "phalanx",
+    "tibia"
+   ],
+   "strict_origin_bones": [
+    "fibula"
+   ],
+   "strict_insertion_bones": [
+    "phalanx"
+   ],
+   "origin_agrees": true,
+   "insertion_agrees": true,
+   "strict_origin_agrees": true,
+   "strict_insertion_agrees": true
+  },
+  {
+   "muscle": "left extensor pollicis longus",
+   "chapter": "Anatomy, Shoulder and Upper Limb, Hand Extensor Pollicis Longus Muscle",
+   "inferred_origin": [
+    "ulna"
+   ],
+   "inferred_insertion": [
+    "phalanx"
+   ],
+   "unlabelled_ends": false,
+   "text_origin_bones": [
+    "metacarpal bone",
+    "phalanx",
+    "ulna"
+   ],
+   "text_insertion_bones": [
+    "metacarpal bone",
+    "phalanx",
+    "ulna"
+   ],
+   "strict_origin_bones": [
+    "metacarpal bone",
+    "ulna"
+   ],
+   "strict_insertion_bones": [
+    "phalanx"
+   ],
+   "origin_agrees": true,
+   "insertion_agrees": true,
+   "strict_origin_agrees": true,
+   "strict_insertion_agrees": true
+  },
+  {
+   "muscle": "left flexor digitorum profundus",
+   "chapter": "Anatomy, Shoulder and Upper Limb, Hand Flexor Digitorum Profundus Muscle",
+   "inferred_origin": [
+    "radius",
+    "ulna"
+   ],
+   "inferred_insertion": [
+    "phalanx"
+   ],
+   "unlabelled_ends": false,
+   "text_origin_bones": [
+    "ulna"
+   ],
+   "text_insertion_bones": [
+    "phalanx"
+   ],
+   "strict_origin_bones": [
+    "ulna"
+   ],
+   "strict_insertion_bones": [
+    "phalanx"
+   ],
+   "origin_agrees": true,
+   "insertion_agrees": true,
+   "strict_origin_agrees": true,
+   "strict_insertion_agrees": true
+  },
+  {
+   "muscle": "left flexor digitorum superficialis",
+   "chapter": "Anatomy, Shoulder and Upper Limb, Hand Flexor Digitorum Superficialis Muscle",
+   "inferred_origin": [],
+   "inferred_insertion": [],
+   "unlabelled_ends": true,
+   "text_origin_bones": [
+    "humerus",
+    "ulna"
+   ],
+   "text_insertion_bones": [
+    "phalanx"
+   ],
+   "strict_origin_bones": [
+    "humerus",
+    "ulna"
+   ],
+   "strict_insertion_bones": [
+    "phalanx"
+   ]
+  },
+  {
+   "muscle": "left flexor hallucis longus",
+   "chapter": "Anatomy, Bony Pelvis and Lower Limb: Calf Flexor Hallucis Longus Muscle",
+   "inferred_origin": [
+    "fibula"
+   ],
+   "inferred_insertion": [
+    "phalanx"
+   ],
+   "unlabelled_ends": false,
+   "text_origin_bones": [
+    "calcaneus",
+    "fibula",
+    "phalanx",
+    "tibia"
+   ],
+   "text_insertion_bones": [
+    "calcaneus",
+    "fibula",
+    "phalanx",
+    "tibia"
+   ],
+   "strict_origin_bones": [
+    "fibula"
+   ],
+   "strict_insertion_bones": [
+    "calcaneus",
+    "phalanx",
+    "tibia"
+   ],
+   "origin_agrees": true,
+   "insertion_agrees": true,
+   "strict_origin_agrees": true,
+   "strict_insertion_agrees": true
+  },
+  {
+   "muscle": "left flexor pollicis longus",
+   "chapter": "Anatomy, Shoulder and Upper Limb, Hand Flexor Pollicis Longus Muscle",
+   "inferred_origin": [
+    "radius"
+   ],
+   "inferred_insertion": [
+    "phalanx"
+   ],
+   "unlabelled_ends": false,
+   "text_origin_bones": [
+    "humerus",
+    "phalanx",
+    "radius",
+    "ulna"
+   ],
+   "text_insertion_bones": [
+    "phalanx",
+    "radius",
+    "ulna"
+   ],
+   "strict_origin_bones": [
+    "humerus",
+    "radius",
+    "ulna"
+   ],
+   "strict_insertion_bones": [
+    "phalanx",
+    "ulna"
+   ],
+   "origin_agrees": true,
+   "insertion_agrees": true,
+   "strict_origin_agrees": true,
+   "strict_insertion_agrees": true
+  },
+  {
+   "muscle": "left genioglossus",
+   "chapter": "Anatomy, Head and Neck: Genioglossus Muscle",
+   "inferred_origin": [],
+   "inferred_insertion": [],
+   "unlabelled_ends": true,
+   "text_origin_bones": [],
+   "text_insertion_bones": [
+    "hyoid bone"
+   ],
+   "strict_origin_bones": [],
+   "strict_insertion_bones": [
+    "hyoid bone"
+   ]
+  },
+  {
+   "muscle": "left gluteus maximus",
+   "chapter": "Anatomy, Bony Pelvis and Lower Limb, Gluteus Maximus Muscle",
+   "inferred_origin": [
+    "hip bone",
+    "sacrum"
+   ],
+   "inferred_insertion": [
+    "femur"
+   ],
+   "unlabelled_ends": false,
+   "text_origin_bones": [
+    "hip bone",
+    "sacrum"
+   ],
+   "text_insertion_bones": [
+    "femur",
+    "hip bone",
+    "sacrum"
+   ],
+   "strict_origin_bones": [
+    "hip bone"
+   ],
+   "strict_insertion_bones": [
+    "femur",
+    "hip bone",
+    "sacrum"
+   ],
+   "origin_agrees": true,
+   "insertion_agrees": true,
+   "strict_origin_agrees": true,
+   "strict_insertion_agrees": true
+  },
+  {
+   "muscle": "left gluteus medius",
+   "chapter": "Anatomy, Bony Pelvis and Lower Limb, Gluteus Medius Muscle",
+   "inferred_origin": [
+    "hip bone"
+   ],
+   "inferred_insertion": [
+    "femur"
+   ],
+   "unlabelled_ends": false,
+   "text_origin_bones": [
+    "hip bone",
+    "sacrum"
+   ],
+   "text_insertion_bones": [
+    "femur"
+   ],
+   "strict_origin_bones": [
+    "hip bone",
+    "sacrum"
+   ],
+   "strict_insertion_bones": [
+    "femur"
+   ],
+   "origin_agrees": true,
+   "insertion_agrees": true,
+   "strict_origin_agrees": true,
+   "strict_insertion_agrees": true
+  },
+  {
+   "muscle": "left gluteus minimus",
+   "chapter": "Anatomy, Bony Pelvis and Lower Limb, Gluteus Minimus Muscle",
+   "inferred_origin": [
+    "hip bone"
+   ],
+   "inferred_insertion": [
+    "femur"
+   ],
+   "unlabelled_ends": false,
+   "text_origin_bones": [],
+   "text_insertion_bones": [],
+   "strict_origin_bones": [],
+   "strict_insertion_bones": []
+  },
+  {
+   "muscle": "left gracilis",
+   "chapter": "Neuroanatomy, Nucleus Gracilis",
+   "inferred_origin": [
+    "hip bone"
+   ],
+   "inferred_insertion": [
+    "tibia"
+   ],
+   "unlabelled_ends": false,
+   "text_origin_bones": [],
+   "text_insertion_bones": [],
+   "strict_origin_bones": [],
+   "strict_insertion_bones": []
+  },
+  {
+   "muscle": "left hyoglossus",
+   "chapter": "Anatomy, Head and Neck: Hyoglossus Muscle",
+   "inferred_origin": [],
+   "inferred_insertion": [],
+   "unlabelled_ends": true,
+   "text_origin_bones": [
+    "hyoid bone"
+   ],
+   "text_insertion_bones": [
+    "hyoid bone"
+   ],
+   "strict_origin_bones": [
+    "hyoid bone"
+   ],
+   "strict_insertion_bones": []
+  },
+  {
+   "muscle": "left inferior oblique",
+   "chapter": "Anatomy, Head and Neck: Inferior Oblique Muscle",
+   "inferred_origin": [],
+   "inferred_insertion": [],
+   "unlabelled_ends": true,
+   "text_origin_bones": [],
+   "text_insertion_bones": [],
+   "strict_origin_bones": [],
+   "strict_insertion_bones": []
+  },
+  {
+   "muscle": "left inferior rectus",
+   "chapter": "Anatomy, Head and Neck: Eye Inferior Rectus Muscle",
+   "inferred_origin": [],
+   "inferred_insertion": [],
+   "unlabelled_ends": true,
+   "text_origin_bones": [],
+   "text_insertion_bones": [],
+   "strict_origin_bones": [],
+   "strict_insertion_bones": []
+  },
+  {
+   "muscle": "left infraspinatus muscle",
+   "chapter": "Anatomy, Shoulder and Upper Limb, Infraspinatus Muscle",
+   "inferred_origin": [
+    "scapula"
+   ],
+   "inferred_insertion": [
+    "humerus"
+   ],
+   "unlabelled_ends": false,
+   "text_origin_bones": [
+    "humerus",
+    "scapula"
+   ],
+   "text_insertion_bones": [
+    "humerus",
+    "scapula"
+   ],
+   "strict_origin_bones": [
+    "scapula"
+   ],
+   "strict_insertion_bones": [
+    "humerus",
+    "scapula"
+   ],
+   "origin_agrees": true,
+   "insertion_agrees": true,
+   "strict_origin_agrees": true,
+   "strict_insertion_agrees": true
+  },
+  {
+   "muscle": "left lateral rectus",
+   "chapter": "Anatomy, Head and Neck: Eye Lateral Rectus Muscle",
+   "inferred_origin": [],
+   "inferred_insertion": [],
+   "unlabelled_ends": true,
+   "text_origin_bones": [],
+   "text_insertion_bones": [],
+   "strict_origin_bones": [],
+   "strict_insertion_bones": []
+  },
+  {
+   "muscle": "left levator palpebrae superioris",
+   "chapter": "Anatomy, Head and Neck: Levator Palpebrae Superioris Muscle",
+   "inferred_origin": [],
+   "inferred_insertion": [],
+   "unlabelled_ends": true,
+   "text_origin_bones": [
+    "sphenoid bone"
+   ],
+   "text_insertion_bones": [],
+   "strict_origin_bones": [
+    "sphenoid bone"
+   ],
+   "strict_insertion_bones": []
+  },
+  {
+   "muscle": "left levator scapulae",
+   "chapter": "Anatomy, Head and Neck, Levator Scapulae Muscles",
+   "inferred_origin": [
+    "vertebra"
+   ],
+   "inferred_insertion": [
+    "scapula"
+   ],
+   "unlabelled_ends": false,
+   "text_origin_bones": [
+    "scapula",
+    "vertebra"
+   ],
+   "text_insertion_bones": [
+    "scapula",
+    "vertebra"
+   ],
+   "strict_origin_bones": [
+    "scapula",
+    "vertebra"
+   ],
+   "strict_insertion_bones": [
+    "scapula"
+   ],
+   "origin_agrees": true,
+   "insertion_agrees": true,
+   "strict_origin_agrees": true,
+   "strict_insertion_agrees": true
+  },
+  {
+   "muscle": "left medial rectus",
+   "chapter": "Anatomy, Head and Neck: Eye Medial Rectus Muscles",
+   "inferred_origin": [],
+   "inferred_insertion": [],
+   "unlabelled_ends": true,
+   "text_origin_bones": [],
+   "text_insertion_bones": [],
+   "strict_origin_bones": [],
+   "strict_insertion_bones": []
+  },
+  {
+   "muscle": "left mylohyoid",
+   "chapter": "Anatomy, Head and Neck, Mylohyoid Muscle",
+   "inferred_origin": [],
+   "inferred_insertion": [],
+   "unlabelled_ends": true,
+   "text_origin_bones": [
+    "hyoid bone",
+    "mandible",
+    "maxilla",
+    "sphenoid bone",
+    "temporal bone"
+   ],
+   "text_insertion_bones": [
+    "hyoid bone",
+    "mandible",
+    "temporal bone"
+   ],
+   "strict_origin_bones": [
+    "mandible",
+    "maxilla",
+    "sphenoid bone",
+    "temporal bone"
+   ],
+   "strict_insertion_bones": [
+    "hyoid bone"
+   ]
+  },
+  {
+   "muscle": "left opponens pollicis",
+   "chapter": "Anatomy, Shoulder and Upper Limb, Hand Opponens Pollicis Muscle",
+   "inferred_origin": [],
+   "inferred_insertion": [],
+   "unlabelled_ends": true,
+   "text_origin_bones": [],
+   "text_insertion_bones": [
+    "metacarpal bone"
+   ],
+   "strict_origin_bones": [],
+   "strict_insertion_bones": [
+    "metacarpal bone"
+   ]
+  },
+  {
+   "muscle": "left piriformis",
+   "chapter": "Anatomy, Bony Pelvis and Lower Limb: Piriformis Muscle",
+   "inferred_origin": [
+    "sacrum"
+   ],
+   "inferred_insertion": [
+    "femur"
+   ],
+   "unlabelled_ends": false,
+   "text_origin_bones": [
+    "femur",
+    "hip bone",
+    "sacrum"
+   ],
+   "text_insertion_bones": [
+    "femur",
+    "hip bone"
+   ],
+   "strict_origin_bones": [
+    "hip bone",
+    "sacrum"
+   ],
+   "strict_insertion_bones": [
+    "femur"
+   ],
+   "origin_agrees": true,
+   "insertion_agrees": true,
+   "strict_origin_agrees": true,
+   "strict_insertion_agrees": true
+  },
+  {
+   "muscle": "left platysma",
+   "chapter": "Anatomy, Head and Neck, Platysma",
+   "inferred_origin": [],
+   "inferred_insertion": [],
+   "unlabelled_ends": true,
+   "text_origin_bones": [
+    "clavicle",
+    "mandible",
+    "temporal bone"
+   ],
+   "text_insertion_bones": [
+    "mandible"
+   ],
+   "strict_origin_bones": [
+    "clavicle",
+    "mandible"
+   ],
+   "strict_insertion_bones": [
+    "mandible"
+   ]
+  },
+  {
+   "muscle": "left popliteus",
+   "chapter": "Anatomy, Bony Pelvis and Lower Limb: Popliteus Muscle",
+   "inferred_origin": [
+    "femur"
+   ],
+   "inferred_insertion": [
+    "tibia"
+   ],
+   "unlabelled_ends": false,
+   "text_origin_bones": [
+    "femur",
+    "fibula",
+    "phalanx",
+    "tibia"
+   ],
+   "text_insertion_bones": [
+    "calcaneus",
+    "femur",
+    "fibula",
+    "metatarsal bone",
+    "phalanx",
+    "tibia"
+   ],
+   "strict_origin_bones": [
+    "femur",
+    "fibula",
+    "tibia"
+   ],
+   "strict_insertion_bones": [
+    "calcaneus",
+    "metatarsal bone",
+    "phalanx",
+    "tibia"
+   ],
+   "origin_agrees": true,
+   "insertion_agrees": true,
+   "strict_origin_agrees": true,
+   "strict_insertion_agrees": true
+  },
+  {
+   "muscle": "left psoas major",
+   "chapter": "Anatomy, Bony Pelvis and Lower Limb: Psoas Major",
+   "inferred_origin": [
+    "vertebra"
+   ],
+   "inferred_insertion": [
+    "femur",
+    "hip bone"
+   ],
+   "unlabelled_ends": false,
+   "text_origin_bones": [
+    "femur",
+    "hip bone",
+    "sacrum",
+    "vertebra"
+   ],
+   "text_insertion_bones": [
+    "femur",
+    "hip bone",
+    "vertebra"
+   ],
+   "strict_origin_bones": [
+    "hip bone",
+    "sacrum",
+    "vertebra"
+   ],
+   "strict_insertion_bones": [
+    "femur",
+    "hip bone",
+    "vertebra"
+   ],
+   "origin_agrees": true,
+   "insertion_agrees": true,
+   "strict_origin_agrees": true,
+   "strict_insertion_agrees": true
+  },
+  {
+   "muscle": "left rectus femoris",
+   "chapter": "Anatomy, Abdomen and Pelvis, Rectus Femoris Muscle",
+   "inferred_origin": [
+    "hip bone"
+   ],
+   "inferred_insertion": [
+    "femur",
+    "patella",
+    "tibia"
+   ],
+   "unlabelled_ends": false,
+   "text_origin_bones": [
+    "hip bone"
+   ],
+   "text_insertion_bones": [
+    "hip bone",
+    "patella",
+    "tibia"
+   ],
+   "strict_origin_bones": [
+    "hip bone"
+   ],
+   "strict_insertion_bones": [
+    "patella",
+    "tibia"
+   ],
+   "origin_agrees": true,
+   "insertion_agrees": true,
+   "strict_origin_agrees": true,
+   "strict_insertion_agrees": true
+  },
+  {
+   "muscle": "left sartorius",
+   "chapter": "Anatomy, Bony Pelvis and Lower Limb: Thigh Sartorius Muscle",
+   "inferred_origin": [
+    "hip bone"
+   ],
+   "inferred_insertion": [
+    "tibia"
+   ],
+   "unlabelled_ends": false,
+   "text_origin_bones": [
+    "hip bone"
+   ],
+   "text_insertion_bones": [
+    "tibia"
+   ],
+   "strict_origin_bones": [
+    "hip bone"
+   ],
+   "strict_insertion_bones": [
+    "tibia"
+   ],
+   "origin_agrees": true,
+   "insertion_agrees": true,
+   "strict_origin_agrees": true,
+   "strict_insertion_agrees": true
+  },
+  {
+   "muscle": "left semitendinosus",
+   "chapter": "Anatomy, Bony Pelvis and Lower Limb: Thigh Semitendinosus Muscle",
+   "inferred_origin": [
+    "hip bone"
+   ],
+   "inferred_insertion": [
+    "tibia"
+   ],
+   "unlabelled_ends": false,
+   "text_origin_bones": [
+    "femur",
+    "hip bone",
+    "tibia"
+   ],
+   "text_insertion_bones": [
+    "fibula",
+    "hip bone",
+    "patella",
+    "tibia"
+   ],
+   "strict_origin_bones": [
+    "femur",
+    "hip bone"
+   ],
+   "strict_insertion_bones": [
+    "fibula",
+    "patella",
+    "tibia"
+   ],
+   "origin_agrees": true,
+   "insertion_agrees": true,
+   "strict_origin_agrees": true,
+   "strict_insertion_agrees": true
+  },
+  {
+   "muscle": "left serratus anterior",
+   "chapter": "Anatomy, Thorax, Serratus Anterior Muscles",
+   "inferred_origin": [],
+   "inferred_insertion": [],
+   "unlabelled_ends": true,
+   "text_origin_bones": [
+    "rib",
+    "scapula"
+   ],
+   "text_insertion_bones": [
+    "humerus",
+    "rib",
+    "scapula",
+    "sternum"
+   ],
+   "strict_origin_bones": [
+    "rib"
+   ],
+   "strict_insertion_bones": [
+    "scapula"
+   ]
+  },
+  {
+   "muscle": "left sternocleidomastoid",
+   "chapter": "Anatomy, Head and Neck: Sternocleidomastoid Muscle",
+   "inferred_origin": [
+    "occipital bone",
+    "temporal bone"
+   ],
+   "inferred_insertion": [
+    "clavicle"
+   ],
+   "unlabelled_ends": false,
+   "text_origin_bones": [
+    "clavicle",
+    "occipital bone",
+    "sternum",
+    "temporal bone"
+   ],
+   "text_insertion_bones": [
+    "clavicle",
+    "occipital bone",
+    "sternum",
+    "temporal bone"
+   ],
+   "strict_origin_bones": [
+    "clavicle",
+    "sternum"
+   ],
+   "strict_insertion_bones": [
+    "occipital bone",
+    "temporal bone"
+   ],
+   "origin_agrees": true,
+   "insertion_agrees": true,
+   "strict_origin_agrees": false,
+   "strict_insertion_agrees": false
+  },
+  {
+   "muscle": "left sternohyoid",
+   "chapter": "Anatomy, Head and Neck, Sternohyoid Muscle",
+   "inferred_origin": [
+    "hyoid bone"
+   ],
+   "inferred_insertion": [
+    "clavicle"
+   ],
+   "unlabelled_ends": false,
+   "text_origin_bones": [
+    "clavicle",
+    "hyoid bone",
+    "sternum"
+   ],
+   "text_insertion_bones": [],
+   "strict_origin_bones": [
+    "clavicle",
+    "hyoid bone",
+    "sternum"
+   ],
+   "strict_insertion_bones": [],
+   "origin_agrees": true,
+   "strict_origin_agrees": true
+  },
+  {
+   "muscle": "left stylohyoid",
+   "chapter": "Anatomy, Head and Neck, Stylohyoid Muscle",
+   "inferred_origin": [],
+   "inferred_insertion": [],
+   "unlabelled_ends": true,
+   "text_origin_bones": [
+    "hyoid bone"
+   ],
+   "text_insertion_bones": [
+    "hyoid bone",
+    "temporal bone"
+   ],
+   "strict_origin_bones": [],
+   "strict_insertion_bones": [
+    "hyoid bone"
+   ]
+  },
+  {
+   "muscle": "left stylopharyngeus",
+   "chapter": "Anatomy, Head and Neck, Stylopharyngeus Muscles",
+   "inferred_origin": [],
+   "inferred_insertion": [],
+   "unlabelled_ends": true,
+   "text_origin_bones": [
+    "temporal bone"
+   ],
+   "text_insertion_bones": [
+    "temporal bone"
+   ],
+   "strict_origin_bones": [
+    "temporal bone"
+   ],
+   "strict_insertion_bones": []
+  },
+  {
+   "muscle": "left subscapularis",
+   "chapter": "Anatomy, Shoulder and Upper Limb, Subscapularis Muscle",
+   "inferred_origin": [
+    "rib",
+    "scapula"
+   ],
+   "inferred_insertion": [
+    "humerus",
+    "scapula"
+   ],
+   "unlabelled_ends": false,
+   "text_origin_bones": [
+    "humerus",
+    "scapula"
+   ],
+   "text_insertion_bones": [
+    "humerus",
+    "scapula"
+   ],
+   "strict_origin_bones": [
+    "scapula"
+   ],
+   "strict_insertion_bones": [
+    "humerus"
+   ],
+   "origin_agrees": true,
+   "insertion_agrees": true,
+   "strict_origin_agrees": true,
+   "strict_insertion_agrees": true
+  },
+  {
+   "muscle": "left superior oblique",
+   "chapter": "Anatomy, Head and Neck: Eye Superior Oblique Muscle",
+   "inferred_origin": [],
+   "inferred_insertion": [],
+   "unlabelled_ends": true,
+   "text_origin_bones": [
+    "sphenoid bone"
+   ],
+   "text_insertion_bones": [],
+   "strict_origin_bones": [
+    "sphenoid bone"
+   ],
+   "strict_insertion_bones": []
+  },
+  {
+   "muscle": "left superior rectus",
+   "chapter": "Anatomy, Head and Neck: Eye Superior Rectus Muscle",
+   "inferred_origin": [],
+   "inferred_insertion": [],
+   "unlabelled_ends": true,
+   "text_origin_bones": [],
+   "text_insertion_bones": [],
+   "strict_origin_bones": [],
+   "strict_insertion_bones": []
+  },
+  {
+   "muscle": "left supraspinatus",
+   "chapter": "Anatomy, Shoulder and Upper Limb, Arm Supraspinatus Muscle",
+   "inferred_origin": [
+    "scapula"
+   ],
+   "inferred_insertion": [
+    "humerus"
+   ],
+   "unlabelled_ends": false,
+   "text_origin_bones": [
+    "humerus",
+    "scapula"
+   ],
+   "text_insertion_bones": [
+    "humerus",
+    "scapula"
+   ],
+   "strict_origin_bones": [
+    "scapula"
+   ],
+   "strict_insertion_bones": [
+    "humerus"
+   ],
+   "origin_agrees": true,
+   "insertion_agrees": true,
+   "strict_origin_agrees": true,
+   "strict_insertion_agrees": true
+  },
+  {
+   "muscle": "left tensor fasciae latae",
+   "chapter": "Anatomy, Bony Pelvis and Lower Limb: Tensor Fasciae Latae Muscle",
+   "inferred_origin": [
+    "hip bone"
+   ],
+   "inferred_insertion": [],
+   "unlabelled_ends": false,
+   "text_origin_bones": [
+    "hip bone"
+   ],
+   "text_insertion_bones": [],
+   "strict_origin_bones": [
+    "hip bone"
+   ],
+   "strict_insertion_bones": [],
+   "origin_agrees": true,
+   "strict_origin_agrees": true
+  },
+  {
+   "muscle": "left tensor veli palatini",
+   "chapter": "Anatomy, Head and Neck, Tensor Veli Palatini Muscle",
+   "inferred_origin": [
+    "sphenoid bone"
+   ],
+   "inferred_insertion": [
+    "vertebra"
+   ],
+   "unlabelled_ends": false,
+   "text_origin_bones": [
+    "sphenoid bone"
+   ],
+   "text_insertion_bones": [],
+   "strict_origin_bones": [
+    "sphenoid bone"
+   ],
+   "strict_insertion_bones": [],
+   "origin_agrees": true,
+   "strict_origin_agrees": true
+  },
+  {
+   "muscle": "left teres major",
+   "chapter": "Anatomy, Shoulder and Upper Limb, Teres Major Muscle",
+   "inferred_origin": [
+    "scapula"
+   ],
+   "inferred_insertion": [
+    "humerus"
+   ],
+   "unlabelled_ends": false,
+   "text_origin_bones": [
+    "humerus",
+    "scapula"
+   ],
+   "text_insertion_bones": [
+    "humerus",
+    "scapula"
+   ],
+   "strict_origin_bones": [
+    "scapula"
+   ],
+   "strict_insertion_bones": [
+    "humerus"
+   ],
+   "origin_agrees": true,
+   "insertion_agrees": true,
+   "strict_origin_agrees": true,
+   "strict_insertion_agrees": true
+  },
+  {
+   "muscle": "left teres minor",
+   "chapter": "Anatomy, Shoulder and Upper Limb, Teres Minor Muscle",
+   "inferred_origin": [
+    "scapula"
+   ],
+   "inferred_insertion": [
+    "humerus"
+   ],
+   "unlabelled_ends": false,
+   "text_origin_bones": [
+    "humerus",
+    "scapula"
+   ],
+   "text_insertion_bones": [
+    "humerus",
+    "scapula"
+   ],
+   "strict_origin_bones": [
+    "scapula"
+   ],
+   "strict_insertion_bones": [
+    "humerus"
+   ],
+   "origin_agrees": true,
+   "insertion_agrees": true,
+   "strict_origin_agrees": true,
+   "strict_insertion_agrees": true
+  },
+  {
+   "muscle": "left thyrohyoid",
+   "chapter": "Anatomy, Head and Neck, Thyrohyoid Membrane",
+   "inferred_origin": [],
+   "inferred_insertion": [],
+   "unlabelled_ends": true,
+   "text_origin_bones": [],
+   "text_insertion_bones": [],
+   "strict_origin_bones": [],
+   "strict_insertion_bones": []
+  },
+  {
+   "muscle": "left tibialis anterior",
+   "chapter": "Anatomy, Bony Pelvis and Lower Limb: Tibialis Anterior Muscles",
+   "inferred_origin": [
+    "fibula",
+    "tibia"
+   ],
+   "inferred_insertion": [
+    "metatarsal bone"
+   ],
+   "unlabelled_ends": false,
+   "text_origin_bones": [],
+   "text_insertion_bones": [
+    "metatarsal bone",
+    "phalanx",
+    "tibia"
+   ],
+   "strict_origin_bones": [],
+   "strict_insertion_bones": [
+    "metatarsal bone",
+    "phalanx",
+    "tibia"
+   ],
+   "insertion_agrees": true,
+   "strict_insertion_agrees": true
+  },
+  {
+   "muscle": "left tibialis posterior",
+   "chapter": "Anatomy, Bony Pelvis and Lower Limb: Tibialis Posterior Muscle",
+   "inferred_origin": [
+    "fibula",
+    "tibia"
+   ],
+   "inferred_insertion": [],
+   "unlabelled_ends": false,
+   "text_origin_bones": [
+    "fibula",
+    "tibia"
+   ],
+   "text_insertion_bones": [
+    "calcaneus",
+    "metatarsal bone",
+    "tibia"
+   ],
+   "strict_origin_bones": [
+    "fibula",
+    "tibia"
+   ],
+   "strict_insertion_bones": [
+    "calcaneus",
+    "metatarsal bone",
+    "tibia"
+   ],
+   "origin_agrees": true,
+   "insertion_agrees": false,
+   "strict_origin_agrees": true,
+   "strict_insertion_agrees": false
+  },
+  {
+   "muscle": "left vastus lateralis",
+   "chapter": "Anatomy, Bony Pelvis and Lower Limb: Vastus Lateralis Muscle",
+   "inferred_origin": [],
+   "inferred_insertion": [],
+   "unlabelled_ends": true,
+   "text_origin_bones": [
+    "femur",
+    "patella"
+   ],
+   "text_insertion_bones": [
+    "femur",
+    "patella",
+    "tibia"
+   ],
+   "strict_origin_bones": [
+    "femur"
+   ],
+   "strict_insertion_bones": [
+    "femur",
+    "patella",
+    "tibia"
+   ]
+  },
+  {
+   "muscle": "medial head of left gastrocnemius",
+   "chapter": "Anatomy, Bony Pelvis and Lower Limb: Gastrocnemius Muscle",
+   "inferred_origin": [
+    "femur"
+   ],
+   "inferred_insertion": [],
+   "unlabelled_ends": false,
+   "text_origin_bones": [
+    "femur",
+    "fibula",
+    "tibia"
+   ],
+   "text_insertion_bones": [
+    "calcaneus",
+    "femur"
+   ],
+   "strict_origin_bones": [
+    "femur",
+    "fibula",
+    "tibia"
+   ],
+   "strict_insertion_bones": [
+    "calcaneus"
+   ],
+   "origin_agrees": true,
+   "insertion_agrees": false,
+   "strict_origin_agrees": true,
+   "strict_insertion_agrees": false
+  },
+  {
+   "muscle": "medial head of right gastrocnemius",
+   "chapter": "Anatomy, Bony Pelvis and Lower Limb: Gastrocnemius Muscle",
+   "inferred_origin": [
+    "femur"
+   ],
+   "inferred_insertion": [],
+   "unlabelled_ends": false,
+   "text_origin_bones": [
+    "femur",
+    "fibula",
+    "tibia"
+   ],
+   "text_insertion_bones": [
+    "calcaneus",
+    "femur"
+   ],
+   "strict_origin_bones": [
+    "femur",
+    "fibula",
+    "tibia"
+   ],
+   "strict_insertion_bones": [
+    "calcaneus"
+   ],
+   "origin_agrees": true,
+   "insertion_agrees": false,
+   "strict_origin_agrees": true,
+   "strict_insertion_agrees": false
+  },
+  {
+   "muscle": "oblique head of left adductor pollicis",
+   "chapter": "Anatomy, Shoulder and Upper Limb, Hand Adductor Pollicis",
+   "inferred_origin": [],
+   "inferred_insertion": [],
+   "unlabelled_ends": true,
+   "text_origin_bones": [
+    "metacarpal bone"
+   ],
+   "text_insertion_bones": [
+    "phalanx"
+   ],
+   "strict_origin_bones": [
+    "metacarpal bone"
+   ],
+   "strict_insertion_bones": [
+    "phalanx"
+   ]
+  },
+  {
+   "muscle": "oblique head of right adductor pollicis",
+   "chapter": "Anatomy, Shoulder and Upper Limb, Hand Adductor Pollicis",
+   "inferred_origin": [],
+   "inferred_insertion": [],
+   "unlabelled_ends": true,
+   "text_origin_bones": [
+    "metacarpal bone"
+   ],
+   "text_insertion_bones": [
+    "phalanx"
+   ],
+   "strict_origin_bones": [
+    "metacarpal bone"
+   ],
+   "strict_insertion_bones": [
+    "phalanx"
+   ]
+  },
+  {
+   "muscle": "right adductor magnus",
+   "chapter": "Anatomy, Bony Pelvis and Lower Limb: Thigh Adductor Magnus Muscle",
+   "inferred_origin": [
+    "femur",
+    "hip bone"
+   ],
+   "inferred_insertion": [
+    "femur"
+   ],
+   "unlabelled_ends": false,
+   "text_origin_bones": [
+    "femur",
+    "hip bone",
+    "tibia"
+   ],
+   "text_insertion_bones": [
+    "femur",
+    "hip bone"
+   ],
+   "strict_origin_bones": [
+    "femur",
+    "hip bone",
+    "tibia"
+   ],
+   "strict_insertion_bones": [
+    "femur"
+   ],
+   "origin_agrees": true,
+   "insertion_agrees": true,
+   "strict_origin_agrees": true,
+   "strict_insertion_agrees": true
+  },
+  {
+   "muscle": "right brachialis",
+   "chapter": "Anatomy, Shoulder and Upper Limb, Brachialis Muscle",
+   "inferred_origin": [
+    "humerus"
+   ],
+   "inferred_insertion": [
+    "radius",
+    "ulna"
+   ],
+   "unlabelled_ends": false,
+   "text_origin_bones": [
+    "humerus",
+    "ulna"
+   ],
+   "text_insertion_bones": [
+    "humerus",
+    "ulna"
+   ],
+   "strict_origin_bones": [
+    "humerus"
+   ],
+   "strict_insertion_bones": [
+    "humerus",
+    "ulna"
+   ],
+   "origin_agrees": true,
+   "insertion_agrees": true,
+   "strict_origin_agrees": true,
+   "strict_insertion_agrees": true
+  },
+  {
+   "muscle": "right brachioradialis",
+   "chapter": "Anatomy, Shoulder and Upper Limb, Forearm Brachioradialis Muscle",
+   "inferred_origin": [
+    "humerus"
+   ],
+   "inferred_insertion": [
+    "radius"
+   ],
+   "unlabelled_ends": false,
+   "text_origin_bones": [
+    "humerus",
+    "ulna"
+   ],
+   "text_insertion_bones": [
+    "humerus",
+    "metacarpal bone"
+   ],
+   "strict_origin_bones": [
+    "humerus",
+    "ulna"
+   ],
+   "strict_insertion_bones": [
+    "metacarpal bone"
+   ],
+   "origin_agrees": true,
+   "insertion_agrees": false,
+   "strict_origin_agrees": true,
+   "strict_insertion_agrees": false
+  },
+  {
+   "muscle": "right digastric",
+   "chapter": "Anatomy, Head and Neck, Digastric Muscle",
+   "inferred_origin": [],
+   "inferred_insertion": [],
+   "unlabelled_ends": true,
+   "text_origin_bones": [],
+   "text_insertion_bones": [],
+   "strict_origin_bones": [],
+   "strict_insertion_bones": []
+  },
+  {
+   "muscle": "right extensor carpi radialis brevis",
+   "chapter": "Anatomy, Shoulder and Upper Limb, Forearm Extensor Carpi Radialis Brevis Muscle",
+   "inferred_origin": [
+    "humerus"
+   ],
+   "inferred_insertion": [
+    "metacarpal bone"
+   ],
+   "unlabelled_ends": false,
+   "text_origin_bones": [
+    "humerus",
+    "metacarpal bone",
+    "ulna"
+   ],
+   "text_insertion_bones": [
+    "metacarpal bone"
+   ],
+   "strict_origin_bones": [
+    "humerus",
+    "ulna"
+   ],
+   "strict_insertion_bones": [
+    "metacarpal bone"
+   ],
+   "origin_agrees": true,
+   "insertion_agrees": true,
+   "strict_origin_agrees": true,
+   "strict_insertion_agrees": true
+  },
+  {
+   "muscle": "right extensor carpi ulnaris",
+   "chapter": "Anatomy, Shoulder and Upper Limb, Forearm Extensor Carpi Ulnaris Muscle",
+   "inferred_origin": [
+    "ulna"
+   ],
+   "inferred_insertion": [
+    "metacarpal bone"
+   ],
+   "unlabelled_ends": false,
+   "text_origin_bones": [
+    "humerus",
+    "ulna"
+   ],
+   "text_insertion_bones": [
+    "humerus",
+    "metacarpal bone",
+    "ulna"
+   ],
+   "strict_origin_bones": [
+    "humerus",
+    "ulna"
+   ],
+   "strict_insertion_bones": [
+    "humerus",
+    "metacarpal bone",
+    "ulna"
+   ],
+   "origin_agrees": true,
+   "insertion_agrees": true,
+   "strict_origin_agrees": true,
+   "strict_insertion_agrees": true
+  },
+  {
+   "muscle": "right extensor hallucis longus",
+   "chapter": "Anatomy, Bony Pelvis and Lower Limb: Extensor Hallucis Longus Muscle",
+   "inferred_origin": [
+    "fibula"
+   ],
+   "inferred_insertion": [
+    "metatarsal bone",
+    "phalanx"
+   ],
+   "unlabelled_ends": false,
+   "text_origin_bones": [
+    "fibula",
+    "phalanx"
+   ],
+   "text_insertion_bones": [
+    "fibula",
+    "phalanx",
+    "tibia"
+   ],
+   "strict_origin_bones": [
+    "fibula"
+   ],
+   "strict_insertion_bones": [
+    "phalanx"
+   ],
+   "origin_agrees": true,
+   "insertion_agrees": true,
+   "strict_origin_agrees": true,
+   "strict_insertion_agrees": true
+  },
+  {
+   "muscle": "right extensor pollicis longus",
+   "chapter": "Anatomy, Shoulder and Upper Limb, Hand Extensor Pollicis Longus Muscle",
+   "inferred_origin": [
+    "ulna"
+   ],
+   "inferred_insertion": [
+    "phalanx"
+   ],
+   "unlabelled_ends": false,
+   "text_origin_bones": [
+    "metacarpal bone",
+    "phalanx",
+    "ulna"
+   ],
+   "text_insertion_bones": [
+    "metacarpal bone",
+    "phalanx",
+    "ulna"
+   ],
+   "strict_origin_bones": [
+    "metacarpal bone",
+    "ulna"
+   ],
+   "strict_insertion_bones": [
+    "phalanx"
+   ],
+   "origin_agrees": true,
+   "insertion_agrees": true,
+   "strict_origin_agrees": true,
+   "strict_insertion_agrees": true
+  },
+  {
+   "muscle": "right flexor digitorum profundus",
+   "chapter": "Anatomy, Shoulder and Upper Limb, Hand Flexor Digitorum Profundus Muscle",
+   "inferred_origin": [
+    "radius",
+    "ulna"
+   ],
+   "inferred_insertion": [
+    "phalanx"
+   ],
+   "unlabelled_ends": false,
+   "text_origin_bones": [
+    "ulna"
+   ],
+   "text_insertion_bones": [
+    "phalanx"
+   ],
+   "strict_origin_bones": [
+    "ulna"
+   ],
+   "strict_insertion_bones": [
+    "phalanx"
+   ],
+   "origin_agrees": true,
+   "insertion_agrees": true,
+   "strict_origin_agrees": true,
+   "strict_insertion_agrees": true
+  },
+  {
+   "muscle": "right flexor digitorum superficialis",
+   "chapter": "Anatomy, Shoulder and Upper Limb, Hand Flexor Digitorum Superficialis Muscle",
+   "inferred_origin": [],
+   "inferred_insertion": [],
+   "unlabelled_ends": true,
+   "text_origin_bones": [
+    "humerus",
+    "ulna"
+   ],
+   "text_insertion_bones": [
+    "phalanx"
+   ],
+   "strict_origin_bones": [
+    "humerus",
+    "ulna"
+   ],
+   "strict_insertion_bones": [
+    "phalanx"
+   ]
+  },
+  {
+   "muscle": "right flexor hallucis longus",
+   "chapter": "Anatomy, Bony Pelvis and Lower Limb: Calf Flexor Hallucis Longus Muscle",
+   "inferred_origin": [
+    "fibula"
+   ],
+   "inferred_insertion": [
+    "phalanx"
+   ],
+   "unlabelled_ends": false,
+   "text_origin_bones": [
+    "calcaneus",
+    "fibula",
+    "phalanx",
+    "tibia"
+   ],
+   "text_insertion_bones": [
+    "calcaneus",
+    "fibula",
+    "phalanx",
+    "tibia"
+   ],
+   "strict_origin_bones": [
+    "fibula"
+   ],
+   "strict_insertion_bones": [
+    "calcaneus",
+    "phalanx",
+    "tibia"
+   ],
+   "origin_agrees": true,
+   "insertion_agrees": true,
+   "strict_origin_agrees": true,
+   "strict_insertion_agrees": true
+  },
+  {
+   "muscle": "right flexor pollicis longus",
+   "chapter": "Anatomy, Shoulder and Upper Limb, Hand Flexor Pollicis Longus Muscle",
+   "inferred_origin": [
+    "radius"
+   ],
+   "inferred_insertion": [
+    "phalanx"
+   ],
+   "unlabelled_ends": false,
+   "text_origin_bones": [
+    "humerus",
+    "phalanx",
+    "radius",
+    "ulna"
+   ],
+   "text_insertion_bones": [
+    "phalanx",
+    "radius",
+    "ulna"
+   ],
+   "strict_origin_bones": [
+    "humerus",
+    "radius",
+    "ulna"
+   ],
+   "strict_insertion_bones": [
+    "phalanx",
+    "ulna"
+   ],
+   "origin_agrees": true,
+   "insertion_agrees": true,
+   "strict_origin_agrees": true,
+   "strict_insertion_agrees": true
+  },
+  {
+   "muscle": "right genioglossus",
+   "chapter": "Anatomy, Head and Neck: Genioglossus Muscle",
+   "inferred_origin": [],
+   "inferred_insertion": [],
+   "unlabelled_ends": true,
+   "text_origin_bones": [],
+   "text_insertion_bones": [
+    "hyoid bone"
+   ],
+   "strict_origin_bones": [],
+   "strict_insertion_bones": [
+    "hyoid bone"
+   ]
+  },
+  {
+   "muscle": "right gluteus maximus",
+   "chapter": "Anatomy, Bony Pelvis and Lower Limb, Gluteus Maximus Muscle",
+   "inferred_origin": [
+    "hip bone",
+    "sacrum"
+   ],
+   "inferred_insertion": [
+    "femur"
+   ],
+   "unlabelled_ends": false,
+   "text_origin_bones": [
+    "hip bone",
+    "sacrum"
+   ],
+   "text_insertion_bones": [
+    "femur",
+    "hip bone",
+    "sacrum"
+   ],
+   "strict_origin_bones": [
+    "hip bone"
+   ],
+   "strict_insertion_bones": [
+    "femur",
+    "hip bone",
+    "sacrum"
+   ],
+   "origin_agrees": true,
+   "insertion_agrees": true,
+   "strict_origin_agrees": true,
+   "strict_insertion_agrees": true
+  },
+  {
+   "muscle": "right gluteus medius",
+   "chapter": "Anatomy, Bony Pelvis and Lower Limb, Gluteus Medius Muscle",
+   "inferred_origin": [
+    "hip bone"
+   ],
+   "inferred_insertion": [
+    "femur"
+   ],
+   "unlabelled_ends": false,
+   "text_origin_bones": [
+    "hip bone",
+    "sacrum"
+   ],
+   "text_insertion_bones": [
+    "femur"
+   ],
+   "strict_origin_bones": [
+    "hip bone",
+    "sacrum"
+   ],
+   "strict_insertion_bones": [
+    "femur"
+   ],
+   "origin_agrees": true,
+   "insertion_agrees": true,
+   "strict_origin_agrees": true,
+   "strict_insertion_agrees": true
+  },
+  {
+   "muscle": "right gluteus minimus",
+   "chapter": "Anatomy, Bony Pelvis and Lower Limb, Gluteus Minimus Muscle",
+   "inferred_origin": [
+    "hip bone"
+   ],
+   "inferred_insertion": [
+    "femur"
+   ],
+   "unlabelled_ends": false,
+   "text_origin_bones": [],
+   "text_insertion_bones": [],
+   "strict_origin_bones": [],
+   "strict_insertion_bones": []
+  },
+  {
+   "muscle": "right gracilis",
+   "chapter": "Neuroanatomy, Nucleus Gracilis",
+   "inferred_origin": [
+    "hip bone"
+   ],
+   "inferred_insertion": [
+    "tibia"
+   ],
+   "unlabelled_ends": false,
+   "text_origin_bones": [],
+   "text_insertion_bones": [],
+   "strict_origin_bones": [],
+   "strict_insertion_bones": []
+  },
+  {
+   "muscle": "right hyoglossus",
+   "chapter": "Anatomy, Head and Neck: Hyoglossus Muscle",
+   "inferred_origin": [],
+   "inferred_insertion": [],
+   "unlabelled_ends": true,
+   "text_origin_bones": [
+    "hyoid bone"
+   ],
+   "text_insertion_bones": [
+    "hyoid bone"
+   ],
+   "strict_origin_bones": [
+    "hyoid bone"
+   ],
+   "strict_insertion_bones": []
+  },
+  {
+   "muscle": "right inferior oblique",
+   "chapter": "Anatomy, Head and Neck: Inferior Oblique Muscle",
+   "inferred_origin": [],
+   "inferred_insertion": [],
+   "unlabelled_ends": true,
+   "text_origin_bones": [],
+   "text_insertion_bones": [],
+   "strict_origin_bones": [],
+   "strict_insertion_bones": []
+  },
+  {
+   "muscle": "right inferior rectus",
+   "chapter": "Anatomy, Head and Neck: Eye Inferior Rectus Muscle",
+   "inferred_origin": [],
+   "inferred_insertion": [],
+   "unlabelled_ends": true,
+   "text_origin_bones": [],
+   "text_insertion_bones": [],
+   "strict_origin_bones": [],
+   "strict_insertion_bones": []
+  },
+  {
+   "muscle": "right infraspinatus muscle",
+   "chapter": "Anatomy, Shoulder and Upper Limb, Infraspinatus Muscle",
+   "inferred_origin": [
+    "scapula"
+   ],
+   "inferred_insertion": [
+    "humerus"
+   ],
+   "unlabelled_ends": false,
+   "text_origin_bones": [
+    "humerus",
+    "scapula"
+   ],
+   "text_insertion_bones": [
+    "humerus",
+    "scapula"
+   ],
+   "strict_origin_bones": [
+    "scapula"
+   ],
+   "strict_insertion_bones": [
+    "humerus",
+    "scapula"
+   ],
+   "origin_agrees": true,
+   "insertion_agrees": true,
+   "strict_origin_agrees": true,
+   "strict_insertion_agrees": true
+  },
+  {
+   "muscle": "right lateral rectus",
+   "chapter": "Anatomy, Head and Neck: Eye Lateral Rectus Muscle",
+   "inferred_origin": [],
+   "inferred_insertion": [],
+   "unlabelled_ends": true,
+   "text_origin_bones": [],
+   "text_insertion_bones": [],
+   "strict_origin_bones": [],
+   "strict_insertion_bones": []
+  },
+  {
+   "muscle": "right levator palpebrae superioris",
+   "chapter": "Anatomy, Head and Neck: Levator Palpebrae Superioris Muscle",
+   "inferred_origin": [],
+   "inferred_insertion": [],
+   "unlabelled_ends": true,
+   "text_origin_bones": [
+    "sphenoid bone"
+   ],
+   "text_insertion_bones": [],
+   "strict_origin_bones": [
+    "sphenoid bone"
+   ],
+   "strict_insertion_bones": []
+  },
+  {
+   "muscle": "right levator scapulae",
+   "chapter": "Anatomy, Head and Neck, Levator Scapulae Muscles",
+   "inferred_origin": [
+    "vertebra"
+   ],
+   "inferred_insertion": [
+    "scapula"
+   ],
+   "unlabelled_ends": false,
+   "text_origin_bones": [
+    "scapula",
+    "vertebra"
+   ],
+   "text_insertion_bones": [
+    "scapula",
+    "vertebra"
+   ],
+   "strict_origin_bones": [
+    "scapula",
+    "vertebra"
+   ],
+   "strict_insertion_bones": [
+    "scapula"
+   ],
+   "origin_agrees": true,
+   "insertion_agrees": true,
+   "strict_origin_agrees": true,
+   "strict_insertion_agrees": true
+  },
+  {
+   "muscle": "right medial rectus",
+   "chapter": "Anatomy, Head and Neck: Eye Medial Rectus Muscles",
+   "inferred_origin": [],
+   "inferred_insertion": [],
+   "unlabelled_ends": true,
+   "text_origin_bones": [],
+   "text_insertion_bones": [],
+   "strict_origin_bones": [],
+   "strict_insertion_bones": []
+  },
+  {
+   "muscle": "right mylohyoid",
+   "chapter": "Anatomy, Head and Neck, Mylohyoid Muscle",
+   "inferred_origin": [],
+   "inferred_insertion": [],
+   "unlabelled_ends": true,
+   "text_origin_bones": [
+    "hyoid bone",
+    "mandible",
+    "maxilla",
+    "sphenoid bone",
+    "temporal bone"
+   ],
+   "text_insertion_bones": [
+    "hyoid bone",
+    "mandible",
+    "temporal bone"
+   ],
+   "strict_origin_bones": [
+    "mandible",
+    "maxilla",
+    "sphenoid bone",
+    "temporal bone"
+   ],
+   "strict_insertion_bones": [
+    "hyoid bone"
+   ]
+  },
+  {
+   "muscle": "right opponens pollicis",
+   "chapter": "Anatomy, Shoulder and Upper Limb, Hand Opponens Pollicis Muscle",
+   "inferred_origin": [],
+   "inferred_insertion": [],
+   "unlabelled_ends": true,
+   "text_origin_bones": [],
+   "text_insertion_bones": [
+    "metacarpal bone"
+   ],
+   "strict_origin_bones": [],
+   "strict_insertion_bones": [
+    "metacarpal bone"
+   ]
+  },
+  {
+   "muscle": "right piriformis",
+   "chapter": "Anatomy, Bony Pelvis and Lower Limb: Piriformis Muscle",
+   "inferred_origin": [
+    "sacrum"
+   ],
+   "inferred_insertion": [
+    "femur"
+   ],
+   "unlabelled_ends": false,
+   "text_origin_bones": [
+    "femur",
+    "hip bone",
+    "sacrum"
+   ],
+   "text_insertion_bones": [
+    "femur",
+    "hip bone"
+   ],
+   "strict_origin_bones": [
+    "hip bone",
+    "sacrum"
+   ],
+   "strict_insertion_bones": [
+    "femur"
+   ],
+   "origin_agrees": true,
+   "insertion_agrees": true,
+   "strict_origin_agrees": true,
+   "strict_insertion_agrees": true
+  },
+  {
+   "muscle": "right platysma",
+   "chapter": "Anatomy, Head and Neck, Platysma",
+   "inferred_origin": [],
+   "inferred_insertion": [],
+   "unlabelled_ends": true,
+   "text_origin_bones": [
+    "clavicle",
+    "mandible",
+    "temporal bone"
+   ],
+   "text_insertion_bones": [
+    "mandible"
+   ],
+   "strict_origin_bones": [
+    "clavicle",
+    "mandible"
+   ],
+   "strict_insertion_bones": [
+    "mandible"
+   ]
+  },
+  {
+   "muscle": "right popliteus",
+   "chapter": "Anatomy, Bony Pelvis and Lower Limb: Popliteus Muscle",
+   "inferred_origin": [
+    "femur"
+   ],
+   "inferred_insertion": [
+    "tibia"
+   ],
+   "unlabelled_ends": false,
+   "text_origin_bones": [
+    "femur",
+    "fibula",
+    "phalanx",
+    "tibia"
+   ],
+   "text_insertion_bones": [
+    "calcaneus",
+    "femur",
+    "fibula",
+    "metatarsal bone",
+    "phalanx",
+    "tibia"
+   ],
+   "strict_origin_bones": [
+    "femur",
+    "fibula",
+    "tibia"
+   ],
+   "strict_insertion_bones": [
+    "calcaneus",
+    "metatarsal bone",
+    "phalanx",
+    "tibia"
+   ],
+   "origin_agrees": true,
+   "insertion_agrees": true,
+   "strict_origin_agrees": true,
+   "strict_insertion_agrees": true
+  },
+  {
+   "muscle": "right psoas major",
+   "chapter": "Anatomy, Bony Pelvis and Lower Limb: Psoas Major",
+   "inferred_origin": [
+    "vertebra"
+   ],
+   "inferred_insertion": [
+    "femur",
+    "hip bone"
+   ],
+   "unlabelled_ends": false,
+   "text_origin_bones": [
+    "femur",
+    "hip bone",
+    "sacrum",
+    "vertebra"
+   ],
+   "text_insertion_bones": [
+    "femur",
+    "hip bone",
+    "vertebra"
+   ],
+   "strict_origin_bones": [
+    "hip bone",
+    "sacrum",
+    "vertebra"
+   ],
+   "strict_insertion_bones": [
+    "femur",
+    "hip bone",
+    "vertebra"
+   ],
+   "origin_agrees": true,
+   "insertion_agrees": true,
+   "strict_origin_agrees": true,
+   "strict_insertion_agrees": true
+  },
+  {
+   "muscle": "right rectus femoris",
+   "chapter": "Anatomy, Abdomen and Pelvis, Rectus Femoris Muscle",
+   "inferred_origin": [
+    "hip bone"
+   ],
+   "inferred_insertion": [
+    "femur",
+    "patella",
+    "tibia"
+   ],
+   "unlabelled_ends": false,
+   "text_origin_bones": [
+    "hip bone"
+   ],
+   "text_insertion_bones": [
+    "hip bone",
+    "patella",
+    "tibia"
+   ],
+   "strict_origin_bones": [
+    "hip bone"
+   ],
+   "strict_insertion_bones": [
+    "patella",
+    "tibia"
+   ],
+   "origin_agrees": true,
+   "insertion_agrees": true,
+   "strict_origin_agrees": true,
+   "strict_insertion_agrees": true
+  },
+  {
+   "muscle": "right sartorius",
+   "chapter": "Anatomy, Bony Pelvis and Lower Limb: Thigh Sartorius Muscle",
+   "inferred_origin": [
+    "hip bone"
+   ],
+   "inferred_insertion": [
+    "tibia"
+   ],
+   "unlabelled_ends": false,
+   "text_origin_bones": [
+    "hip bone"
+   ],
+   "text_insertion_bones": [
+    "tibia"
+   ],
+   "strict_origin_bones": [
+    "hip bone"
+   ],
+   "strict_insertion_bones": [
+    "tibia"
+   ],
+   "origin_agrees": true,
+   "insertion_agrees": true,
+   "strict_origin_agrees": true,
+   "strict_insertion_agrees": true
+  },
+  {
+   "muscle": "right semitendinosus",
+   "chapter": "Anatomy, Bony Pelvis and Lower Limb: Thigh Semitendinosus Muscle",
+   "inferred_origin": [
+    "hip bone"
+   ],
+   "inferred_insertion": [
+    "tibia"
+   ],
+   "unlabelled_ends": false,
+   "text_origin_bones": [
+    "femur",
+    "hip bone",
+    "tibia"
+   ],
+   "text_insertion_bones": [
+    "fibula",
+    "hip bone",
+    "patella",
+    "tibia"
+   ],
+   "strict_origin_bones": [
+    "femur",
+    "hip bone"
+   ],
+   "strict_insertion_bones": [
+    "fibula",
+    "patella",
+    "tibia"
+   ],
+   "origin_agrees": true,
+   "insertion_agrees": true,
+   "strict_origin_agrees": true,
+   "strict_insertion_agrees": true
+  },
+  {
+   "muscle": "right serratus anterior",
+   "chapter": "Anatomy, Thorax, Serratus Anterior Muscles",
+   "inferred_origin": [],
+   "inferred_insertion": [],
+   "unlabelled_ends": true,
+   "text_origin_bones": [
+    "rib",
+    "scapula"
+   ],
+   "text_insertion_bones": [
+    "humerus",
+    "rib",
+    "scapula",
+    "sternum"
+   ],
+   "strict_origin_bones": [
+    "rib"
+   ],
+   "strict_insertion_bones": [
+    "scapula"
+   ]
+  },
+  {
+   "muscle": "right sternocleidomastoid",
+   "chapter": "Anatomy, Head and Neck: Sternocleidomastoid Muscle",
+   "inferred_origin": [
+    "occipital bone",
+    "temporal bone"
+   ],
+   "inferred_insertion": [
+    "clavicle"
+   ],
+   "unlabelled_ends": false,
+   "text_origin_bones": [
+    "clavicle",
+    "occipital bone",
+    "sternum",
+    "temporal bone"
+   ],
+   "text_insertion_bones": [
+    "clavicle",
+    "occipital bone",
+    "sternum",
+    "temporal bone"
+   ],
+   "strict_origin_bones": [
+    "clavicle",
+    "sternum"
+   ],
+   "strict_insertion_bones": [
+    "occipital bone",
+    "temporal bone"
+   ],
+   "origin_agrees": true,
+   "insertion_agrees": true,
+   "strict_origin_agrees": false,
+   "strict_insertion_agrees": false
+  },
+  {
+   "muscle": "right sternohyoid",
+   "chapter": "Anatomy, Head and Neck, Sternohyoid Muscle",
+   "inferred_origin": [
+    "hyoid bone"
+   ],
+   "inferred_insertion": [
+    "clavicle"
+   ],
+   "unlabelled_ends": false,
+   "text_origin_bones": [
+    "clavicle",
+    "hyoid bone",
+    "sternum"
+   ],
+   "text_insertion_bones": [],
+   "strict_origin_bones": [
+    "clavicle",
+    "hyoid bone",
+    "sternum"
+   ],
+   "strict_insertion_bones": [],
+   "origin_agrees": true,
+   "strict_origin_agrees": true
+  },
+  {
+   "muscle": "right stylohyoid",
+   "chapter": "Anatomy, Head and Neck, Stylohyoid Muscle",
+   "inferred_origin": [],
+   "inferred_insertion": [],
+   "unlabelled_ends": true,
+   "text_origin_bones": [
+    "hyoid bone"
+   ],
+   "text_insertion_bones": [
+    "hyoid bone",
+    "temporal bone"
+   ],
+   "strict_origin_bones": [],
+   "strict_insertion_bones": [
+    "hyoid bone"
+   ]
+  },
+  {
+   "muscle": "right stylopharyngeus",
+   "chapter": "Anatomy, Head and Neck, Stylopharyngeus Muscles",
+   "inferred_origin": [],
+   "inferred_insertion": [],
+   "unlabelled_ends": true,
+   "text_origin_bones": [
+    "temporal bone"
+   ],
+   "text_insertion_bones": [
+    "temporal bone"
+   ],
+   "strict_origin_bones": [
+    "temporal bone"
+   ],
+   "strict_insertion_bones": []
+  },
+  {
+   "muscle": "right subscapularis",
+   "chapter": "Anatomy, Shoulder and Upper Limb, Subscapularis Muscle",
+   "inferred_origin": [
+    "rib",
+    "scapula"
+   ],
+   "inferred_insertion": [
+    "humerus",
+    "scapula"
+   ],
+   "unlabelled_ends": false,
+   "text_origin_bones": [
+    "humerus",
+    "scapula"
+   ],
+   "text_insertion_bones": [
+    "humerus",
+    "scapula"
+   ],
+   "strict_origin_bones": [
+    "scapula"
+   ],
+   "strict_insertion_bones": [
+    "humerus"
+   ],
+   "origin_agrees": true,
+   "insertion_agrees": true,
+   "strict_origin_agrees": true,
+   "strict_insertion_agrees": true
+  },
+  {
+   "muscle": "right superior oblique",
+   "chapter": "Anatomy, Head and Neck: Eye Superior Oblique Muscle",
+   "inferred_origin": [
+    "frontal bone",
+    "sphenoid bone"
+   ],
+   "inferred_insertion": [],
+   "unlabelled_ends": false,
+   "text_origin_bones": [
+    "sphenoid bone"
+   ],
+   "text_insertion_bones": [],
+   "strict_origin_bones": [
+    "sphenoid bone"
+   ],
+   "strict_insertion_bones": [],
+   "origin_agrees": true,
+   "strict_origin_agrees": true
+  },
+  {
+   "muscle": "right superior rectus",
+   "chapter": "Anatomy, Head and Neck: Eye Superior Rectus Muscle",
+   "inferred_origin": [],
+   "inferred_insertion": [],
+   "unlabelled_ends": true,
+   "text_origin_bones": [],
+   "text_insertion_bones": [],
+   "strict_origin_bones": [],
+   "strict_insertion_bones": []
+  },
+  {
+   "muscle": "right supraspinatus",
+   "chapter": "Anatomy, Shoulder and Upper Limb, Arm Supraspinatus Muscle",
+   "inferred_origin": [
+    "scapula"
+   ],
+   "inferred_insertion": [
+    "humerus"
+   ],
+   "unlabelled_ends": false,
+   "text_origin_bones": [
+    "humerus",
+    "scapula"
+   ],
+   "text_insertion_bones": [
+    "humerus",
+    "scapula"
+   ],
+   "strict_origin_bones": [
+    "scapula"
+   ],
+   "strict_insertion_bones": [
+    "humerus"
+   ],
+   "origin_agrees": true,
+   "insertion_agrees": true,
+   "strict_origin_agrees": true,
+   "strict_insertion_agrees": true
+  },
+  {
+   "muscle": "right tensor fasciae latae",
+   "chapter": "Anatomy, Bony Pelvis and Lower Limb: Tensor Fasciae Latae Muscle",
+   "inferred_origin": [
+    "hip bone"
+   ],
+   "inferred_insertion": [],
+   "unlabelled_ends": false,
+   "text_origin_bones": [
+    "hip bone"
+   ],
+   "text_insertion_bones": [],
+   "strict_origin_bones": [
+    "hip bone"
+   ],
+   "strict_insertion_bones": [],
+   "origin_agrees": true,
+   "strict_origin_agrees": true
+  },
+  {
+   "muscle": "right tensor veli palatini",
+   "chapter": "Anatomy, Head and Neck, Tensor Veli Palatini Muscle",
+   "inferred_origin": [
+    "sphenoid bone"
+   ],
+   "inferred_insertion": [
+    "vertebra"
+   ],
+   "unlabelled_ends": false,
+   "text_origin_bones": [
+    "sphenoid bone"
+   ],
+   "text_insertion_bones": [],
+   "strict_origin_bones": [
+    "sphenoid bone"
+   ],
+   "strict_insertion_bones": [],
+   "origin_agrees": true,
+   "strict_origin_agrees": true
+  },
+  {
+   "muscle": "right teres major",
+   "chapter": "Anatomy, Shoulder and Upper Limb, Teres Major Muscle",
+   "inferred_origin": [
+    "scapula"
+   ],
+   "inferred_insertion": [
+    "humerus"
+   ],
+   "unlabelled_ends": false,
+   "text_origin_bones": [
+    "humerus",
+    "scapula"
+   ],
+   "text_insertion_bones": [
+    "humerus",
+    "scapula"
+   ],
+   "strict_origin_bones": [
+    "scapula"
+   ],
+   "strict_insertion_bones": [
+    "humerus"
+   ],
+   "origin_agrees": true,
+   "insertion_agrees": true,
+   "strict_origin_agrees": true,
+   "strict_insertion_agrees": true
+  },
+  {
+   "muscle": "right teres minor",
+   "chapter": "Anatomy, Shoulder and Upper Limb, Teres Minor Muscle",
+   "inferred_origin": [
+    "scapula"
+   ],
+   "inferred_insertion": [
+    "humerus"
+   ],
+   "unlabelled_ends": false,
+   "text_origin_bones": [
+    "humerus",
+    "scapula"
+   ],
+   "text_insertion_bones": [
+    "humerus",
+    "scapula"
+   ],
+   "strict_origin_bones": [
+    "scapula"
+   ],
+   "strict_insertion_bones": [
+    "humerus"
+   ],
+   "origin_agrees": true,
+   "insertion_agrees": true,
+   "strict_origin_agrees": true,
+   "strict_insertion_agrees": true
+  },
+  {
+   "muscle": "right thyrohyoid",
+   "chapter": "Anatomy, Head and Neck, Thyrohyoid Membrane",
+   "inferred_origin": [],
+   "inferred_insertion": [],
+   "unlabelled_ends": true,
+   "text_origin_bones": [],
+   "text_insertion_bones": [],
+   "strict_origin_bones": [],
+   "strict_insertion_bones": []
+  },
+  {
+   "muscle": "right tibialis anterior",
+   "chapter": "Anatomy, Bony Pelvis and Lower Limb: Tibialis Anterior Muscles",
+   "inferred_origin": [
+    "fibula",
+    "tibia"
+   ],
+   "inferred_insertion": [
+    "metatarsal bone"
+   ],
+   "unlabelled_ends": false,
+   "text_origin_bones": [],
+   "text_insertion_bones": [
+    "metatarsal bone",
+    "phalanx",
+    "tibia"
+   ],
+   "strict_origin_bones": [],
+   "strict_insertion_bones": [
+    "metatarsal bone",
+    "phalanx",
+    "tibia"
+   ],
+   "insertion_agrees": true,
+   "strict_insertion_agrees": true
+  },
+  {
+   "muscle": "right tibialis posterior",
+   "chapter": "Anatomy, Bony Pelvis and Lower Limb: Tibialis Posterior Muscle",
+   "inferred_origin": [
+    "fibula",
+    "tibia"
+   ],
+   "inferred_insertion": [],
+   "unlabelled_ends": false,
+   "text_origin_bones": [
+    "fibula",
+    "tibia"
+   ],
+   "text_insertion_bones": [
+    "calcaneus",
+    "metatarsal bone",
+    "tibia"
+   ],
+   "strict_origin_bones": [
+    "fibula",
+    "tibia"
+   ],
+   "strict_insertion_bones": [
+    "calcaneus",
+    "metatarsal bone",
+    "tibia"
+   ],
+   "origin_agrees": true,
+   "insertion_agrees": false,
+   "strict_origin_agrees": true,
+   "strict_insertion_agrees": false
+  },
+  {
+   "muscle": "right vastus lateralis",
+   "chapter": "Anatomy, Bony Pelvis and Lower Limb: Vastus Lateralis Muscle",
+   "inferred_origin": [],
+   "inferred_insertion": [],
+   "unlabelled_ends": true,
+   "text_origin_bones": [
+    "femur",
+    "patella"
+   ],
+   "text_insertion_bones": [
+    "femur",
+    "patella",
+    "tibia"
+   ],
+   "strict_origin_bones": [
+    "femur"
+   ],
+   "strict_insertion_bones": [
+    "femur",
+    "patella",
+    "tibia"
+   ]
+  },
+  {
+   "muscle": "spinal part of left deltoid",
+   "chapter": "Anatomy, Shoulder and Upper Limb, Deltoid Muscle",
+   "inferred_origin": [
+    "scapula"
+   ],
+   "inferred_insertion": [
+    "humerus"
+   ],
+   "unlabelled_ends": false,
+   "text_origin_bones": [
+    "clavicle",
+    "scapula"
+   ],
+   "text_insertion_bones": [
+    "humerus"
+   ],
+   "strict_origin_bones": [
+    "clavicle",
+    "scapula"
+   ],
+   "strict_insertion_bones": [
+    "humerus"
+   ],
+   "origin_agrees": true,
+   "insertion_agrees": true,
+   "strict_origin_agrees": true,
+   "strict_insertion_agrees": true
+  },
+  {
+   "muscle": "spinal part of right deltoid",
+   "chapter": "Anatomy, Shoulder and Upper Limb, Deltoid Muscle",
+   "inferred_origin": [
+    "scapula"
+   ],
+   "inferred_insertion": [
+    "humerus"
+   ],
+   "unlabelled_ends": false,
+   "text_origin_bones": [
+    "clavicle",
+    "scapula"
+   ],
+   "text_insertion_bones": [
+    "humerus"
+   ],
+   "strict_origin_bones": [
+    "clavicle",
+    "scapula"
+   ],
+   "strict_insertion_bones": [
+    "humerus"
+   ],
+   "origin_agrees": true,
+   "insertion_agrees": true,
+   "strict_origin_agrees": true,
+   "strict_insertion_agrees": true
+  },
+  {
+   "muscle": "sternocostal part of left pectoralis major",
+   "chapter": "Anatomy, Thorax, Pectoralis Major Major",
+   "inferred_origin": [
+    "humerus"
+   ],
+   "inferred_insertion": [],
+   "unlabelled_ends": false,
+   "text_origin_bones": [
+    "clavicle",
+    "humerus",
+    "rib",
+    "sternum"
+   ],
+   "text_insertion_bones": [
+    "clavicle",
+    "humerus",
+    "rib",
+    "sternum"
+   ],
+   "strict_origin_bones": [
+    "clavicle",
+    "rib",
+    "sternum"
+   ],
+   "strict_insertion_bones": [
+    "clavicle",
+    "humerus"
+   ],
+   "origin_agrees": true,
+   "insertion_agrees": false,
+   "strict_origin_agrees": false,
+   "strict_insertion_agrees": false
+  },
+  {
+   "muscle": "sternocostal part of right pectoralis major",
+   "chapter": "Anatomy, Thorax, Pectoralis Major Major",
+   "inferred_origin": [
+    "humerus"
+   ],
+   "inferred_insertion": [],
+   "unlabelled_ends": false,
+   "text_origin_bones": [
+    "clavicle",
+    "humerus",
+    "rib",
+    "sternum"
+   ],
+   "text_insertion_bones": [
+    "clavicle",
+    "humerus",
+    "rib",
+    "sternum"
+   ],
+   "strict_origin_bones": [
+    "clavicle",
+    "rib",
+    "sternum"
+   ],
+   "strict_insertion_bones": [
+    "clavicle",
+    "humerus"
+   ],
+   "origin_agrees": true,
+   "insertion_agrees": false,
+   "strict_origin_agrees": false,
+   "strict_insertion_agrees": false
+  },
+  {
+   "muscle": "transverse head of left adductor pollicis",
+   "chapter": "Anatomy, Shoulder and Upper Limb, Hand Adductor Pollicis",
+   "inferred_origin": [],
+   "inferred_insertion": [],
+   "unlabelled_ends": true,
+   "text_origin_bones": [
+    "metacarpal bone"
+   ],
+   "text_insertion_bones": [
+    "phalanx"
+   ],
+   "strict_origin_bones": [
+    "metacarpal bone"
+   ],
+   "strict_insertion_bones": [
+    "phalanx"
+   ]
+  },
+  {
+   "muscle": "transverse head of right adductor pollicis",
+   "chapter": "Anatomy, Shoulder and Upper Limb, Hand Adductor Pollicis",
+   "inferred_origin": [],
+   "inferred_insertion": [],
+   "unlabelled_ends": true,
+   "text_origin_bones": [
+    "metacarpal bone"
+   ],
+   "text_insertion_bones": [
+    "phalanx"
+   ],
+   "strict_origin_bones": [
+    "metacarpal bone"
+   ],
+   "strict_insertion_bones": [
+    "phalanx"
+   ]
+  },
+  {
+   "muscle": "transverse part of left trapezius",
+   "chapter": "Anatomy, Back, Trapezius",
+   "inferred_origin": [
+    "vertebra"
+   ],
+   "inferred_insertion": [
+    "scapula"
+   ],
+   "unlabelled_ends": false,
+   "text_origin_bones": [
+    "clavicle",
+    "scapula",
+    "sternum"
+   ],
+   "text_insertion_bones": [
+    "clavicle",
+    "scapula",
+    "temporal bone"
+   ],
+   "strict_origin_bones": [
+    "clavicle",
+    "scapula",
+    "sternum"
+   ],
+   "strict_insertion_bones": [
+    "clavicle",
+    "scapula",
+    "temporal bone"
+   ],
+   "origin_agrees": false,
+   "insertion_agrees": true,
+   "strict_origin_agrees": false,
+   "strict_insertion_agrees": true
+  },
+  {
+   "muscle": "transverse part of right trapezius",
+   "chapter": "Anatomy, Back, Trapezius",
+   "inferred_origin": [
+    "vertebra"
+   ],
+   "inferred_insertion": [
+    "scapula"
+   ],
+   "unlabelled_ends": false,
+   "text_origin_bones": [
+    "clavicle",
+    "scapula",
+    "sternum"
+   ],
+   "text_insertion_bones": [
+    "clavicle",
+    "scapula",
+    "temporal bone"
+   ],
+   "strict_origin_bones": [
+    "clavicle",
+    "scapula",
+    "sternum"
+   ],
+   "strict_insertion_bones": [
+    "clavicle",
+    "scapula",
+    "temporal bone"
+   ],
+   "origin_agrees": false,
+   "insertion_agrees": true,
+   "strict_origin_agrees": false,
+   "strict_insertion_agrees": true
+  },
+  {
+   "muscle": "ulnar head of left flexor carpi ulnaris",
+   "chapter": "Anatomy, Shoulder and Upper Limb, Forearm Flexor Carpi Ulnaris Muscle",
+   "inferred_origin": [
+    "humerus",
+    "ulna"
+   ],
+   "inferred_insertion": [
+    "ulna"
+   ],
+   "unlabelled_ends": false,
+   "text_origin_bones": [
+    "humerus"
+   ],
+   "text_insertion_bones": [
+    "metacarpal bone"
+   ],
+   "strict_origin_bones": [
+    "humerus"
+   ],
+   "strict_insertion_bones": [
+    "metacarpal bone"
+   ],
+   "origin_agrees": true,
+   "insertion_agrees": false,
+   "strict_origin_agrees": true,
+   "strict_insertion_agrees": false
+  },
+  {
+   "muscle": "ulnar head of left pronator teres",
+   "chapter": "Anatomy, Shoulder and Upper Limb, Pronator Teres",
+   "inferred_origin": [],
+   "inferred_insertion": [],
+   "unlabelled_ends": true,
+   "text_origin_bones": [
+    "humerus",
+    "radius",
+    "ulna"
+   ],
+   "text_insertion_bones": [
+    "radius",
+    "ulna"
+   ],
+   "strict_origin_bones": [
+    "humerus",
+    "ulna"
+   ],
+   "strict_insertion_bones": [
+    "radius"
+   ]
+  },
+  {
+   "muscle": "ulnar head of right flexor carpi ulnaris",
+   "chapter": "Anatomy, Shoulder and Upper Limb, Forearm Flexor Carpi Ulnaris Muscle",
+   "inferred_origin": [
+    "humerus",
+    "ulna"
+   ],
+   "inferred_insertion": [
+    "ulna"
+   ],
+   "unlabelled_ends": false,
+   "text_origin_bones": [
+    "humerus"
+   ],
+   "text_insertion_bones": [
+    "metacarpal bone"
+   ],
+   "strict_origin_bones": [
+    "humerus"
+   ],
+   "strict_insertion_bones": [
+    "metacarpal bone"
+   ],
+   "origin_agrees": true,
+   "insertion_agrees": false,
+   "strict_origin_agrees": true,
+   "strict_insertion_agrees": false
+  },
+  {
+   "muscle": "ulnar head of right pronator teres",
+   "chapter": "Anatomy, Shoulder and Upper Limb, Pronator Teres",
+   "inferred_origin": [],
+   "inferred_insertion": [],
+   "unlabelled_ends": true,
+   "text_origin_bones": [
+    "humerus",
+    "radius",
+    "ulna"
+   ],
+   "text_insertion_bones": [
+    "radius",
+    "ulna"
+   ],
+   "strict_origin_bones": [
+    "humerus",
+    "ulna"
+   ],
+   "strict_insertion_bones": [
+    "radius"
+   ]
+  }
+ ]
+}

@@ -1,0 +1,458 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Training 4D + Motion Lab 4D · Meridian Anatomy Lab</title>
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Ccircle cx='24' cy='24' r='14' fill='none' stroke='%236fd3ff' stroke-width='4'/%3E%3Cpath d='M24 3v8M24 37v8M3 24h8M37 24h8' stroke='%236fd3ff' stroke-width='4'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="/training-4D/css/lab.css">
+<link rel="stylesheet" href="/training-4D/css/training.css">
+<script type="importmap">
+{ "imports": {
+  "three": "/training-4D/rt/vendor/three/three.module.js",
+  "three/addons/": "/training-4D/rt/vendor/three/addons/"
+} }
+</script>
+<script>window.__STATIC_SITE = true; try { if (localStorage.getItem('nt-autoconv') === null) localStorage.setItem('nt-autoconv', '0'); } catch (e) {}
+(function(){var ok=/^#(train|lab)(\/|$)/;var fix=function(){if(!ok.test(location.hash)){history.replaceState(null,'','#train');}};fix();try{var m=localStorage.getItem('anatomy-lab-mode');if(!/^(train|lab)$/.test(m||''))localStorage.setItem('anatomy-lab-mode','train');}catch(e){}window.addEventListener('hashchange',function(){if(!ok.test(location.hash)){location.hash='#train';}});})();</script>
+<script type="module" src="/training-4D/js/static_api.js"></script>
+<style>#static-banner { background: #2a1d05; color: #ffd166; font: 12px system-ui; padding: 6px 14px; border-bottom: 1px solid #ffd16655; } #static-banner a { color: #ffd166; }
+.tabs button:not([data-mode=train],[data-mode=lab]){display:none!important}</style>
+</head>
+<body>
+<div id="static-banner">Meridian Training 4D + Motion Lab 4D, public copy: free, non-commercial, for education only; not a diagnostic device and not medical advice. Training 4D runs in your browser on a privacy-cleaned copy of the training workbook; your own profile and athletes stay in your browser. Motion Lab 4D: your camera stays on your device; forces and moments are estimates from mechanics, not measurements. <a href="/training-4D/CREDITS.html">Credits and licences</a> · <a href="https://inzy0.github.io/meridian-4D/">Full Meridian 4D site</a>.</div>
+<header class="hdr">
+  <div class="brand">
+    <svg class="mark" viewBox="0 0 48 48" aria-hidden="true">
+      <circle cx="24" cy="24" r="21" fill="none" stroke="currentColor" stroke-width="1.4" stroke-dasharray="3 3"/>
+      <circle cx="24" cy="24" r="14" fill="none" stroke="currentColor" stroke-width="1.6"/>
+      <path d="M24 3v8M24 37v8M3 24h8M37 24h8" stroke="currentColor" stroke-width="1.6"/>
+      <path d="M19 17c2-2 8-2 10 0M18 25h12M21 31c2 1.5 4 1.5 6 0" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round"/>
+    </svg>
+    <div>
+      <h1>Meridian <span>Anatomy Lab</span></h1>
+      <p>Training 4D · Motion Lab 4D · equipment &amp; biomechanics</p>
+    </div>
+  </div>
+  <nav class="tabs" role="tablist">
+    <button role="tab" data-mode="mirror" aria-selected="true">Live Mirror</button>
+    <button role="tab" data-mode="lab" aria-selected="false">Motion Lab 4D</button>
+    <button role="tab" data-mode="diag" aria-selected="false">Diagnostics</button>
+    <button role="tab" data-mode="atlas" aria-selected="false">3D Atlas</button>
+    <button role="tab" data-mode="brain" aria-selected="false">Brain map</button>
+    <button role="tab" data-mode="molecular" aria-selected="false">Body systems</button>
+    <button role="tab" data-mode="clinical" aria-selected="false">Clinical</button>
+    <button role="tab" data-mode="tests" aria-selected="false">Tests &amp; labs</button>
+    <button role="tab" data-mode="genome" aria-selected="false">DNA → Protein</button>
+    <button role="tab" data-mode="imaging" aria-selected="false">Imaging</button>
+    <button role="tab" data-mode="train" aria-selected="false">Training 4D</button>
+    <button role="tab" data-mode="ext" aria-selected="false">Extensions</button>
+  </nav>
+  <div class="chips">
+    <span class="chip ok" title="Tracking runs in WebAssembly in this browser. No frames leave this machine.">● On-device</span>
+    <span class="chip mono" id="fps">— fps</span>
+    <span class="chip warn" title="Schematic overlays on surface landmarks and a single reference anatomy. Not imaging, not a diagnosis.">Education &amp; research only. Not a diagnostic device.</span>
+  </div>
+</header>
+
+<!-- ============================================================ LIVE MIRROR -->
+<main id="mode-mirror" class="mode">
+  <section class="stage-wrap">
+    <div class="stage">
+      <video id="cam" playsinline muted></video>
+      <canvas id="overlay"></canvas>
+      <div class="hud-ring" aria-hidden="true"></div>
+      <canvas id="ar-canvas" class="ar-canvas" hidden></canvas>
+      <canvas id="ar-lm-canvas" class="ar-canvas ar-lm" hidden></canvas>
+      <div id="ar-bio-out" class="ar-bio" hidden></div>
+      <div id="ar-align-out" class="ar-align" hidden></div>
+      <div id="ar-cue" class="ar-cue" hidden></div>
+      <div id="lens" class="lens" hidden><canvas id="lens-gl"></canvas><canvas id="lens-hud"></canvas></div>
+      <div class="stage-cta">
+        <button id="mirror-start" class="primary">Start camera</button>
+        <label class="fine perf-pick">Mode <select id="perf-mode"><option value="accuracy">Max accuracy (heavy model, every frame)</option><option value="balanced">Balanced (full model, face every 2nd frame)</option><option value="speed">Max speed (lite model, staggered)</option></select></label>
+        <label class="fine perf-pick">Engine <select id="det-engine"><option value="worker">Background worker (smooth drawing)</option><option value="main">Main thread</option></select></label>
+        <small id="perf-stats" class="fine muted perf-stats"></small>
+        <p id="mirror-status" class="muted">Models and camera load locally.</p>
+      </div>
+    </div>
+    <div class="layers">
+      <label><input type="checkbox" data-layer="hands"> Hands</label>
+      <label><input type="checkbox" data-layer="skull"> Skull</label>
+      <label><input type="checkbox" data-layer="brain"> Brain (schematic)</label>
+      <label><input type="checkbox" data-layer="body"> Body</label>
+      <label><input type="checkbox" data-layer="labels"> Labels</label>
+      <label><input type="checkbox" data-layer="angles"> Angles</label>
+      <label><input type="checkbox" data-layer="ghost"> Ghost +200 ms</label>
+      <label><input type="checkbox" data-layer="tint"> X-ray tint</label>
+      <label class="scan-toggle"><input type="checkbox" data-layer="ar"> 3D skeleton (AR)</label>
+      <label class="scan-toggle"><input type="checkbox" data-layer="scanner"> Scanner lens</label>
+    </div>
+    <div id="ar-bar" class="scan-bar ar-bar" hidden>
+      <div class="grp"><span class="lbl">Bones</span><span id="ar-regions" class="ar-regions"></span><button id="ar-showall" class="ghost-btn">Show all</button></div>
+      <div class="grp"><span class="lbl">Look</span><label><input type="radio" name="ar-style" value="xray" checked> X-ray</label><label><input type="radio" name="ar-style" value="anat"> Anatomical</label>
+        <span class="lbl">Opacity</span><input id="ar-opacity" type="range" min="10" max="100" value="75" aria-label="Skeleton opacity"></div>
+      <div class="grp"><label><input id="ar-muscles" type="checkbox"> Muscles</label><label><input id="ar-bio" type="checkbox"> Biomechanics</label></div>
+      <div class="grp"><span class="lbl">Fit</span><select id="ar-fitmode" aria-label="Bone placement"><option value="segment">Per-segment: each bone on your joints</option><option value="global">Whole skeleton only</option></select>
+        <button id="ar-learn" class="ghost-btn">Learn my proportions</button><button id="ar-unlearn" class="ghost-btn">Reset</button>
+        <label><input id="ar-lm" type="checkbox" checked> Bony landmarks</label><label><input id="ar-align" type="checkbox" checked> Alignment</label></div>
+      <p id="ar-fitmsg" class="fine" style="margin:0;flex-basis:100%"></p>
+      <p id="ar-status" class="fine" style="margin:0;flex-basis:100%">Click a region to cycle show → fade → hide. Click a bone on the image to hide it.</p>
+    </div>
+    <div id="scan-bar" class="scan-bar" hidden>
+      <div class="grp"><span class="lbl">Pointer</span>
+        <label><input type="radio" name="scan-mode" value="mouse" checked> Mouse</label>
+        <label><input type="radio" name="scan-mode" value="finger"> Index finger</label>
+        <button id="scan-lock" class="ghost-btn">Lock</button></div>
+      <div class="grp"><span class="lbl">Zoom</span>
+        <button id="scan-zoom-out" class="ghost-btn" aria-label="Zoom out">−</button><b id="scan-zoom-val" class="mono">1.6×</b><button id="scan-zoom-in" class="ghost-btn" aria-label="Zoom in">+</button></div>
+      <div class="grp"><span class="lbl">Size</span><input id="scan-size" type="range" min="70" max="220" value="120" aria-label="Lens size"><button id="scan-big" class="ghost-btn">Enlarge</button></div>
+      <div class="grp"><span class="lbl">Depth</span><input id="scan-depth" type="range" min="0" max="25" step="0.5" value="0" aria-label="Depth cut in centimetres"><b id="scan-depth-val" class="mono">0.0 cm</b></div>
+      <div class="grp"><span class="lbl">View</span>
+        <label><input type="radio" name="scan-style" value="xray" checked> X-ray</label>
+        <label><input type="radio" name="scan-style" value="anatomy"> Anatomical</label></div>
+      <div class="grp" id="scan-cats"></div>
+    </div>
+  </section>
+
+  <aside class="side">
+    <section id="scan-card" class="card scan-card" hidden>
+      <h2>Scanner</h2>
+      <div id="scan-info" class="muted"></div>
+      <h2 style="margin-top:10px">Conditions here</h2>
+      <div id="scan-conditions" class="conds"></div>
+      <p class="fine">The lens shows one reference body (BodyParts3D) fitted to your tracked joints. It is not your anatomy and not imaging.</p>
+    </section>
+    <section class="card">
+      <div class="card-h"><h2>Joint angles</h2>
+        <span><button id="rom-reset" class="ghost-btn">Reset ROM</button> <button id="rec-btn" class="ghost-btn">Record angles</button> <small id="rec-count" class="muted"></small></span></div>
+      <table id="joint-table"><thead><tr><th>Joint</th><th>Now</th><th>Range</th><th>°/s</th></tr></thead><tbody></tbody></table>
+      <div class="spark-h"><small>Last 10 s: <b id="spark-label">—</b></small></div>
+      <canvas id="spark" width="360" height="90"></canvas>
+      <p class="fine">Angles come from 3D landmarks estimated by one camera. Not yet validated against a goniometer or motion capture (gate V1).</p>
+    </section>
+    <section class="card">
+      <h2>Active zones</h2>
+      <div id="zones" class="zones"></div>
+    </section>
+    <section class="card">
+      <h2>Movement → prime movers</h2>
+      <div id="movers"></div>
+      <p class="fine"><span class="grade gB">B</span> stated in OpenStax <i>Anatomy and Physiology 2e</i>, ch. 11 (CC BY-NC-SA 4.0), PDF page shown. <span class="grade gU">U</span> standard anatomy not yet checked against a source.</p>
+    </section>
+    <details class="card">
+      <summary><h2>How accurate is the tracking?</h2></summary>
+      <ul id="accuracy-list" class="acc"></ul>
+      <p class="fine">These figures describe where landmarks land in the image. They are not bone positions and not joint-angle accuracy. Overlays are drawn on skin-surface landmarks; nothing here sees inside the body.</p>
+    </details>
+  </aside>
+</main>
+
+<!-- ============================================================ MOTION LAB (4D twin) -->
+<main id="mode-lab" class="mode" hidden>
+  <section class="stage-wrap">
+    <div class="lab-stage">
+      <canvas id="lab-canvas"></canvas>
+      <div id="lab-labels" class="lab-labels"></div>
+      <div id="lab-pick" class="atlas-pick" hidden></div>
+      <video id="lab-video" class="lab-cam" playsinline muted></video>
+      <div class="lab-hud"><span id="lab-src" class="chip mono">No live input</span> <span id="lab-demo-name" class="chip mono"></span></div>
+      <div id="lab-status" class="atlas-status muted">Open this tab to build the skeleton rig.</div>
+    </div>
+    <div class="layers lab-bar">
+      <label>Depth <select id="lab-depth" aria-label="Depth class"></select></label>
+      <label><input id="lab-show-j" type="checkbox" checked> Joint centres</label>
+      <label><input id="lab-show-lm" type="checkbox" checked> Bony landmarks</label>
+      <label><input id="lab-show-labels" type="checkbox" checked> Labels</label>
+      <label><input id="lab-ghost" type="checkbox"> Rest-pose ghost</label>
+      <label><input id="lab-autorot" type="checkbox"> Turntable</label>
+      <span id="lab-views" class="views"></span>
+    </div>
+  </section>
+  <aside class="side">
+    <section class="card ms-card" id="ms-card"><h2>Movement studio 4D</h2><p class="fine">Loading…</p></section>
+    <section class="card" id="ex-card"></section>
+    <section class="card">
+      <h2>Setup</h2>
+      <p class="btnrow"><button id="lab-cam" class="primary small">Start camera</button>
+        <button id="lab-calib" class="ghost-btn">Calibrate stance</button>
+        <button id="lab-demo" class="ghost-btn">Demo motion</button>
+        <button id="lab-selftest-btn" class="ghost-btn">Self-test</button></p>
+      <label class="fine"><input id="auto-sync" type="checkbox" checked> Auto-sync: calibrate automatically when I stand still, upright, arms at my sides</label>
+      <p id="lab-calib-msg" class="fine">Full body in view, camera level. Calibrate standing in anatomical position (arms at sides, palms forward) so the twin's rest pose matches yours.</p>
+      <div class="ctl-grid">
+        <label>Body in view <select id="lab-viewmode"><option value="auto">Auto (whatever the camera sees)</option><option value="seated">Seated (legs drawn sitting)</option><option value="upper">Upper body only</option><option value="full">Full body</option></select></label>
+        <label>Pose model <select id="lab-posemodel"><option value="heavy">Heavy: most accurate (hands, feet, jumps)</option><option value="full">Full: balanced</option><option value="lite">Lite: fastest</option></select></label>
+      </div>
+      <p id="lab-viewstate" class="fine muted">Parts the camera cannot see are drawn faded and never measured.</p>
+      <details class="cams"><summary>Cameras <small id="cam-count">1 (primary)</small></summary>
+        <p class="fine">Add up to 3 more cameras on this computer, placed around you (side and back views work best). Each one's 3D skeleton is rotated onto the primary camera and averaged joint by joint, weighted by how clearly each camera sees that joint, so joints hidden from one camera are filled in by another.</p>
+        <p class="btnrow"><button id="cam-scan" class="ghost-btn">Find cameras</button><button id="cam-all" class="primary small">Use all cameras (up to 4)</button><button id="cam-lock" class="ghost-btn">Lock alignment (stand still, seen by all)</button></p>
+        <ul id="cam-list" class="cam-list"></ul>
+        <p class="fine muted">Frames are matched by the latest available frame (no hardware sync, up to one frame apart). The "disagreement" is how far each camera's aligned skeleton is from the primary's: a consistency measure, not accuracy.</p>
+      </details>
+      <div id="lab-selftest"></div>
+    </section>
+    <section class="card">
+      <div class="card-h"><h2>Exercise library</h2><button id="ex-stop" class="ghost-btn">Stop</button></div>
+      <p class="fine">Pick an exercise: the twin performs it on a loop. Joints, textbook prime movers and the form rules are listed; with Biomechanics on, the muscles the movement requires are coloured live (concentric / eccentric from joint power).</p>
+      <div class="ctl-grid"><label>Exercise <select id="ex-pick"></select></label><label>Speed <input id="ex-speed" type="range" min="25" max="200" value="100"></label></div>
+      <div id="ex-info" class="fine"></div>
+    </section>
+    <section class="card">
+      <div class="card-h"><h2>Energy systems (textbook phases)</h2><button id="en-reset" class="ghost-btn">Reset</button></div>
+      <div id="en-box" class="en-box"><div class="en-bar"><i id="en-fill"></i><span class="en-m" style="left:12.5%">15 s</span><span class="en-m" style="left:50%">1 min</span></div>
+        <p class="fine"><b id="en-time" class="mono">0.0 s</b> of continuous activity · <span id="en-state">resting</span></p>
+        <div id="en-phase" class="fine"></div></div>
+      <p class="fine muted">Continuous activity = hands or feet moving faster than 0.15 m/s (camera or exercise player); resets after 10 s still. The phase shown is the textbook description for that point of an effort, quoted from OpenStax Anatomy &amp; Physiology 2e (CC BY-NC-SA 4.0). It is not a measurement of your metabolism: real contributions overlap and depend on intensity.</p>
+    </section>
+    <section class="card bio-card">
+      <div class="card-h"><h2>Biomechanics (estimated)</h2><label><input id="bio-on" type="checkbox"> On</label></div>
+      <div class="cls-tools">
+        <label>Body mass <input id="bio-mass" type="number" min="20" max="250" value="70" style="width:64px"> kg</label>
+        <label>Segment table <select id="bio-sex"><option value="M">male</option><option value="F">female</option></select></label>
+        <label><input id="bio-dyn" type="checkbox"> Include acceleration</label>
+        <label><input id="bio-show" type="checkbox" checked> Show on twin</label>
+        <label><input id="bio-ghost" type="checkbox" checked> Ghost other muscles</label>
+      </div>
+      <div id="bio-out" class="bio-out"></div>
+      <p class="fine">Inverse dynamics from the tracked pose, body mass and population segment parameters (<span id="bio-src"></span>). Quasi-static unless acceleration is included. The two-foot split uses the lever rule (the true split cannot be known from motion alone); the centre of pressure is placed at each foot's centre; the head centre of mass is approximated at the mid-ear point. "Group the moment requires" is the muscle group that must produce the net moment; co-contraction is not visible. Red = required group (colour scaled to 1.5 N·m/kg, not a measured activation), blue = opposing group. Green arrows = ground reaction (length = share of body weight); orange/cyan spheres at joints = net moment size (orange extensor-type, cyan flexor-type); ball = centre of mass (green over the base of support, red outside). Not validated against force plates or EMG.</p>
+    </section>
+    <section class="card eq-card" id="eq-card">
+      <div class="card-h"><h2>Equipment (4D)</h2><button id="eq-test" class="ghost-btn" title="Check the mechanics code against hand calculations">Self-test</button></div>
+      <div class="cls-tools"><label>Item <select id="eq-pick"></select></label></div>
+      <div id="eq-body" class="eq-body"><p class="fine muted">Loading the equipment catalogue…</p></div>
+      <div id="eq-test-out"></div>
+      <p class="fine">Barbells, discs, collars, rack, bench and platform use the dimensions quoted from the IWF Technical and Competition Rules 2024 and the IPF Technical Rulebook 2026 (page and quote shown, checked against the rulebook text when the catalogue is built). Other items have no governing standard: their shape is illustrative and their load is what you enter. Loads come from mechanics (weight, band stretch, cable tension, lever, sled friction) and are added to the inverse dynamics; they are estimates, not measurements.</p>
+    </section>
+    <section class="card drill-card">
+      <div class="card-h"><h2>Drill detection (automatic)</h2>
+        <span><button id="drill-test" class="ghost-btn">Recognition test</button> <button id="drill-csv" class="ghost-btn">CSV</button> <button id="drill-reset" class="ghost-btn">Reset</button></span></div>
+      <div id="drill-cue" class="drill-cue"></div>
+      <div id="drill-last" class="drill-last"><p class="muted">Move deliberately: each repetition is detected and named.</p></div>
+      <table id="drill-session"><thead><tr><th>Exercise · position</th><th>Reps</th><th>Form</th><th>Recog.</th></tr></thead><tbody></tbody></table>
+      <div id="drill-testres"></div>
+      <details><summary class="fine">Drills recognised and their form rules (app rules, not clinical standards)</summary><ul id="drill-list" class="drill-list"></ul></details>
+      <p class="fine">Form = share of the drill's rules met in that rep. Recognition = how well the movement matched the drill's pattern. Neither is validated against a clinician or motion capture yet.</p>
+    </section>
+    <section class="card">
+      <div class="card-h"><h2>Joint map</h2><button id="jm-clear" class="ghost-btn">Clear highlight</button></div>
+      <select id="jm-mode" aria-label="Map view" class="jm-select" style="margin-bottom:6px"><option value="joint">One joint (segmental)</option><option value="group">Full body: muscles by action group</option><option value="region">Full body: muscles by region</option><option value="pick">Pick muscles (multi-select, bilateral)</option></select>
+      <select id="jm-select" aria-label="Joint" class="jm-select"></select>
+      <div class="cls-tools"><label><input id="jm-follow" type="checkbox" checked> Follow detected drill</label><label><input id="jm-ghost" type="checkbox" checked> Ghost the rest</label><label><input id="jm-focus" type="checkbox"> Zoom to joint</label></div>
+      <p id="jm-status" class="fine"></p>
+      <div id="jm-detail" class="jm-detail"></div>
+      <p class="fine">Connections are computed from the reference body's 3D geometry (distance rules in joint_map.js), not from a curated ligament/muscle attachment database.</p>
+    </section>
+    <section class="card">
+      <h2>Live sync: tracked vs twin</h2>
+      <table id="lab-sync"><thead><tr><th>Measure</th><th>Tracked</th><th>Twin</th><th>Δ</th></tr></thead><tbody></tbody></table>
+      <p class="fine">Tracked = from camera landmarks. Twin = measured on the posed reference skeleton (joint centres from the bones). Δ shows how closely the twin follows you.</p>
+    </section>
+    <section class="card">
+      <div class="card-h"><h2>Movement tests</h2><button id="lab-csv" class="ghost-btn">Save CSV</button></div>
+      <div id="lab-tests" class="tests"></div>
+      <div id="lab-test-active" class="test-active"><p class="muted">Pick a movement.</p></div>
+      <table id="lab-results"><thead><tr><th>Test</th><th>Peak</th></tr></thead><tbody></tbody></table>
+    </section>
+    <section class="card">
+      <h2>Rig audit</h2>
+      <div id="lab-audit" class="muted"></div>
+    </section>
+  </aside>
+</main>
+
+<!-- ============================================================ DIAGNOSTICS (of the measurements) -->
+<main id="mode-diag" class="mode diag" hidden>
+  <section class="diag-grid">
+    <div class="card diag-note"><h2>Diagnostics: checking the measurements, not the person</h2>
+      <p>This area checks how trustworthy the app's numbers are and summarises what was measured. It does not diagnose, name or suggest any medical condition. Live data comes from Motion Lab (start the camera there).</p></div>
+    <section class="card"><h2>1 · Tracking quality (live)</h2><div id="q-body"></div></section>
+    <section class="card"><h2>2 · Gate V1: agreement with a goniometer</h2>
+      <p class="fine">Hold a joint still, measure it with a goniometer, enter the reading, press Record. The app value is the median of the last second. Pass marks were set before any data: mean absolute difference ≤ 5° for elbow and knee, with at least 10 pairs over 2 sessions (pairs ≥ 30 min apart). Other joints are reported without a pass mark.</p>
+      <div class="v1-row"><select id="v1-joint" aria-label="Joint"></select><span>App now: <b id="v1-live" class="mono">—</b></span>
+        <input id="v1-gonio" type="number" step="0.5" placeholder="Goniometer °" aria-label="Goniometer reading in degrees"><button id="v1-record" class="primary small">Record pair</button></div>
+      <p id="v1-msg" class="fine"></p>
+      <table id="v1-table"><thead><tr><th>Joint</th><th>n</th><th>Bias</th><th>Mean abs diff</th><th>95% limits of agreement</th><th>Gate</th></tr></thead><tbody></tbody></table>
+      <p class="btnrow"><button id="v1-csv" class="ghost-btn">Save pairs (CSV)</button><button id="v1-clear" class="ghost-btn">Delete pairs</button></p>
+      <p class="fine">Pairs are kept in this browser only. Save the CSV to keep them.</p></section>
+    <section class="card"><h2>3 · Real recognition check</h2>
+      <p id="rc-sum" class="fine"></p><ul id="rc-list" class="rc-list"></ul></section>
+    <section class="card"><h2>4 · Movement observations</h2>
+      <p class="btnrow"><button id="obs-build" class="primary small">Build from this session</button><button id="obs-save" class="ghost-btn">Save report (.md)</button></p>
+      <div id="obs-body"><p class="muted">Run movement tests or drills in Motion Lab, then build.</p></div>
+      <p class="fine">Observations only: left/right differences, values against cited normals, form rules not met. Not a diagnosis. If you have pain, injury or concern, see a qualified clinician.</p></section>
+  </section>
+</main>
+
+<!-- ============================================================ BRAIN MAP -->
+<main id="mode-brain" class="mode" hidden>
+  <section class="atlas-stage">
+    <canvas id="brain-canvas"></canvas>
+    <div id="brain-status" class="atlas-status muted">Open this tab to load the brain map.</div>
+    <div id="brain-pick" class="atlas-pick" hidden></div>
+    <div id="brain-labels" class="lm-labels"></div>
+  </section>
+  <aside class="side">
+    <section class="card"><div class="card-h"><h2>Brain map</h2></div>
+      <div class="ctl-grid">
+        <label>Cortex opacity <input id="br-cortex" type="range" min="0" max="100" value="35"></label>
+        <label>Explode <input id="br-explode" type="range" min="0" max="100" value="0"></label>
+        <label>Sagittal cut <input id="br-cx" type="range" min="0" max="1000" value="1000"></label>
+        <label>Axial cut <input id="br-cy" type="range" min="0" max="1000" value="1000"></label>
+        <label>Coronal cut <input id="br-cz" type="range" min="0" max="1000" value="1000"></label>
+        <label>Tract colour <select id="br-color"><option value="dir">Fibre direction (RGB)</option><option value="tract">By tract</option><option value="cat">By family</option></select></label>
+      </div>
+      <div class="cls-tools"><label><input id="br-labels" type="checkbox" checked> Labels</label><label><input id="br-skull" type="checkbox"> Skull</label><label><input id="br-nerves" type="checkbox" checked> Cranial nerves</label><label><input id="br-arteries" type="checkbox"> Cerebral arteries</label><label><input id="br-hemi-l" type="checkbox" checked> Left</label><label><input id="br-hemi-r" type="checkbox" checked> Right</label></div>
+      <div id="br-regions"></div>
+    </section>
+    <section class="card"><div class="card-h"><h2>White-matter tracts</h2><button id="br-tr-none" class="ghost-btn">None</button><button id="br-tr-all" class="ghost-btn">All</button></div>
+      <div id="br-tracts" class="br-tracts"></div>
+    </section>
+    <section class="card"><div class="card-h"><h2>Connectome</h2><select id="br-atlas"><option value="brodmann">Brodmann areas</option><option value="kleist">Kleist areas</option></select></div>
+      <label class="fine">Show connections ≥ <input id="br-thr" type="range" min="5" max="100" value="50"> <span id="br-thr-v" class="mono">0.50</span></label>
+      <div id="br-matrix-wrap"><canvas id="br-matrix" width="560" height="420"></canvas></div>
+      <div id="br-conn" class="fine"></div>
+    </section>
+    <section class="card"><div class="card-h"><h2>Neurochemistry, networks &amp; diagnoses (live)</h2></div><div id="br-nc" class="fine"></div></section>
+    <section class="card"><div class="card-h"><h2>All brain areas: positions</h2></div><div id="br-areas" class="fine"></div></section>
+    <section class="card"><div class="card-h"><h2>Signal pathways: inputs, outputs, feedback loops (live)</h2></div><div id="br-paths" class="fine"></div></section>
+    <section class="card"><div class="card-h"><h2>Spinal cord: segments, roots, tracts</h2></div><div id="br-spinal" class="fine"></div></section>
+    <section class="card"><div class="card-h"><h2>Spinal cord · autonomic nervous system · organs</h2><span class="btnrow"><button id="br-head" class="ghost-btn">Brain view</button><button id="br-body" class="ghost-btn">Whole-body view</button></span></div><div id="br-auto" class="fine"></div></section>
+    <section class="card"><h2>Selected</h2><div id="br-info" class="muted">Click a structure or a tract.</div></section>
+    <section class="card"><p class="fine" id="br-source"></p></section>
+  </aside>
+</main>
+
+<!-- ============================================================ BODY SYSTEMS (molecular) -->
+<main id="mode-molecular" class="mode" hidden>
+  <section class="atlas-stage">
+    <canvas id="mol-canvas"></canvas>
+    <div id="mol-status" class="atlas-status muted">Open this tab to load the body systems model.</div>
+    <div id="mol-pick" class="atlas-pick" hidden></div>
+    <div id="mol-legend" class="mol-legend fine"></div>
+  </section>
+  <aside class="side">
+    <section class="card"><div class="card-h"><h2>Body systems: genes · pathways · tissues</h2><button id="mol-home" class="ghost-btn">Home</button></div>
+      <input id="mol-q" type="search" class="mol-q" placeholder="Search a gene (INS, MYH7, HBB…) or a pathway (glycolysis, muscle contraction…)">
+      <div id="mol-results"></div>
+    </section>
+    <section class="card" id="mol-learn"></section>
+    <section class="card" id="mol-phys"></section>
+    <section class="card"><div id="mol-card" class="fine muted">Pick a system, search, or click a coloured organ. Colours come from the Human Protein Atlas tissue-enriched expression; pathways from Reactome; partners from STRING.</div></section>
+  </aside>
+</main>
+
+<!-- ============================================================ CLINICAL LIBRARY -->
+<main id="mode-clinical" class="mode" hidden>
+  <section class="cl-stage card">
+    <div class="cl-bar"><input id="cl-q" type="search" placeholder="Search a disease, medication, procedure or structure (e.g. femur fracture, metformin, total hip arthroplasty)"><div id="cl-types" class="cl-types"></div></div>
+    <div class="cl-body"><div id="cl-results" class="cl-results"><p class="fine muted">Type at least two letters.</p></div><article id="cl-reader" class="cl-reader"><p class="fine">Pathology, evaluation, treatment, complications, medications and procedures, read verbatim from StatPearls chapters (CC BY-NC-ND 4.0) in the local open library: 4,235 condition, 835 drug, 977 procedure and 817 anatomy chapters. Condition-level education only: nothing here is advice for any patient. Procedure chapters open a surgery sandbox on the 3D model.</p></article></div>
+  </section>
+</main>
+
+<!-- ============================================================ TESTS & LABS -->
+<main id="mode-tests" class="mode" hidden>
+  <section class="cl-stage card">
+    <div class="cl-bar"><input id="ts-q" type="search" placeholder="Search a test, score, questionnaire or lab (e.g. Lachman, CMJ, ferritin, KOOS, calprotectin) or a gene (e.g. CKM)"><button class="ghost-btn" id="ts-map">How they connect</button> <small class="fine" id="ts-count"></small></div>
+    <div id="ts-cats" class="cl-types"></div>
+    <div id="ts-sys" class="ts-sysbar"></div>
+    <div class="cl-body"><ul id="ts-list" class="ts-list"></ul><article id="ts-reader" class="cl-reader"></article></div>
+  </section>
+</main>
+
+<!-- ============================================================ DNA -> PROTEIN -->
+<main id="mode-genome" class="mode" hidden><div id="gn-body"></div></main>
+
+<!-- ============================================================ EXTENSIONS -->
+<main id="mode-ext" class="mode" hidden>
+  <section class="card"><div class="card-h"><h2>Extensions: free medical learning resources</h2></div>
+    <p class="fine">Pathology, radiology, dermatology, histology, anatomy, sports medicine and rehabilitation, labs, drugs, genetics, literature, guidelines and exam learning. Links open each site in your browser; this page stores none of their content. Free to read unless marked otherwise; a "Premium" section lists paid resources worth the cost (links only, nothing copied).</p></section>
+  <div id="ext-body"></div>
+</main>
+
+<!-- ============================================================ 3D ATLAS -->
+<main id="mode-atlas" class="mode" hidden>
+  <section class="atlas-stage">
+    <canvas id="atlas-canvas"></canvas>
+    <div id="atlas-status" class="atlas-status muted">Open this tab to load the reference anatomy.</div>
+    <div id="atlas-pick" class="atlas-pick" hidden></div>
+    <div id="case-pins" class="case-pins"></div>
+    <div id="atlas-lm-labels" class="lm-labels"></div>
+    <div id="atlas-vlabels" class="lm-labels"></div>
+  </section>
+  <aside class="side">
+    <section id="atlas-clinical" class="card clin-card" hidden></section>
+    <section class="card case-card">
+      <div class="card-h"><h2>Case body</h2>
+        <span><label class="fine" style="margin:0">Cases <select id="case-n" aria-label="Number of cases">
+          <option>3</option><option>4</option><option selected>6</option><option>8</option><option>10</option></select></label>
+        <button id="case-new" class="primary small">New case body</button> <button id="case-clear" class="ghost-btn">Clear</button></span></div>
+      <label class="fine"><input id="case-mp" type="checkbox" checked> Only conditions with a MedlinePlus summary</label>
+      <div id="case-legend" class="case-legend"><p class="muted">One body, several random conditions, each numbered and pinned where MeSH places it.</p></div>
+    </section>
+    <section class="card">
+      <div class="card-h"><h2>Disease classes</h2>
+        <span><button id="cls-random" class="primary small">Random condition</button></span></div>
+      <div id="atlas-classes" class="cls-list"></div>
+      <div class="cls-tools">
+        <button id="cls-all" class="ghost-btn">All</button> <button id="cls-none" class="ghost-btn">None</button>
+        <label><input id="cls-ghost" type="checkbox" checked> Ghost other tissue</label>
+        <label><input id="cls-mp" type="checkbox" checked> Only with a MedlinePlus summary</label>
+      </div>
+      <div id="atlas-random-card"></div>
+      <p class="fine">Count = conditions in MeSH · structures on the model. Each class colours the structures its MeSH branch belongs to (BodyParts3D part-of / is-a tree or whole layer; table in tools/anatomy_lab_conditions.py).</p>
+    </section>
+    <section class="card">
+      <h2>View</h2>
+      <div id="atlas-views" class="views"></div>
+    </section>
+    <section class="card">
+      <h2>Layers <small class="muted">outer → inner</small></h2>
+      <div id="atlas-layers"></div>
+      <label class="slider">Peel depth <input id="peel" type="range" min="0" max="6" step="1" value="0"> <b id="peel-val">0</b></label>
+    </section>
+    <section class="card">
+      <h2>Section planes</h2>
+      <label class="slider">Axial <input id="clip-y" type="range" min="0" max="1000" value="1000"></label>
+      <label class="slider">Coronal <input id="clip-z" type="range" min="0" max="1000" value="1000"></label>
+      <label class="slider">Sagittal <input id="clip-x" type="range" min="0" max="1000" value="1000"></label>
+      <p class="fine">Cut planes slice the model the way CT and MRI slice the body (axial, coronal, sagittal). This is a single reference anatomy, not a scan.</p>
+    </section>
+    <section class="card">
+      <div class="card-h"><h2>Dissection table · movement</h2><a class="ghost-btn" href="#lab" id="atlas-to-studio" onclick="if (window.__studio) setTimeout(() => window.__studio.start('Hip abduction / adduction'), 60); else window.__pendingStudio = { base: 'Hip abduction / adduction' };">Open Movement studio</a></div>
+      <p class="fine">The same BodyParts3D body, posed: supine, prone, side-lying, seated, quadruped and more on a plinth or steel dissection table, performing each Training System movement with agonists, synergists, stabilisers and antagonists coloured. Use the Depth control there to dissect layer by layer.</p>
+    </section>
+    <section class="card">
+      <h2>Find a structure</h2>
+      <input id="atlas-search" type="search" placeholder="e.g. femur, deltoid, aorta" autocomplete="off">
+      <ul id="atlas-results" class="results"></ul>
+    </section>
+    <section class="card">
+      <h2>Selected</h2>
+      <div id="atlas-info" class="muted">Click a structure.</div>
+    </section>
+    <p class="fine attrib">3D anatomy: BodyParts3D, © The Database Center for Life Science licensed under CC Attribution 4.0 International. Viewer © this project.</p>
+  </aside>
+</main>
+
+<!-- ============================================================ TRAINING SYSTEM (owner's workbook) -->
+<main id="mode-train" class="mode train" hidden>
+  <nav class="tr-nav" id="tr-nav" aria-label="Training System pages"></nav>
+  <section class="tr-main" id="tr-main"><p class="muted">Loading the Training System…</p></section>
+</main>
+
+<!-- ============================================================ IMAGING -->
+<main id="mode-imaging" class="mode imaging" hidden>
+  <section class="img-wrap">
+    <div class="card diag-note"><h2>Imaging: research models on open datasets</h2>
+      <p>Models trained here on public, de-identified research datasets: X-ray, CT, MRA, MRI, ultrasound and OCT (MedMNIST v3, CC BY 4.0; IXI brain MRI, CC BY-SA 3.0, healthy volunteers). Each result is the real score on that dataset's held-out test split, next to the published benchmark. Images are small (64 px or 64³), so these are research and teaching models, not clinical tools. There is no upload: it does not read your own scans and does not diagnose.</p></div>
+    <div id="img-cards" class="img-cards"><p class="muted">Loading…</p></div>
+    <section class="card"><div id="img-detail"></div><div id="img-gallery" class="img-gallery"></div></section>
+    <p class="fine attrib">Data: MedMNIST v3 (Yang et al., Scientific Data 2023; source datasets cited in data/research_library/reference/imaging/PROVENANCE.md), CC BY 4.0. IXI dataset, brain-development.org, CC BY-SA 3.0.</p>
+  </section>
+</main>
+
+<script type="module" src="/training-4D/js/app.js"></script>
+</body>
+</html>
