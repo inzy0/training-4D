@@ -224,7 +224,7 @@ class Viewer {
     clearTimeout(this._t);
     this._t = setTimeout(async () => {
       const body = { task: this.task, n: this.k, test_index: this.s.i, items: this.items, note: $('#iv-note', this.host).value, context: this.context() };
-      try { const r = await (await fetch('/api/annotations', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) })).json(); $('#iv-saved', this.host).textContent = r.ok ? `Saved ${r.saved} → data/anatomy_lab/annotations/${this.task}/${this.k}.json` : `Not saved: ${r.error}`; }
+      try { const r = await (await fetch('/api/annotations', { method: 'POST', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) })).json(); $('#iv-saved', this.host).textContent = r.ok ? `Saved ${r.saved} → ${r.where || `data/anatomy_lab/annotations/${this.task}/${this.k}.json`}` : `Not saved: ${r.error}`; }
       catch (e) { $('#iv-saved', this.host).textContent = `Not saved: ${e.message}`; }
     }, 400);
   }

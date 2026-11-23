@@ -1,7 +1,7 @@
 // Static-site stand-in for the local server (loaded only on the public GitHub Pages build).
 // Answers the app's /api/... calls from precomputed files in rt/sapi/ (tools/anatomy_lab_static_api.py), using the same
 // search rules as anatomy_lab/server.py, so Clinical, care pathways, the medications library, Body systems and
-// DNA -> Protein work without a server. Writes (notes mirror, custom exercises, annotations, conversions) answer
+// DNA -> Protein work without a server. Imaging labels are kept in this browser (per account, js/accounts.js). Other writes (notes mirror, conversions) answer
 // "offline": on the public site those stay in the visitor's own browser.
 
 const SAPI = new URL('../rt/sapi/', import.meta.url).href;
@@ -100,8 +100,21 @@ async function tsRoute(url, method, init) {
   return json(r.obj, r.code || 200);
 }
 
+// ---- imaging labels: kept in this browser (per account, js/accounts.js), same shape as the local server's files
+const annDb = () => new Promise((res, rej) => { const r = indexedDB.open('meridian-ann', 1); r.onupgradeneeded = () => r.result.createObjectStore('ann'); r.onsuccess = () => res(r.result); r.onerror = () => rej(r.error); });
+async function annGet(k) { const d = await annDb(); return new Promise((res) => { const q = d.transaction('ann').objectStore('ann').get(k); q.onsuccess = () => res(q.result || null); q.onerror = () => res(null); }); }
+async function annPut(k, v) { const d = await annDb(); return new Promise((res, rej) => { const t = d.transaction('ann', 'readwrite'); t.objectStore('ann').put(v, k); t.oncomplete = () => res(); t.onerror = () => rej(t.error); }); }
+
 window.fetch = async (input, init = {}) => {
   const url = new URL(typeof input === 'string' ? input : input.url, location.href);
+  const ann = url.pathname.match(/\/rt\/annotations\/([A-Za-z0-9_-]+)\/(\d+)\.json$/);
+  if (ann) { const v = await annGet(`${ann[1]}/${ann[2]}`); return v ? json(v) : json({ error: 'none' }, 404); }
+  if (/\/api\/annotations$/.test(url.pathname) && (init.method || 'GET').toUpperCase() === 'POST') {
+    try { const b = JSON.parse(init.body || '{}'); if (!/^[A-Za-z0-9_-]+$/.test(b.task || '') || !Number.isInteger(+b.n)) return json({ ok: false, error: 'bad request' }, 400);
+      const saved = new Date().toISOString(); await annPut(`${b.task}/${+b.n}`, { ...b, saved });
+      return json({ ok: true, saved, where: window.__ACCOUNT?.name ? `your account (${window.__ACCOUNT.name}) in this browser` : 'this browser (guest)' });
+    } catch (e) { return json({ ok: false, error: String(e) }, 500); }
+  }
   const m = url.pathname.match(/\/api\/(.+)$/);
   if (!m) return realFetch(input, init);
   const route = m[1], method = (init.method || (typeof input !== 'string' && input.method) || 'GET').toUpperCase();
