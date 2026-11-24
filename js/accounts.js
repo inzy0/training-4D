@@ -11,7 +11,7 @@
 (function () {
   'use strict';
   var ACC = 'mx-accounts', SES = 'mx-session';
-  var LS_RE = /^(ex-custom|learnScore|ts-actor|ts-player|nt-pos|nt-autoconv|eq-presets)$/;
+  var LS_RE = /^(ex-custom|learnScore|ts-actor|ts-player|nt-pos|nt-autoconv|eq-presets|tissue-cards|tissue-rts)$/;
   var DB_RE = /^(meridian-notes|meridian-ts|meridian-ann)$/;
   var DBS = ['meridian-notes', 'meridian-ts', 'meridian-ann'];
   var SP = Storage.prototype, rawGet = SP.getItem, rawSet = SP.setItem, rawDel = SP.removeItem;

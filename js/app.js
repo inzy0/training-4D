@@ -7,7 +7,8 @@ let labLoaded = false;
 let brainLoaded = false;
 
 function setMode(mode) {
-  document.querySelectorAll('.tabs button').forEach((b) => b.setAttribute('aria-selected', String(b.dataset.mode === mode)));
+  const tab = mode === 'tissue' ? 'atlas' : mode; // Tissue, fascia & chains is the second view of the 3D Atlas tab
+  document.querySelectorAll('.tabs button').forEach((b) => b.setAttribute('aria-selected', String(b.dataset.mode === tab)));
   document.querySelectorAll('main.mode').forEach((m) => { m.hidden = m.id !== `mode-${mode}`; });
   if (mode === 'atlas' && !atlasLoaded) {
     atlasLoaded = true;
@@ -32,6 +33,8 @@ function setMode(mode) {
   if (mode === 'tests') import('./tests.js').then((m) => m.startTests()).catch((e) => console.error(e));
   if (mode === 'genome') import('./genome.js').then((m) => m.startGenome()).catch((e) => console.error(e));
   if (mode === 'train') import('./training.js').then((m) => m.startTraining()).catch((e) => { const el = document.querySelector('#tr-main'); if (el) el.innerHTML = `<p class="muted">Training System failed to load: ${e.message}</p>`; console.error(e); });
+  if (mode === 'tissue') import('./tissue.js').then((m) => m.startTissue()).catch((e) => { const el = document.querySelector('#tis-status'); if (el) el.textContent = `Tissue Lab failed to load: ${e.message}`; console.error(e); });
+  if (mode === 'about') import('./about.js').then((m) => m.startAbout()).catch((e) => console.error(e));
   if (mode === 'ext') import('./extensions.js').then((m) => m.startExtensions()).catch((e) => console.error(e));
   if (mode === 'imaging') import('./imaging.js').then((m) => m.startImaging()).catch((e) => console.error(e));
   if (mode === 'diag') {
@@ -43,7 +46,7 @@ function setMode(mode) {
 
 document.querySelectorAll('.tabs button').forEach((b) => b.addEventListener('click', () => setMode(b.dataset.mode)));
 initMirrorUI();
-const MODES = ['mirror', 'lab', 'diag', 'atlas', 'brain', 'molecular', 'clinical', 'tests', 'genome', 'imaging', 'train', 'ext'];
+const MODES = ['mirror', 'lab', 'diag', 'atlas', 'tissue', 'brain', 'molecular', 'clinical', 'tests', 'genome', 'imaging', 'train', 'ext', 'about'];
 let saved = 'mirror';
 try { saved = localStorage.getItem('anatomy-lab-mode') || 'mirror'; } catch { /* ignore */ }
 const fromHash = () => MODES.find((m) => m === location.hash.slice(1).split('/')[0]);

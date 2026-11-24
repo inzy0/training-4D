@@ -485,8 +485,8 @@ b.good { color: var(--ok); } b.poor { color: #ff9b9b; }
 .ext-chips { display: flex; flex-wrap: wrap; gap: 6px; }
 .ext-chip { border: 1px solid rgba(76,201,240,.5); border-radius: 999px; padding: 3px 10px; font-size: 11px; text-decoration: none; }
 .ext-chip:hover { background: rgba(76,201,240,.15); }
-#mode-tests, #mode-ext { display: block; padding: 16px; }
-#mode-tests[hidden], #mode-ext[hidden] { display: none; }
+#mode-tests, #mode-ext, #mode-about { display: block; padding: 16px; }
+#mode-tests[hidden], #mode-ext[hidden], #mode-about[hidden] { display: none; }
 #mode-tests .cl-bar { display: flex; gap: 8px; align-items: center; } #mode-tests .cl-bar input { flex: 1; } #mode-tests .cl-bar .ghost-btn { width: auto; white-space: nowrap; }
 
 .ts-em { font-size: 9px; border: 1px solid #ff9e00; color: #ff9e00; border-radius: 999px; padding: 0 5px; vertical-align: middle; letter-spacing: 0; }
@@ -582,3 +582,41 @@ b.good { color: var(--ok); } b.poor { color: #ff9b9b; }
 .cap-clips small { display: block; color: var(--muted); }
 #cap-rec.recording { background: linear-gradient(135deg, #ff4d6d, #ff8fa3) !important; animation: recpulse 1.2s ease-in-out infinite; }
 @keyframes recpulse { 50% { filter: brightness(1.25); } }
+
+/* ---------------------------------------------------------------- Tissue Lab 4D (js/tissue.js) */
+.tis-stage { position: relative; border-radius: 18px; overflow: hidden; border: 1px solid var(--line); min-height: 72vh; background: radial-gradient(900px 600px at 50% 35%, #14294a 0%, #070f1f 55%, #03070f 100%); }
+#tis-canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; }
+.tis-side .tis-tabs { flex-wrap: wrap; }
+.tis-c { width: 100%; background: rgba(0, 0, 0, 0.25); border-radius: 8px; margin-top: 6px; }
+.tis-side .big { font-size: 20px; margin: 6px 0; }
+.bk h3 { margin: 14px 0 6px; font-size: 14px; color: var(--accent); text-transform: none; letter-spacing: 0; }
+.bk p, .bk li { font-size: 13px; line-height: 1.55; }
+.bk .code, pre.code { background: rgba(0, 0, 0, 0.35); padding: 8px; border-radius: 8px; overflow: auto; font-size: 12px; }
+.gr { display: inline-block; font-size: 10px; font-weight: 700; padding: 0 5px; border-radius: 4px; background: color-mix(in srgb, var(--accent2) 30%, transparent); color: #fff; }
+.flash h3 { font-size: 16px; text-transform: none; letter-spacing: 0; margin: 6px 0 10px; }
+mark { background: rgba(255, 209, 102, 0.35); color: inherit; }
+
+.atlas-views { position: absolute; top: 12px; left: 50%; transform: translateX(-50%); z-index: 6; display: flex; gap: 4px; padding: 4px; border-radius: 999px; background: rgba(4, 7, 18, 0.7); border: 1px solid var(--line); backdrop-filter: blur(8px); }
+.atlas-views .chip-btn { text-decoration: none; }
+.chain-ol { margin: 6px 0; padding-left: 20px; } .chain-ol li { margin: 3px 0; }
+blockquote.q { margin: 8px 0; padding: 6px 10px; border-left: 3px solid var(--accent2); background: rgba(255, 255, 255, 0.03); font-size: 12.5px; }
+blockquote.q footer { font-size: 11px; color: var(--muted); margin-top: 4px; }
+
+.unv { display: inline-block; margin-left: 6px; font-size: 10px; font-weight: 700; padding: 0 6px; border-radius: 4px; background: rgba(255, 179, 107, 0.2); color: #ffb36b; border: 1px solid rgba(255, 179, 107, 0.5); }
+/* fascial chains: legend, per-transition evidence, station hold */
+.ch-legend { display: flex; flex-wrap: wrap; gap: 4px 12px; margin: 6px 0; font-size: 11px; color: var(--muted, #9aa); }
+.ch-lg { display: inline-flex; align-items: center; gap: 5px; } .ch-lg i { width: 18px; height: 5px; border-radius: 3px; display: inline-block; }
+.ch-opts { gap: 10px; font-size: 12px; } .ch-opts label { display: inline-flex; align-items: center; gap: 4px; }
+.ch-steps { list-style: none; padding-left: 0; counter-reset: st; }
+.ch-steps .ch-node { counter-increment: st; cursor: pointer; padding: 4px 8px; border-radius: 8px; border: 1px solid transparent; }
+.ch-steps .ch-node::before { content: counter(st) ". "; color: #ff3df2; font-weight: 700; }
+.ch-steps .ch-node:hover, .ch-steps .ch-node.on { border-color: #ff3df2; background: rgba(255, 61, 242, .08); }
+.ch-steps .ch-link { margin: 0 0 0 14px; padding: 2px 0 2px 10px; border-left: 3px solid var(--c); font-size: 11.5px; color: var(--muted, #9aa); }
+.ch-steps .ch-link b { color: var(--c); margin-right: 4px; }
+.pill.uniq { background: linear-gradient(90deg,#ff3df2,#4da3ff); color:#fff; border:0; font-weight:700; letter-spacing:.04em; }
+/* About tab */
+.about { max-width: 980px; margin: 0 auto; display: grid; gap: 14px; padding: 14px; }
+.about-hero { display: flex; gap: 18px; align-items: center; }
+.about-photo { width: 120px; height: 120px; border-radius: 50%; object-fit: cover; border: 3px solid transparent; background: linear-gradient(#0b1020, #0b1020) padding-box, linear-gradient(135deg, #ff3df2, #4da3ff, #19e6a5) border-box; }
+.about .credits li { margin: 6px 0; font-size: 13px; line-height: 1.5; }
+@media (max-width: 600px) { .about-hero { flex-direction: column; text-align: center; } }

@@ -17,13 +17,11 @@
 </script>
 <script src="/training-4D/js/accounts.js"></script>
 <script>window.__STATIC_SITE = true; try { if (localStorage.getItem('nt-autoconv') === null) localStorage.setItem('nt-autoconv', '0'); } catch (e) {}
-(function(){var ok=/^#(train|lab)(\/|$)/;var fix=function(){if(!ok.test(location.hash)){history.replaceState(null,'','#train');}};fix();try{var m=localStorage.getItem('anatomy-lab-mode');if(!/^(train|lab)$/.test(m||''))localStorage.setItem('anatomy-lab-mode','train');}catch(e){}window.addEventListener('hashchange',function(){if(!ok.test(location.hash)){location.hash='#train';}});})();</script>
+(function(){var ok=/^#(train|lab|about)(\/|$)/;var fix=function(){if(!ok.test(location.hash)){history.replaceState(null,'','#train');}};fix();try{var m=localStorage.getItem('anatomy-lab-mode');if(!/^(train|lab|about)$/.test(m||''))localStorage.setItem('anatomy-lab-mode','train');}catch(e){}window.addEventListener('hashchange',function(){if(!ok.test(location.hash)){location.hash='#train';}});})();</script>
 <script type="module" src="/training-4D/js/static_api.js"></script>
-<style>#static-banner { background: #2a1d05; color: #ffd166; font: 12px system-ui; padding: 6px 14px; border-bottom: 1px solid #ffd16655; } #static-banner a { color: #ffd166; }
-.tabs button:not([data-mode=train],[data-mode=lab]){display:none!important}</style>
+<style>.tabs button:not([data-mode=train]):not([data-mode=lab]):not([data-mode=about]){display:none!important}</style>
 </head>
 <body>
-<div id="static-banner">Meridian Training 4D + Motion Lab 4D, public copy: free, non-commercial, for education only; not a diagnostic device and not medical advice. Training 4D runs in your browser on a privacy-cleaned copy of the training workbook; your own profile and athletes stay in your browser. Motion Lab 4D: your camera stays on your device; forces and moments are estimates from mechanics, not measurements. <a href="/training-4D/CREDITS.html">Credits and licences</a> · <a href="https://inzy0.github.io/meridian-4D/">Full Meridian 4D site</a>.</div>
 <header class="hdr">
   <div class="brand">
     <svg class="mark" viewBox="0 0 48 48" aria-hidden="true">
@@ -50,6 +48,7 @@
     <button role="tab" data-mode="imaging" aria-selected="false">Imaging</button>
     <button role="tab" data-mode="train" aria-selected="false">Training 4D</button>
     <button role="tab" data-mode="ext" aria-selected="false">Extensions</button>
+    <button role="tab" data-mode="about" aria-selected="false">About</button>
   </nav>
   <div class="chips">
     <a class="author" href="https://www.linkedin.com/in/dr-inzamam-shaikh-pt-05059a199/" target="_blank" rel="noopener noreferrer" title="Inzamam Shaikh on LinkedIn">
@@ -373,6 +372,13 @@
 <main id="mode-genome" class="mode" hidden><div id="gn-body"></div></main>
 
 <!-- ============================================================ EXTENSIONS -->
+<!-- ============================================================ TISSUE LAB 4D (js/tissue.js) -->
+<main id="mode-tissue" class="mode" hidden></main>
+
+<main id="mode-about" class="mode" hidden>
+  <div id="about-body" class="about"></div>
+</main>
+
 <main id="mode-ext" class="mode" hidden>
   <section class="card"><div class="card-h"><h2>Extensions: free medical learning resources</h2></div>
     <p class="fine">Pathology, radiology, dermatology, histology, anatomy, sports medicine and rehabilitation, labs, drugs, genetics, literature, guidelines and exam learning. Links open each site in your browser; this page stores none of their content. Free to read unless marked otherwise; a "Premium" section lists paid resources worth the cost (links only, nothing copied).</p></section>
@@ -382,6 +388,7 @@
 <!-- ============================================================ 3D ATLAS -->
 <main id="mode-atlas" class="mode" hidden>
   <section class="atlas-stage">
+    <div class="atlas-views"><a class="chip-btn on" href="#atlas">Structures</a><a class="chip-btn" href="#tissue">Tissue, fascia &amp; chains</a></div>
     <canvas id="atlas-canvas"></canvas>
     <div id="atlas-status" class="atlas-status muted">Open this tab to load the reference anatomy.</div>
     <div id="atlas-pick" class="atlas-pick" hidden></div>

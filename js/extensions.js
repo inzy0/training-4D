@@ -95,6 +95,63 @@ export const EXT = [
   ['S&C bodies & coaching standards', 'IWF (International Weightlifting Federation)', 'https://iwf.sport/', 'Weightlifting rules (TCRR) and technical standards; used for the Motion Lab barbell specs.', 'free', null, 'terms: see site (site refuses automated checks)'],
 ];
 
+// Added 2026-11-24. Every URL answered an automated check that day (generic client name, no browser spoofing); descriptions
+// follow each site's own title and description. Sites that refused or did not answer were left out.
+const G_SUP = 'Supplement testing & anti-doping (Informed Sport and similar)';
+const G_EXT = 'Extreme & adventure sports training';
+const G_UNI = 'Unique: international learning';
+EXT.push(
+  [G_SUP, 'INFORMED (LGC) programmes', 'https://www.wetestyoutrust.com/', 'Hub of the INFORMED certification programmes: independent testing of supplements, ingredients and manufacturing sites for banned and unsafe substances.', 'free to search', ddg('wetestyoutrust.com'), 'terms: see site'],
+  [G_SUP, 'Informed Sport', 'https://sport.wetestyoutrust.com/', 'Sports-supplement certification: every batch of a certified product is tested for banned substances; search certified products.', 'free to search', ddg('sport.wetestyoutrust.com'), 'terms: see site', 'branch of INFORMED'],
+  [G_SUP, 'Informed Choice', 'https://choice.wetestyoutrust.com/', 'Retail monitoring and quality-assurance testing for dietary supplements.', 'free to search', null, 'terms: see site', 'branch of INFORMED'],
+  [G_SUP, 'Informed Protein', 'https://protein.wetestyoutrust.com/', 'Independent verification of protein product claims.', 'free to search', null, 'terms: see site', 'branch of INFORMED'],
+  [G_SUP, 'Informed Ingredient', 'https://ingredient.wetestyoutrust.com/', 'Testing that nutrition-product ingredients are made to quality standards.', 'free to search', null, 'terms: see site', 'branch of INFORMED'],
+  [G_SUP, 'NSF Certified for Sport', 'https://www.nsfsport.com/', 'Certification of sports supplements for banned substances (used by many US leagues).', 'free to search', ddg('nsfsport.com'), 'terms: see site'],
+  [G_SUP, 'BSCG', 'https://www.bscg.org/', 'Dietary-supplement certification, testing and compliance.', 'free to search', ddg('bscg.org'), 'terms: see site'],
+  [G_SUP, 'Cologne List (Kölner Liste)', 'https://www.koelnerliste.com/en/', 'Supplements tested for doping substances; the list states it is not a recommendation to use any supplement.', 'free', ddg('koelnerliste.com'), 'terms: see site'],
+  [G_SUP, 'USADA Supplement Connect', 'https://www.usada.org/substances/supplement-connect/', 'US Anti-Doping Agency guidance on supplement risk and third-party certification.', 'free', ddg('usada.org'), 'terms: see site'],
+  [G_SUP, 'TrueSport (USADA)', 'https://truesport.org/', 'Free sport-education programmes and materials for coaches, parents and athletes.', 'free', ddg('truesport.org'), 'terms: see site'],
+  [G_SUP, 'UK Anti-Doping (UKAD)', 'https://www.ukad.org.uk/', 'Clean-sport rules, medicine checks and resources for athletes, practitioners, coaches and parents.', 'free', ddg('ukad.org.uk'), 'terms: see site'],
+  [G_SUP, 'Operation Supplement Safety (US DoD)', 'https://www.opss.org/', 'Department of Defense dietary-supplement resource for the military community and health-care providers.', 'free', ddg('opss.org'), 'US government site'],
+  [G_SUP, 'AIS Sports Supplement Framework', 'https://www.ausport.gov.au/ais/nutrition/supplements', 'Australian Institute of Sport supplement classification and fact sheets.', 'free', ddg('ausport.gov.au'), 'terms: see site'],
+
+  [G_EXT, 'Lattice Training', 'https://latticetraining.com/', 'Climbing training plans and assessments built on measured data.', 'free articles + paid', ddg('latticetraining.com'), 'terms: see site'],
+  [G_EXT, 'TrainingBeta', 'https://www.trainingbeta.com/', 'Rock-climbing training blog, podcast and programmes.', 'free articles + paid', wp('https://www.trainingbeta.com'), 'terms: see site'],
+  [G_EXT, 'Training for Climbing (Eric Hörst)', 'https://trainingforclimbing.com/', 'Climbing-specific strength, finger training and technique.', 'free articles + paid', ddg('trainingforclimbing.com'), 'terms: see site'],
+  [G_EXT, 'The Climbing Doctor', 'https://theclimbingdoctor.com/', 'Climbing injury prevention and rehabilitation (fingers, shoulders, elbows).', 'free articles + paid', ddg('theclimbingdoctor.com'), 'terms: see site'],
+  [G_EXT, 'Surf Strength Coach', 'https://surfstrengthcoach.com/', 'Strength, mobility and conditioning programmes for surfing.', 'free articles + paid', ddg('surfstrengthcoach.com'), 'terms: see site'],
+  [G_EXT, 'Mountain Tactical Institute', 'https://mtntactical.com/', 'Mission-direct programming for mountain and tactical athletes (ski, climb, rescue, military).', 'free articles + paid', ddg('mtntactical.com'), 'terms: see site'],
+  [G_EXT, 'World Climbing (IFSC)', 'https://www.worldclimbing.com/', 'Sport-climbing federation: rules, formats and competition standards.', 'free', ddg('worldclimbing.com'), 'terms: see site'],
+  [G_EXT, 'FIS (ski and snowboard)', 'https://www.fis-ski.com/', 'International Ski and Snowboard Federation: alpine, freestyle, snowboard, ski jumping rules.', 'free', ddg('fis-ski.com'), 'terms: see site'],
+  [G_EXT, 'International Surfing Association', 'https://isasurf.org/', 'Surfing’s world governing body; coaching and judging courses.', 'free', ddg('isasurf.org'), 'terms: see site'],
+  [G_EXT, 'British Mountaineering Council', 'https://www.thebmc.co.uk/en', 'Climbing, hill-walking and mountaineering skills, safety and training advice.', 'free', ddg('thebmc.co.uk'), 'terms: see site'],
+  [G_EXT, 'Mountain Training (UK)', 'https://www.mountain-training.org/', 'Walking, climbing and mountaineering leader qualifications and skills.', 'free', ddg('mountain-training.org'), 'terms: see site'],
+  [G_EXT, 'IFMGA (mountain guides)', 'https://ifmga.net/', 'International standard for mountain-guide training.', 'free', null, 'terms: see site'],
+  [G_EXT, 'UIAA Medical Commission papers', 'https://www.theuiaa.org/mountain-medicine/medical-advice/', 'Mountain-medicine recommendations (altitude, expeditions, women and children, drugs), translated into several languages.', 'free', ddg('theuiaa.org'), 'terms: see site'],
+  [G_EXT, 'Wilderness Medical Society', 'https://wms.org/', 'Wilderness-medicine education, practice guidelines and certification.', 'free articles + paid', ddg('wms.org'), 'terms: see site'],
+  [G_EXT, 'Altitude.org', 'https://www.altitude.org/', 'High-altitude physiology and illness explained.', 'free', ddg('altitude.org'), 'terms: see site'],
+  [G_EXT, 'USPA (skydiving)', 'https://www.uspa.org/', 'Skydiving training progression, ratings and safety.', 'free', ddg('uspa.org'), 'terms: see site'],
+  [G_EXT, 'Parkour Earth', 'https://www.parkour.earth/', 'International parkour federation: coaching and safety.', 'free', null, 'terms: see site'],
+
+  [G_UNI, 'Aspetar Sports Medicine Journal', 'https://journal.aspetar.com/en/home', 'Free sports-medicine journal from Qatar’s orthopaedic and sports-medicine hospital; practical, clinician-written.', 'free', ddg('journal.aspetar.com'), 'terms: see site', 'Unique'],
+  [G_UNI, 'PEDro', 'https://pedro.org.au/', 'Every trial, review and guideline on physiotherapy interventions, rated for quality; in many languages.', 'free', ddg('pedro.org.au'), 'terms: see site', 'Unique'],
+  [G_UNI, 'PhysiotherapyExercises.com', 'https://www.physiotherapyexercises.com/', 'Free exercise-prescription library with illustrated handouts, built for low-resource settings and translated widely.', 'free', ddg('physiotherapyexercises.com'), 'terms: see site', 'Unique'],
+  [G_UNI, 'Sportscience (sportsci.org)', 'https://www.sportsci.org/', 'Will Hopkins’ resources on research design and statistics for sport and exercise.', 'free', ddg('sportsci.org'), 'terms: see site', 'Unique'],
+  [G_UNI, 'Instant Anatomy', 'https://www.instantanatomy.net/', 'Free anatomy diagrams, lectures, podcasts and MCQs by region.', 'free', ddg('instantanatomy.net'), 'terms: see site', 'Unique'],
+  [G_UNI, 'TeachMePhysiology', 'https://teachmephysiology.com/', 'Concise illustrated physiology for students.', 'free', ddg('teachmephysiology.com'), 'terms: see site', 'Unique'],
+  [G_UNI, 'OrthopaedicsOne', 'https://www.orthopaedicsone.com/', 'Collaborative orthopaedic knowledge network for musculoskeletal professionals.', 'free', ddg('orthopaedicsone.com'), 'terms: see site', 'Unique'],
+  [G_UNI, 'BJSM blog', 'https://blogs.bmj.com/bjsm/', 'Sport-and-exercise-medicine commentary and summaries of new evidence.', 'free', ddg('blogs.bmj.com/bjsm'), 'terms: see site', 'Unique'],
+  [G_UNI, 'Clinical Sports Medicine (Brukner & Khan)', 'https://clinicalsportsmedicine.com/', 'Companion site of the textbook used in many countries.', 'free site, paid book', null, 'terms: see site', 'Unique'],
+  [G_UNI, 'Athlete365 (IOC)', 'https://www.olympics.com/athlete365', 'IOC learning for athletes: mental health, safeguarding, career, clean sport.', 'free', null, 'terms: see site', 'Unique'],
+  [G_UNI, 'IPC classification', 'https://www.paralympic.org/classification', 'How Para sport classifies athletes by impairment; the base for inclusive training.', 'free', null, 'terms: see site', 'Unique'],
+  [G_UNI, 'European College of Sport Science', 'https://sport-science.org/', 'Sport-science congresses, journal and position statements.', 'free + membership', null, 'terms: see site', 'Unique'],
+  [G_UNI, 'Sports Medicine Australia', 'https://sma.org.au/', 'Multi-disciplinary sports-medicine body; injury-prevention and safety resources.', 'free', ddg('sma.org.au'), 'terms: see site', 'Unique'],
+  [G_UNI, 'NATA (athletic trainers)', 'https://www.nata.org/', 'Professional body for athletic trainers; position statements.', 'free + membership', ddg('nata.org'), 'terms: see site', 'Unique'],
+  [G_UNI, 'NHS e-Learning for Healthcare', 'https://portal.e-lfh.org.uk/', 'NHS England e-learning hub across health topics.', 'free (registration)', null, 'terms: see site', 'Unique'],
+  [G_UNI, 'WHO physical activity guidelines', 'https://www.who.int/publications/i/item/9789240015128', 'WHO guidelines on physical activity and sedentary behaviour, in several languages.', 'free', null, 'licence per document', 'Unique'],
+  [G_UNI, 'OpenSim Creator', 'https://www.opensimcreator.com/', 'Free desktop tool for building and editing OpenSim musculoskeletal models.', 'free', null, 'terms: see site', 'Unique'],
+);
+
 // Paid / subscription resources widely regarded as worth the cost. Links only: their content is licensed per
 // subscriber and is never copied into this app. "paid" = subscription; "institutional" = usually via a hospital
 // or university licence. Prices and plans change; check each site.
@@ -137,7 +194,7 @@ export function startExtensions() {
   host.innerHTML = `<div class="ext-search"><input id="ext-q" type="search" placeholder="Search a term across every resource (e.g. ferritin, ACL tear, Lachman, psoriasis)" autocomplete="off"><span class="fine">Opens each site's own search in a new tab. Nothing is sent anywhere until you click a link.</span></div>
     <div id="ext-hits"></div>
     ${groups.map((g) => `<section class="card"><div class="card-h"><h2>${esc(g)}</h2></div><div class="ext-grid">${EXT.filter((e) => e[0] === g).map((e) => `
-      <div class="ext-card"><a href="${esc(e[2])}" target="_blank" rel="noopener noreferrer"><b>${esc(e[1])}</b></a>
+      <div class="ext-card"><a href="${esc(e[2])}" target="_blank" rel="noopener noreferrer"><b>${esc(e[1])}</b></a>${e[7] ? ` <span class="pill ${e[7] === 'Unique' ? 'uniq' : ''}">${esc(e[7])}</span>` : ''}
         <p class="fine">${esc(e[3])}</p><p class="fine"><span class="ext-acc ${e[4] === 'free' ? 'ok' : ''}">${esc(e[4])}</span> · ${esc(e[6])}${e[5] ? '' : ' · no search link'}</p></div>`).join('')}</div></section>`).join('')}
     <p class="fine cite">Checked on 2026-11-22: DermNet (images CC BY-NC-ND; terms ban automated harvesting), HistologyGuide, WebPath and the Rehabilitation Measures Database (all rights reserved, personal use), MedlinePlus (medical-test pages public domain). PathologyOutlines, Radiopaedia and Physiopedia did not serve their terms pages to the check. That is why these appear as links and none of their content is stored here. "Free" is what the site states today; sites can change their terms.</p>`;
   let tm = null;
