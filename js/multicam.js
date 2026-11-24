@@ -18,7 +18,9 @@
 import { FilesetResolver, PoseLandmarker } from '/training-4D/rt/vendor/mediapipe/vision_bundle.mjs';
 
 const cams = [];            // { id, label, video, lm, res, t, n, fps, q, locked, resid, used }
-let fileset = null, modelFile = 'pose_landmarker_full.task';
+let fileset = null, modelFile = 'pose_landmarker_full.task', minGapMs = 0; // minGapMs: per-camera detection cap (low-power PCs)
+export const mcEvents = new EventTarget(); // 'change' when a camera is added, removed or lost
+export function setExtraCameraRate(fps) { minGapMs = fps > 0 ? 1000 / fps : 0; }
 
 export const multicam = { cams, get active() { return cams.length > 0; } };
 
@@ -32,17 +34,40 @@ export async function addCamera(deviceId, label) {
   if (cams.length >= 3) throw new Error('Up to 3 extra cameras (4 in total)');
   if (cams.some((c) => c.id === deviceId)) return;
   fileset ||= await FilesetResolver.forVisionTasks('/training-4D/rt/vendor/mediapipe/wasm');
-  const lm = await PoseLandmarker.createFromOptions(fileset, { baseOptions: { modelAssetPath: `/training-4D/rt/models/${modelFile}`, delegate: 'GPU' }, runningMode: 'VIDEO', numPoses: 1 });
-  const stream = await navigator.mediaDevices.getUserMedia({ video: { deviceId: { exact: deviceId }, width: { ideal: 1280 }, height: { ideal: 720 } }, audio: false });
+  // camera first (fails fast if the device is busy or gone), then the detector: GPU, falling back to CPU
+  let stream;
+  try { stream = await navigator.mediaDevices.getUserMedia({ video: { deviceId: { exact: deviceId }, width: { ideal: 1280 }, height: { ideal: 720 } }, audio: false }); }
+  catch (e) { throw new Error(`${label}: ${e.name === 'NotReadableError' ? 'camera is busy (used by another app or tab)' : e.name === 'OverconstrainedError' ? 'camera not found' : e.message}`); }
+  let lm, delegate = 'GPU';
+  try { lm = await PoseLandmarker.createFromOptions(fileset, { baseOptions: { modelAssetPath: `/training-4D/rt/models/${modelFile}`, delegate }, runningMode: 'VIDEO', numPoses: 1 }); }
+  catch { delegate = 'CPU'; lm = await PoseLandmarker.createFromOptions(fileset, { baseOptions: { modelAssetPath: `/training-4D/rt/models/${modelFile}`, delegate }, runningMode: 'VIDEO', numPoses: 1 }); }
   const video = document.createElement('video'); video.muted = true; video.playsInline = true; video.srcObject = stream; await video.play();
-  const c = { id: deviceId, label, video, lm, res: null, t: 0, lastVT: -1, n: 0, fpsT: performance.now(), fps: 0, q: null, locked: null, resid: null, used: 0, capT: null, fresh: false, lag: null };
+  const c = { id: deviceId, label, video, lm, delegate, res: null, t: 0, lastVT: -1, n: 0, fpsT: performance.now(), fps: 0, q: null, locked: null, resid: null, used: 0, capT: null, fresh: false, lag: null, hist: [], err: null };
+  stream.getVideoTracks()[0].addEventListener('ended', () => { c.err = 'disconnected'; removeCamera(deviceId); });
   // record each new camera frame's capture time, so detections can be matched to the primary frame in time
   if (video.requestVideoFrameCallback) { const cb = (now, meta) => { c.capT = meta.captureTime || meta.expectedDisplayTime || now; c.fresh = true; if (cams.includes(c)) video.requestVideoFrameCallback(cb); }; video.requestVideoFrameCallback(cb); }
-  cams.push(c);
+  cams.push(c); mcEvents.dispatchEvent(new Event('change'));
 }
 export function removeCamera(deviceId) {
   const i = cams.findIndex((c) => c.id === deviceId); if (i < 0) return;
-  const c = cams[i]; c.video.srcObject?.getTracks().forEach((tr) => tr.stop()); c.lm.close?.(); cams.splice(i, 1);
+  const c = cams[i]; c.video.srcObject?.getTracks().forEach((tr) => tr.stop()); try { c.lm.close?.(); } catch { /* already closed */ } cams.splice(i, 1); mcEvents.dispatchEvent(new Event('change'));
+}
+
+// Calibration: stand still where every camera sees you; for `ms` the per-frame rotations are averaged (sign-aligned
+// quaternion mean), then locked. Reported per camera: frames used, joints, and the disagreement with the primary after
+// alignment (median and 90th percentile, mm) - a consistency measure between cameras, not an accuracy against ground truth.
+export function calibrate(ms = 3000) {
+  cams.forEach((c) => { c.locked = null; c.cal = { acc: [0, 0, 0, 0], n: 0, res: [] }; });
+  return new Promise((done) => setTimeout(() => {
+    const out = cams.map((c) => {
+      const k = c.cal; c.cal = null;
+      if (!k || k.n < 5) return { id: c.id, label: c.label, ok: false, frames: k ? k.n : 0, note: 'not enough frames where this camera and the primary both saw at least 6 joints clearly' };
+      const n = Math.hypot(...k.acc); c.locked = k.acc.map((x) => x / n); c.q = c.locked.slice();
+      const r = k.res.slice().sort((a, b) => a - b), med = r[Math.floor(r.length / 2)], p90 = r[Math.floor(r.length * 0.9)];
+      return { id: c.id, label: c.label, ok: true, frames: k.n, median_mm: med, p90_mm: p90, joints: c.used };
+    });
+    mcEvents.dispatchEvent(new Event('change')); done(out);
+  }, ms));
 }
 // freeze each camera's rotation (average of the recent estimates): do it while standing still, fully in view of every camera
 export function lockAlignment(on = true) { cams.forEach((c) => { c.locked = on && c.q ? c.q.slice() : null; }); }
@@ -55,7 +80,7 @@ export function fusePose(primary, now) {
   const due = cams.length > 1 ? [cams[rr++ % cams.length]] : cams;
   for (const c of due) {
     const fresh = c.video.requestVideoFrameCallback ? c.fresh : c.video.currentTime !== c.lastVT;
-    if (c.video.readyState >= 2 && fresh) {
+    if (c.video.readyState >= 2 && fresh && now - c.t >= minGapMs) {
       c.lastVT = c.video.currentTime; c.fresh = false;
       try { c.res = c.lm.detectForVideo(c.video, now); c.t = now; c.n++; c.lag = c.capT != null ? performance.now() - c.capT : null; } catch { /* skip frame */ }
     }
@@ -73,6 +98,7 @@ export function fusePose(primary, now) {
     if (pairs.length >= 6) {
       const qn = horn(pairs.map((i) => [cw[i].x, cw[i].y, cw[i].z]), pairs.map((i) => [pw[i].x, pw[i].y, pw[i].z]));
       c.q = c.q ? slerp(c.q, qn, 0.15) : qn;
+      if (c.cal) { const s = c.cal.n && (c.cal.acc[0] * qn[0] + c.cal.acc[1] * qn[1] + c.cal.acc[2] * qn[2] + c.cal.acc[3] * qn[3]) < 0 ? -1 : 1; qn.forEach((x, j) => { c.cal.acc[j] += s * x; }); c.cal.n++; }
     }
     const q = c.locked || c.q; if (!q) continue;
     let se = 0, ne = 0;
@@ -83,6 +109,7 @@ export function fusePose(primary, now) {
       if (pv(i) > 0.6 && w > 0.6) { se += (r[0] - pw[i].x) ** 2 + (r[1] - pw[i].y) ** 2 + (r[2] - pw[i].z) ** 2; ne++; }
     }
     c.resid = ne ? Math.sqrt(se / ne) * 1000 : null;
+    if (c.resid != null) { c.hist.push(c.resid); if (c.hist.length > 90) c.hist.shift(); if (c.cal) c.cal.res.push(c.resid); }
   }
   if (!cams.some((c) => c.used)) return primary;
   const fw = sum.map((s, i) => (s[3] > 0 ? { x: s[0] / s[3], y: s[1] / s[3], z: s[2] / s[3], visibility: vis[i] } : { ...pw[i] }));

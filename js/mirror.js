@@ -49,6 +49,7 @@ export const PERF = {
   accuracy: { label: 'Max accuracy', pose: 'heavy', face: 1, hands: 1, res: [1280, 720] },
   balanced: { label: 'Balanced', pose: 'full', face: 2, hands: 1, res: [1280, 720] },
   speed: { label: 'Max speed', pose: 'lite', face: 3, hands: 2, res: [960, 540] },
+  eco: { label: 'Low-power PC', pose: 'lite', face: 6, hands: 4, res: [640, 360] },
 };
 let perfMode = (() => { try { return localStorage.getItem('perfMode') || 'balanced'; } catch { return 'balanced'; } })();
 export function getPerfMode() { return perfMode; }

@@ -88,8 +88,9 @@ async function startMotionLabInner() {
   const camera = new THREE.PerspectiveCamera(30, 1, 0.01, 50);
   const controls = new OrbitControls(camera, canvas); controls.enableDamping = true;
   Object.assign(L, { renderer, scene, camera, controls });
-  const resize = () => { const r = canvas.parentElement.getBoundingClientRect(); renderer.setSize(r.width, r.height, false); camera.aspect = r.width / r.height; camera.updateProjectionMatrix(); };
-  new ResizeObserver(resize).observe(canvas.parentElement); resize();
+  // sized to the canvas itself (the Camera studio layouts give it half the stage, or an inset)
+  const resize = () => { const r = canvas.getBoundingClientRect(); if (r.width < 2 || r.height < 2) return; renderer.setSize(r.width, r.height, false); camera.aspect = r.width / r.height; camera.updateProjectionMatrix(); };
+  new ResizeObserver(resize).observe(canvas); resize();
 
   try { L.atlas = await loadAtlas((m) => { status.textContent = m; }); } catch (e) { status.textContent = e.message; return; }
   status.textContent = 'Computing joint centres and bony landmarks…';
@@ -107,6 +108,7 @@ async function startMotionLabInner() {
   renderAudit();
   import('./movement_studio.js').then((m) => m.initStudio()).catch((e) => console.error('movement studio', e));
   import('./equipment.js').then((m) => m.initEquipment()).catch((e) => console.error('equipment', e));
+  import('./lab_capture.js').then((m) => m.initCapture()).catch((e) => console.error('camera studio', e));
   status.textContent = `${L.rig.segs.size} rigid segments · ${Object.keys(L.rig.J).length} joint centres · ${Object.keys(L.rig.LM).length} bony landmarks. Start the camera, or press Demo.`;
   subscribeFrames(onFrame);
   renderer.setAnimationLoop(tick);

@@ -558,3 +558,27 @@ b.good { color: var(--ok); } b.poor { color: #ff9b9b; }
 .eq-specs td { vertical-align: top; }
 .eq-lib { display: flex; flex-wrap: wrap; gap: 4px; max-height: 160px; overflow: auto; }
 .eq-lib .chip { font-size: 11px; padding: 2px 8px; border-radius: 10px; border: 1px solid #2a4d7a; background: transparent; color: inherit; cursor: pointer; }
+
+/* ---------------------------------------------------------------- Motion Lab camera studio (js/lab_capture.js) */
+#lab-ov { position: absolute; inset: 0; z-index: 5; pointer-events: none; }
+#lab-grid { position: absolute; inset: 0; z-index: 0; display: none; pointer-events: none; }
+.lab-cam.no-mirror { transform: none !important; }
+.lab-stage.ly-split .lab-cam, .lab-stage.ly-campip .lab-cam, .lab-stage.ly-cam .lab-cam { left: 0; top: 0; right: auto; bottom: 0; height: 100%; min-width: 0; border-radius: 0; border: 0; object-fit: contain; }
+.lab-stage.ly-split .lab-cam { width: 50%; }
+.lab-stage.ly-split #lab-canvas, .lab-stage.ly-split .lab-labels, .lab-stage.ly-grid #lab-canvas, .lab-stage.ly-grid .lab-labels { left: 50%; width: 50%; }
+.lab-stage.ly-campip .lab-cam, .lab-stage.ly-cam .lab-cam { width: 100%; }
+.lab-stage.ly-campip #lab-canvas, .lab-stage.ly-campip .lab-labels { left: auto; top: auto; right: 12px; bottom: 12px; width: 32%; height: 40%; z-index: 4; border-radius: 12px; border: 1px solid var(--line); background: rgba(3, 5, 13, 0.6); }
+.lab-stage.ly-cam #lab-canvas, .lab-stage.ly-cam .lab-labels { visibility: hidden; }
+.lab-stage.ly-twin .lab-cam { display: none; }
+.lab-stage.ly-grid .lab-cam { opacity: 0; pointer-events: none; left: 0; top: 0; width: 50%; height: 100%; object-fit: contain; }
+.lab-stage.ly-grid #lab-grid { display: block; }
+.cap-h { margin: 12px 0 4px; font-size: 11px; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); }
+.cap-toggles label { font-size: 12px; display: inline-flex; gap: 4px; align-items: center; }
+#cap-tools .on { border-color: var(--accent) !important; background: color-mix(in srgb, var(--accent) 18%, transparent) !important; }
+.cap-read { display: grid; gap: 3px; font-size: 12.5px; margin-top: 6px; }
+.cap-clips { list-style: none; padding: 0; margin: 6px 0; display: grid; gap: 8px; }
+.cap-clips li { display: grid; grid-template-columns: 120px 1fr; gap: 8px; align-items: center; }
+.cap-clips video { width: 120px; border-radius: 8px; background: #000; }
+.cap-clips small { display: block; color: var(--muted); }
+#cap-rec.recording { background: linear-gradient(135deg, #ff4d6d, #ff8fa3) !important; animation: recpulse 1.2s ease-in-out infinite; }
+@keyframes recpulse { 50% { filter: brightness(1.25); } }
