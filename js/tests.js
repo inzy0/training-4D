@@ -11,7 +11,7 @@ import { extLinksFor } from './extensions.js';
 const $ = (s) => document.querySelector(s);
 const esc = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 const SYS_COL = { musculoskeletal: '#ffd166', nervous: '#b388ff', cardiovascular: '#ff6b6b', respiratory: '#90e0ef', blood: '#ef476f', immune: '#06d6a0', digestive: '#f78c6b', endocrine: '#ffb703', renal: '#4cc9f0', metabolic: '#e9ff70', skin: '#ffafcc', general: '#adb5bd' };
-let D = null, byId = {}, cat = 'all', sys = null, cur = null;
+let D = null, byId = {}, cat = 'all', sys = null, cur = null, subs = false;
 
 export async function startTests(openId) {
   if (!D) {
@@ -24,7 +24,7 @@ export async function startTests(openId) {
 }
 
 function buildUI() {
-  const counts = {}; D.tests.forEach((t) => { counts[t.cat] = (counts[t.cat] || 0) + 1; });
+  const counts = {}; D.tests.forEach((t) => { [t.cat, ...(t.also || [])].forEach((c) => { counts[c] = (counts[c] || 0) + 1; }); });
   $('#ts-cats').innerHTML = `<button class="ghost-btn on" data-c="all">All <small>${D.tests.length}</small></button>` +
     Object.entries(D.categories).map(([k, v]) => `<button class="ghost-btn" data-c="${k}">${esc(v)} <small>${counts[k] || 0}</small></button>`).join('');
   $('#ts-cats').querySelectorAll('[data-c]').forEach((b) => (b.onclick = () => { cat = b.dataset.c; $('#ts-cats').querySelectorAll('[data-c]').forEach((x) => x.classList.toggle('on', x === b)); list(); }));
@@ -32,13 +32,15 @@ function buildUI() {
   $('#ts-sys').innerHTML = `<span class="fine">Body system:</span> ` + syss.map((s) => `<button class="ts-sys" data-s="${s}" style="--c:${SYS_COL[s] || '#ccc'}">${s}</button>`).join('');
   $('#ts-sys').querySelectorAll('[data-s]').forEach((b) => (b.onclick = () => { sys = sys === b.dataset.s ? null : b.dataset.s; $('#ts-sys').querySelectorAll('[data-s]').forEach((x) => x.classList.toggle('on', x.dataset.s === sys)); list(); }));
   let tm = null; $('#ts-q').oninput = () => { clearTimeout(tm); tm = setTimeout(list, 150); };
-  $('#ts-map').onclick = overview;
+  $('#ts-q').value = '';
+  $('#ts-map').onclick = () => { if (subs) { subs = false; buildUI(); } overview(); };
+  $('#ts-subs').onclick = () => { subs = true; import('./substances.js').then((m) => m.startSubstances()); };
   list();
 }
 
 function list() {
   const q = $('#ts-q').value.trim().toLowerCase();
-  const xs = D.tests.filter((t) => (cat === 'all' || t.cat === cat) && (!sys || t.systems.includes(sys)) && (!q || t.name.toLowerCase().includes(q) || t.genes.some((g) => g.toLowerCase() === q)));
+  const xs = D.tests.filter((t) => (cat === 'all' || t.cat === cat || (t.also || []).includes(cat)) && (!sys || t.systems.includes(sys)) && (!q || t.name.toLowerCase().includes(q) || t.genes.some((g) => g.toLowerCase() === q)));
   $('#ts-list').innerHTML = xs.map((t) => {
     const n = Object.values(t.quotes).reduce((s, v) => s + v.length, 0);
     return `<li data-id="${t.id}" class="${cur?.id === t.id ? 'on' : ''}"><span>${esc(t.name)}${t.emerging ? ' <span class="ts-em">emerging</span>' : ''}</span><small>${n ? `${n} quotes` : 'no quote found'}${t.research ? ` · ${t.research.n_articles} studies` : ''}</small></li>`;

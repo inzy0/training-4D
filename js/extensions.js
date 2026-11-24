@@ -152,6 +152,35 @@ EXT.push(
   [G_UNI, 'OpenSim Creator', 'https://www.opensimcreator.com/', 'Free desktop tool for building and editing OpenSim musculoskeletal models.', 'free', null, 'terms: see site', 'Unique'],
 );
 
+// Space medicine and the future of human spaceflight (checked 2026-11-25, same method as above).
+const G_SPACE = 'Space medicine & human spaceflight';
+EXT.push(
+  [G_SPACE, 'NASA Human Research Program', 'https://www.nasa.gov/hrp/', 'Research to protect astronaut health and performance in space.', 'free', ddg('nasa.gov/hrp'), 'NASA content: generally not copyrighted (US)'],
+  [G_SPACE, 'NASA: 5 Hazards of Human Spaceflight', 'https://www.nasa.gov/hrp/hazards', 'Radiation, isolation and confinement, distance from Earth, gravity fields, hostile/closed environments.', 'free', null, 'NASA content: generally not copyrighted (US)'],
+  [G_SPACE, 'NASA: The Human Body in Space', 'https://www.nasa.gov/humans-in-space/the-human-body-in-space/', 'What happens to the body in space and the countermeasures (quoted in the Space tab).', 'free', null, 'NASA content: generally not copyrighted (US)'],
+  [G_SPACE, 'NASA Human Research Roadmap', 'https://humanresearchroadmap.nasa.gov/', 'NASA’s risks, knowledge gaps and planned research for human spaceflight: the experiments still needed.', 'free', null, 'NASA content: generally not copyrighted (US)'],
+  [G_SPACE, 'NASA Twins Study', 'https://www.nasa.gov/twins-study/', 'Identical twins compared while one spent a year in space.', 'free', null, 'NASA content: generally not copyrighted (US)'],
+  [G_SPACE, 'Space Station Research Explorer', 'https://www.nasa.gov/mission/station/research-explorer/', 'Every experiment run on the International Space Station, searchable.', 'free', ddg('nasa.gov/mission/station/research-explorer'), 'NASA content: generally not copyrighted (US)'],
+  [G_SPACE, 'NASA Open Science Data Repository (GeneLab / ALSDA)', 'https://osdr.nasa.gov/bio/', 'Open biological and physiological data from spaceflight and ground studies.', 'free', null, 'open data; terms per dataset'],
+  [G_SPACE, 'NASA Life Sciences Portal', 'https://nlsp.nasa.gov/', 'NASA life-science experiment records and data requests.', 'free', null, 'see site'],
+  [G_SPACE, 'NASA Technical Reports Server', 'https://ntrs.nasa.gov/', 'NASA technical reports, including space medicine standards and studies.', 'free', (q) => `https://ntrs.nasa.gov/search?q=${encodeURIComponent(q)}`, 'per document'],
+  [G_SPACE, 'Artemis (Moon to Mars)', 'https://www.nasa.gov/artemis/', 'NASA’s plans to return to the Moon and prepare for Mars.', 'free', null, 'NASA content: generally not copyrighted (US)'],
+  [G_SPACE, 'NASA learning resources', 'https://www.nasa.gov/learning-resources/', 'STEM resources for educators and students.', 'free', null, 'NASA content: generally not copyrighted (US)'],
+  [G_SPACE, 'ESA astronauts and human exploration', 'https://www.esa.int/Science_Exploration/Human_and_Robotic_Exploration/Astronauts', 'European Space Agency astronaut programme.', 'free', ddg('esa.int'), 'terms: see site'],
+  [G_SPACE, 'ESA Education', 'https://www.esa.int/Education', 'ESA learning projects and materials.', 'free', null, 'terms: see site'],
+  [G_SPACE, 'DLR Institute of Aerospace Medicine', 'https://www.dlr.de/en/me', 'German Aerospace Center research on human life sciences in transport and aerospace (bed rest, :envihab).', 'free', null, 'terms: see site'],
+  [G_SPACE, 'MEDES (space clinic, Toulouse)', 'https://www.medes.fr/en/', 'French institute for space medicine and physiology; bed-rest and dry-immersion studies.', 'free', null, 'terms: see site'],
+  [G_SPACE, 'JAXA Humans in Space', 'https://humans-in-space.jaxa.jp/en/', 'Japan’s human spaceflight technology directorate.', 'free', null, 'terms: see site'],
+  [G_SPACE, 'ISS National Laboratory', 'https://www.issnationallab.org/', 'Research on the International Space Station and what it has found.', 'free', null, 'terms: see site'],
+  [G_SPACE, 'UK Space Agency', 'https://www.gov.uk/government/organisations/uk-space-agency', 'The UK’s national space agency.', 'free', null, 'Open Government Licence (GOV.UK)'],
+  [G_SPACE, 'ISRO Gaganyaan', 'https://www.isro.gov.in/Gaganyaan.html', 'India’s human spaceflight programme.', 'free', null, 'terms: see site'],
+  [G_SPACE, 'Aerospace Medical Association (AsMA)', 'https://www.asma.org/', 'Professional body for aerospace medicine and human performance.', 'free + membership', null, 'terms: see site'],
+  [G_SPACE, 'Space Medicine Association', 'https://spacemedicineassociation.org/', 'Professional association for space medicine.', 'free + membership', null, 'terms: see site'],
+  [G_SPACE, 'npj Microgravity', 'https://www.nature.com/npjmgrav/', 'Open-access journal for spaceflight and analogue research.', 'free', ddg('nature.com/npjmgrav'), 'licence per article'],
+  [G_SPACE, 'Frontiers: Environmental, Aviation and Space Physiology', 'https://www.frontiersin.org/journals/physiology/sections/environmental-aviation-and-space-physiology', 'Open-access research on adaptation to extreme environments.', 'free', null, 'licence per article'],
+  [G_SPACE, 'UN Office for Outer Space Affairs', 'https://www.unoosa.org/', 'International space law and cooperation.', 'free', null, 'terms: see site'],
+);
+
 // Paid / subscription resources widely regarded as worth the cost. Links only: their content is licensed per
 // subscriber and is never copied into this app. "paid" = subscription; "institutional" = usually via a hospital
 // or university licence. Prices and plans change; check each site.

@@ -47,6 +47,7 @@
     <button role="tab" data-mode="genome" aria-selected="false">DNA → Protein</button>
     <button role="tab" data-mode="imaging" aria-selected="false">Imaging</button>
     <button role="tab" data-mode="train" aria-selected="false">Training 4D</button>
+    <button role="tab" data-mode="space" aria-selected="false">Space</button>
     <button role="tab" data-mode="ext" aria-selected="false">Extensions</button>
     <button role="tab" data-mode="about" aria-selected="false">About</button>
   </nav>
@@ -361,7 +362,7 @@
 <!-- ============================================================ TESTS & LABS -->
 <main id="mode-tests" class="mode" hidden>
   <section class="cl-stage card">
-    <div class="cl-bar"><input id="ts-q" type="search" placeholder="Search a test, score, questionnaire or lab (e.g. Lachman, CMJ, ferritin, KOOS, calprotectin) or a gene (e.g. CKM)"><button class="ghost-btn" id="ts-map">How they connect</button> <small class="fine" id="ts-count"></small></div>
+    <div class="cl-bar"><input id="ts-q" type="search" placeholder="Search a test, score, questionnaire or lab (e.g. Lachman, CMJ, ferritin, KOOS, calprotectin) or a gene (e.g. CKM)"><button class="ghost-btn" id="ts-map">How they connect</button> <button class="ghost-btn" id="ts-subs">Longevity &amp; recovery substances</button> <small class="fine" id="ts-count"></small></div>
     <div id="ts-cats" class="cl-types"></div>
     <div id="ts-sys" class="ts-sysbar"></div>
     <div class="cl-body"><ul id="ts-list" class="ts-list"></ul><article id="ts-reader" class="cl-reader"></article></div>
@@ -374,6 +375,10 @@
 <!-- ============================================================ EXTENSIONS -->
 <!-- ============================================================ TISSUE LAB 4D (js/tissue.js) -->
 <main id="mode-tissue" class="mode" hidden></main>
+
+<main id="mode-space" class="mode" hidden>
+  <div id="space-body" class="space"></div>
+</main>
 
 <main id="mode-about" class="mode" hidden>
   <div id="about-body" class="about"></div>

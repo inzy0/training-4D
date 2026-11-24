@@ -485,8 +485,8 @@ b.good { color: var(--ok); } b.poor { color: #ff9b9b; }
 .ext-chips { display: flex; flex-wrap: wrap; gap: 6px; }
 .ext-chip { border: 1px solid rgba(76,201,240,.5); border-radius: 999px; padding: 3px 10px; font-size: 11px; text-decoration: none; }
 .ext-chip:hover { background: rgba(76,201,240,.15); }
-#mode-tests, #mode-ext, #mode-about { display: block; padding: 16px; }
-#mode-tests[hidden], #mode-ext[hidden], #mode-about[hidden] { display: none; }
+#mode-tests, #mode-ext, #mode-about, #mode-space { display: block; padding: 16px; }
+#mode-tests[hidden], #mode-ext[hidden], #mode-about[hidden], #mode-space[hidden] { display: none; }
 #mode-tests .cl-bar { display: flex; gap: 8px; align-items: center; } #mode-tests .cl-bar input { flex: 1; } #mode-tests .cl-bar .ghost-btn { width: auto; white-space: nowrap; }
 
 .ts-em { font-size: 9px; border: 1px solid #ff9e00; color: #ff9e00; border-radius: 999px; padding: 0 5px; vertical-align: middle; letter-spacing: 0; }
@@ -620,3 +620,51 @@ blockquote.q footer { font-size: 11px; color: var(--muted); margin-top: 4px; }
 .about-photo { width: 120px; height: 120px; border-radius: 50%; object-fit: cover; border: 3px solid transparent; background: linear-gradient(#0b1020, #0b1020) padding-box, linear-gradient(135deg, #ff3df2, #4da3ff, #19e6a5) border-box; }
 .about .credits li { margin: 6px 0; font-size: 13px; line-height: 1.5; }
 @media (max-width: 600px) { .about-hero { flex-direction: column; text-align: center; } }
+
+/* Space tab */
+.space { max-width: 1180px; margin: 0 auto; display: grid; gap: 14px; }
+.sp-hero { background: radial-gradient(1200px 300px at 70% -40%, rgba(77,163,255,.25), transparent), radial-gradient(800px 260px at 10% 120%, rgba(255,61,242,.18), transparent); }
+.sp-track { display: flex; align-items: center; gap: 4px; overflow-x: auto; padding: 10px 2px; }
+.sp-stage { display: grid; justify-items: center; gap: 2px; min-width: 104px; padding: 8px 6px; border-radius: 12px; border: 1px solid rgba(255,255,255,.12); background: rgba(8,12,30,.55); color: inherit; cursor: pointer; }
+.sp-stage.on { border-color: #4da3ff; box-shadow: 0 0 0 2px rgba(77,163,255,.35), 0 0 22px rgba(77,163,255,.35); }
+.sp-stage .sp-ic { font-size: 22px; } .sp-stage b { font-size: 11px; color: #4da3ff; } .sp-stage small { font-size: 11px; text-align: center; line-height: 1.2; }
+.sp-arrow { flex: 0 0 16px; height: 2px; background: linear-gradient(90deg, #4da3ff, #ff3df2); }
+.sp-topics { display: grid; grid-template-columns: repeat(auto-fill, minmax(230px, 1fr)); gap: 8px; }
+.sp-topic { text-align: left; padding: 10px; border-radius: 10px; border: 1px solid rgba(255,255,255,.12); background: rgba(255,255,255,.03); color: inherit; cursor: pointer; display: grid; gap: 4px; }
+.sp-topic:hover { border-color: #19e6a5; }
+.sp-entry { margin-top: 12px; padding-top: 10px; border-top: 1px solid rgba(255,255,255,.1); }
+.sp-haz summary { cursor: pointer; padding: 6px 0; } .sp-ridge { display: inline-grid; place-items: center; width: 24px; height: 24px; border-radius: 50%; background: linear-gradient(135deg, #ff3df2, #4da3ff); color: #fff; font-weight: 700; margin-right: 6px; }
+.sp-key { border-left: 3px solid #19e6a5; padding-left: 10px; }
+
+/* Substances view (Tests & labs) */
+.sb-bars { display: grid; gap: 4px; }
+.sb-row { display: grid; grid-template-columns: minmax(170px, 34%) 1fr auto; align-items: center; gap: 8px; color: inherit; text-decoration: none; font-size: 12.5px; }
+.sb-row i { height: 8px; border-radius: 4px; background: linear-gradient(90deg, #19e6a5, #4da3ff); display: block; }
+.sb-row:hover span { color: #4da3ff; }
+.sb-box { border-left: 3px solid #ffb020; background: rgba(255,176,32,.08); padding: 8px 10px; border-radius: 6px; }
+
+/* Microscopy lab */
+.ml-body { display: grid; grid-template-columns: minmax(0, 1fr) 380px; gap: 12px; overflow: hidden; }
+.ml-main { overflow: auto; padding-right: 4px; }
+.ml-side { overflow: auto; }
+.ml-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(118px, 1fr)); gap: 8px; margin-top: 8px; }
+.ml-it { margin: 0; border: 1px solid rgba(255,255,255,.12); border-radius: 8px; overflow: hidden; cursor: pointer; background: #000; }
+.ml-it img { width: 100%; display: block; aspect-ratio: 1; object-fit: cover; }
+.ml-it figcaption { font-size: 11px; padding: 3px 6px; }
+.ml-it.on, .ml-it:hover { border-color: #4da3ff; }
+.ml-view { position: relative; width: 100%; aspect-ratio: 1; overflow: hidden; background: #000; border-radius: 8px; cursor: grab; touch-action: none; }
+.ml-view img { width: 100%; height: 100%; display: block; user-select: none; }
+.ml-quiz .ml-view { max-width: 460px; }
+#ml-pins { position: absolute; inset: 0; pointer-events: none; }
+.ml-pin { position: absolute; pointer-events: auto; transform: translate(-6px, -6px); display: flex; align-items: flex-start; gap: 4px; cursor: move; }
+.ml-pin i { width: 12px; height: 12px; border-radius: 50%; background: #ff3df2; border: 2px solid #fff; flex: none; }
+.ml-pin span { background: rgba(8,10,24,.86); border: 1px solid #ff3df2; color: #fff; font-size: 12px; padding: 3px 6px; border-radius: 6px; max-width: 200px; }
+.ml-pin b { font-size: 10px; cursor: pointer; color: #ff8fb3; }
+.ml-right { border-color: #19e6a5 !important; color: #19e6a5; } .ml-wrong { border-color: #ff4d6d !important; color: #ff4d6d; }
+@media (max-width: 900px) { .ml-body { grid-template-columns: 1fr; } }
+/* MRI organ explorer */
+.ms-leg li span[data-org] { cursor: pointer; } .ms-leg li span[data-org]:hover { color: #4da3ff; text-decoration: underline; }
+.ms-leg li.on { outline: 1px solid #4da3ff; border-radius: 4px; } .ms-leg li i[data-eye] { cursor: pointer; }
+.ms-organ h3 { margin: 0 0 4px; text-transform: capitalize; } .ms-note { color: #ff8fb3; }
+#ms-info { overflow: auto; }
+.ml-side .ml-view { width: 100%; height: 340px; min-height: 340px; flex: none; aspect-ratio: auto; } .ml-side .ml-view img { object-fit: contain; }

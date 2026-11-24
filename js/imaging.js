@@ -27,6 +27,8 @@ export async function startImaging() {
   host.innerHTML = keys.map((k) => card(M[k])).join('');
   if (!document.getElementById('mri-open')) host.insertAdjacentHTML('beforebegin', `<div class="mri-open-bar"><button id="mri-open" class="primary small">Open MRI studio: full-resolution brain MRI (T1 · T2 · PD · MRA · fusion)</button> <span class="fine muted">Native-resolution scans of healthy volunteers (IXI), millimetre measurements, linked planes, MIP, cine.</span></div>`);
   document.getElementById('mri-open').onclick = () => import('./mri_studio.js').then((m) => m.openMriStudio());
+  if (!document.getElementById('micro-open')) document.getElementById('mri-open').insertAdjacentHTML('afterend', ' <button id="micro-open" class="primary small">Open Microscopy lab: stained tissue &amp; blood cells, zoom, notes, identify quiz</button>');
+  document.getElementById('micro-open').onclick = () => import('./micro_lab.js').then((m) => m.openMicroLab());
   host.querySelectorAll('[data-task]').forEach((b) => b.addEventListener('click', () => openTask(b.dataset.task)));
   openTask(keys[0]);
 }

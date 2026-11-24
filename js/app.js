@@ -34,6 +34,7 @@ function setMode(mode) {
   if (mode === 'genome') import('./genome.js').then((m) => m.startGenome()).catch((e) => console.error(e));
   if (mode === 'train') import('./training.js').then((m) => m.startTraining()).catch((e) => { const el = document.querySelector('#tr-main'); if (el) el.innerHTML = `<p class="muted">Training System failed to load: ${e.message}</p>`; console.error(e); });
   if (mode === 'tissue') import('./tissue.js').then((m) => m.startTissue()).catch((e) => { const el = document.querySelector('#tis-status'); if (el) el.textContent = `Tissue Lab failed to load: ${e.message}`; console.error(e); });
+  if (mode === 'space') import('./space.js').then((m) => m.startSpace()).catch((e) => console.error(e));
   if (mode === 'about') import('./about.js').then((m) => m.startAbout()).catch((e) => console.error(e));
   if (mode === 'ext') import('./extensions.js').then((m) => m.startExtensions()).catch((e) => console.error(e));
   if (mode === 'imaging') import('./imaging.js').then((m) => m.startImaging()).catch((e) => console.error(e));
@@ -46,7 +47,7 @@ function setMode(mode) {
 
 document.querySelectorAll('.tabs button').forEach((b) => b.addEventListener('click', () => setMode(b.dataset.mode)));
 initMirrorUI();
-const MODES = ['mirror', 'lab', 'diag', 'atlas', 'tissue', 'brain', 'molecular', 'clinical', 'tests', 'genome', 'imaging', 'train', 'ext', 'about'];
+const MODES = ['mirror', 'lab', 'diag', 'atlas', 'tissue', 'brain', 'molecular', 'clinical', 'tests', 'genome', 'imaging', 'train', 'space', 'ext', 'about'];
 let saved = 'mirror';
 try { saved = localStorage.getItem('anatomy-lab-mode') || 'mirror'; } catch { /* ignore */ }
 const fromHash = () => MODES.find((m) => m === location.hash.slice(1).split('/')[0]);

@@ -20,6 +20,7 @@ const $ = (s, r = document) => r.querySelector(s);
 const esc = (s) => String(s ?? '').replace(/[&<>"]/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;' }[c]));
 const SEQ = { T1: 'T1-weighted', T2: 'T2-weighted', PD: 'Proton density', MRA: 'MR angiography (time of flight)', FUSION: 'Fusion: T1 red · T2 green · PD blue' };
 const cache = new Map();
+let NOTES = null; // quoted organ notes (tools/imaging_learn_build.py)
 
 const COLL = { brain: 'Brain (IXI, 4 sequences)', body: 'Whole body & regions, 50 labelled structures (TotalSegmentator MRI)', fmri: 'Functional MRI: visual objects task (OpenNeuro ds000105)' };
 const get = async (u) => { try { const r = await fetch(u, { cache: 'no-store' }); return r.ok ? r.json() : null; } catch { return null; } };
@@ -60,7 +61,7 @@ export async function openMriStudio(opts = {}) {
         <label class="fine">Colour map <select id="ms-cmap">${Object.keys(ANCH).map((k) => `<option>${k}</option>`).join('')}</select></label>
         <label class="fine">Filter <select id="ms-filter">${Object.entries(FILTERS).map(([k, v]) => `<option value="${k}">${v}</option>`).join('')}</select></label>
         <label class="fine">MIP slab (mm, 0 = single slice) <input id="ms-mip" type="range" min="0" max="80" value="0"> <span id="ms-mipv" class="mono">0</span></label>
-        <div class="iv-row"><button class="ghost-btn" id="ms-cine">▶ Cine</button><label class="fine"><input type="checkbox" id="ms-smooth" checked> Smooth</label><label class="fine"><input type="checkbox" id="ms-cross" checked> Crosshair</label></div>
+        <div class="iv-row"><button class="ghost-btn" id="ms-cine">▶ Cine</button><label class="fine"><input type="checkbox" id="ms-smooth" checked> Smooth</label><label class="fine"><input type="checkbox" id="ms-cross" checked> Crosshair</label><label class="fine"><input type="checkbox" id="ms-notes" checked> Floating notes</label></div>
         <div class="ms-tools"><span class="fine">Tool</span>${[['cross', '✛ Crosshair'], ['pan', '✋ Pan'], ['meas', '📏 Measure'], ['mark', '📍 Mark']].map(([k, v]) => `<button class="ghost-btn ${k === 'cross' ? 'on' : ''}" data-tool="${k}">${v}</button>`).join('')}</div>
         <div class="iv-row"><button class="ghost-btn" id="ms-zin">＋ Zoom</button><button class="ghost-btn" id="ms-zout">－</button><button class="ghost-btn" id="ms-zreset">Reset view</button><label class="fine"><input type="checkbox" id="ms-zlink" checked> Link zoom</label></div>
         <p class="fine" id="ms-meas">Scroll = slice · Ctrl+scroll = zoom at the pointer · Pan tool or middle-drag = move · Measure works in every view.</p>
@@ -90,7 +91,7 @@ export async function openMriStudio(opts = {}) {
   $('#ms-big', host).onchange = (e) => { V.big = e.target.value; $('#ms-grid', host).dataset.big = V.big; requestAnimationFrame(draw); };
   for (const [id, key, f] of [['ms-ww', 'ww', Number], ['ms-wl', 'wl', Number], ['ms-cmap', 'cmap', String], ['ms-filter', 'filter', String]]) $(`#${id}`, host).oninput = (e) => { V[key] = f(e.target.value); draw(); };
   $('#ms-mip', host).oninput = (e) => { V.mip = +e.target.value; $('#ms-mipv', host).textContent = V.mip; draw(); };
-  $('#ms-smooth', host).onchange = draw; $('#ms-cross', host).onchange = draw;
+  $('#ms-smooth', host).onchange = draw; $('#ms-cross', host).onchange = draw; $('#ms-notes', host).onchange = draw;
   $('#ms-cine', host).onclick = () => {
     if (V.cine) { clearInterval(V.cine); V.cine = null; $('#ms-cine', host).textContent = '▶ Cine'; return; }
     $('#ms-cine', host).textContent = '■ Stop';
@@ -127,6 +128,8 @@ async function ensure(V) {
   if (V.seq === 'FUSION') { V.bb = {}; for (const s of ['T1', 'T2', 'PD']) V.bb[s] = headBox(V, s); }
   const sj = V.idx.subjects[V.sub];
   V.labels = sj._labels ? await fetchBin(V, sj._labels.file) : null; V.labelNames = sj._labels?.names || null;
+  V.lstat = V.labels ? labelStats(V) : null;
+  if (V.labels && !NOTES) NOTES = await fetch('/training-4D/rt/imaging/organ_notes.json').then((r) => r.json()).catch(() => ({ notes: {} }));
   V.fm = sj._fmri || null;
   if (V.fm) { V.bold = await fetchBin(V, 'bold.u8'); V.tmaps = []; for (const c of V.fm.contrasts) V.tmaps.push(await fetchBin(V, V.fm.tmaps[c], Float32Array)); }
   else { V.bold = null; V.tmaps = null; }
@@ -196,7 +199,8 @@ function drawAll(host, V) {
     }
     { const pa = { ax: 2, co: 1, sa: 0 }[p]; g.font = '12px system-ui';
       V.marks.forEach((m, i) => { if (Math.abs(m.v[pa] - V.pos[pa]) > 1) return; const ci = { ax: [X - 1 - m.v[0], Y - 1 - m.v[1]], co: [X - 1 - m.v[0], Z - 1 - m.v[2]], sa: [Y - 1 - m.v[1], Z - 1 - m.v[2]] }[p];
-        const mx = ox + ((ci[0] + 0.5) / def.w) * W, my = oy + ((ci[1] + 0.5) / def.h) * H; g.fillStyle = '#ff5d8f'; g.beginPath(); g.arc(mx, my, 5, 0, 7); g.fill(); g.strokeStyle = '#fff'; g.stroke(); g.fillStyle = '#fff'; g.fillText(`${i + 1} ${m.label}`, mx + 8, my - 6); }); }
+        const mx = ox + ((ci[0] + 0.5) / def.w) * W, my = oy + ((ci[1] + 0.5) / def.h) * H; g.fillStyle = '#ff5d8f'; g.beginPath(); g.arc(mx, my, 5, 0, 7); g.fill(); g.strokeStyle = '#fff'; g.stroke(); g.fillStyle = '#fff'; g.fillText(`${i + 1} ${m.label}`, mx + 8, my - 6);
+        if (m.note && $('#ms-notes', host)?.checked) callout(g, mx, my, m.note, cv.width); }); }
     if (V.meas && V.meas.p === p) { const m = V.meas; g.strokeStyle = '#ffd166'; g.lineWidth = 2; g.beginPath(); g.moveTo(m.a[0], m.a[1]); g.lineTo(m.b[0], m.b[1]); g.stroke(); g.fillStyle = '#ffd166'; g.font = '13px system-ui'; g.fillText(`${m.mm.toFixed(1)} mm`, m.b[0] + 8, m.b[1]); }
     const [n, k] = { ax: [Z, pz], co: [Y, py], sa: [X, px] }[p];
     $(`[data-l="${p}"]`, host).textContent = `${{ ax: 'Axial', co: 'Coronal', sa: 'Sagittal' }[p]} · slice ${k + 1}/${n}${V.mip ? ` · MIP ${V.mip} mm` : ''}`;
@@ -209,8 +213,9 @@ function info(host, V) {
   $('#ms-sub-info', host).textContent = `${V.idx.seqs[V.seq] || SEQ[V.seq]} · ${X}×${Y}×${Z} voxels · ${sp.map((v) => v.toFixed(2)).join(' × ')} mm · site ${m.site}`;
   const [X0, Y0, Z0] = dims(V), oi = (V.pos[2] * Y0 + V.pos[1]) * X0 + V.pos[0];
   const extra = V.labels ? `<br><b>Structure at crosshair:</b> ${V.labels[oi] ? esc(V.labelNames[V.labels[oi] - 1].replace(/_/g, ' ')) : 'none labelled'}` : V.fm ? `<br><b>t (${esc(V.fm.contrasts[V.con])}):</b> ${V.tmaps[V.con][oi].toFixed(2)}<br><canvas id="ms-ts" width="420" height="130"></canvas><br><small>Signal at the crosshair over the run (yellow); pink = face blocks, blue = house blocks, grey = scrambled, gold = other objects.</small>` : '';
-  $('#ms-info', host).innerHTML = `<div class="fine"><b>Crosshair</b>${extra}<br>voxel ${V.pos.join(', ')}<br>${V.pos.map((v, i) => (v * sp[i]).toFixed(1)).join(', ')} mm from the volume corner<br><br><b>${esc(SEQ[V.seq])}</b><br>${V.seq === 'FUSION' ? 'Each colour channel is one sequence; tissues that differ between sequences show up as different colours. The IXI sequences are not co-registered, so T2 and PD are aligned to T1 by head bounding box (approximate: expect some edge mismatch).' : V.seq === 'MRA' ? 'Flowing blood is bright. Raise the MIP slab to see vessels as a projection.' : ''}<br><br><button class="ghost-btn" id="ms-learn">Read about MRI (StatPearls)</button></div>`;
+  $('#ms-info', host).innerHTML = (V.focusK && V.organHtml ? V.organHtml : '') + `<div class="fine"><b>Crosshair</b>${extra}<br>voxel ${V.pos.join(', ')}<br>${V.pos.map((v, i) => (v * sp[i]).toFixed(1)).join(', ')} mm from the volume corner<br><br><b>${esc(SEQ[V.seq])}</b><br>${V.seq === 'FUSION' ? 'Each colour channel is one sequence; tissues that differ between sequences show up as different colours. The IXI sequences are not co-registered, so T2 and PD are aligned to T1 by head bounding box (approximate: expect some edge mismatch).' : V.seq === 'MRA' ? 'Flowing blood is bright. Raise the MIP slab to see vessels as a projection.' : ''}<br><br><button class="ghost-btn" id="ms-learn">Read about MRI (StatPearls)</button></div>`;
   timeSeries(host, V);
+  $('#ms-org-off', host)?.addEventListener('click', (e) => { e.preventDefault(); V.focusK = null; V.hide.clear(); overlayUI(host, V, () => drawAll(host, V)); drawAll(host, V); info(host, V); });
   $('#ms-learn', host).onclick = async () => {
     const r = await (await fetch('/api/clinical/search?q=magnetic%20resonance&type=all&limit=8')).json();
     $('#ms-info', host).insertAdjacentHTML('beforeend', `<ul class="fine">${r.map((x) => `<li><a href="#clinical" data-cl="${esc(x.id)}">${esc(x.title)}</a></li>`).join('') || '<li>no chapter found</li>'}</ul>`);
@@ -234,7 +239,7 @@ function bindCanvas(cv, host, V, draw) {
   });
   cv.addEventListener('pointerup', (e) => {
     if (drag && !drag.moved) { const v = toVox(e); if (v) { const vv = v.map((x, i) => Math.max(0, Math.min(dims(V)[i] - 1, x)));
-      if (V.tool === 'mark') { const lbl = prompt('Label for this point', `Point ${V.marks.length + 1}`); if (lbl !== null) { const [X0, Y0] = dims(V), o = (vv[2] * Y0 + vv[1]) * X0 + vv[0]; V.marks.push({ v: vv, label: lbl || `Point ${V.marks.length + 1}`, plane: p, seq: V.seq, structure: V.labels?.[o] ? V.labelNames[V.labels[o] - 1].replace(/_/g, ' ') : null, t: new Date().toISOString() }); saveMarks(V); renderMarks(host, V, draw); } }
+      if (V.tool === 'mark') { const lbl = prompt('Label for this point', `Point ${V.marks.length + 1}`); if (lbl !== null) { const note = prompt('Floating note (optional): a finding, a question, what you see here', '') || ''; const [X0, Y0] = dims(V), o = (vv[2] * Y0 + vv[1]) * X0 + vv[0]; V.marks.push({ v: vv, label: lbl || `Point ${V.marks.length + 1}`, note, plane: p, seq: V.seq, structure: V.labels?.[o] ? V.labelNames[V.labels[o] - 1].replace(/_/g, ' ') : null, t: new Date().toISOString() }); saveMarks(V); renderMarks(host, V, draw); } }
       V.pos = vv; info(host, V); draw(); } }
     drag = null; });
   cv.addEventListener('wheel', (e) => { e.preventDefault();
@@ -249,12 +254,13 @@ function bindCanvas(cv, host, V, draw) {
 const mkKey = (V) => `ms-marks:${V.coll}:${V.sub}`;
 function loadMarks(V) { try { V.marks = JSON.parse(localStorage.getItem(mkKey(V)) || '[]'); } catch { V.marks = []; } }
 function saveMarks(V) { try { localStorage.setItem(mkKey(V), JSON.stringify(V.marks)); } catch { /* storage blocked */ } }
-function markExport(V) { const sp = spacing(V); return { collection: V.coll, subject: V.sub, spacing_mm: sp, points: V.marks.map((m) => ({ label: m.label, voxel: m.v, mm: m.v.map((x, i) => +(x * sp[i]).toFixed(1)), structure: m.structure, sequence: m.seq, created: m.t })) }; }
+function markExport(V) { const sp = spacing(V); return { collection: V.coll, subject: V.sub, spacing_mm: sp, points: V.marks.map((m) => ({ label: m.label, note: m.note || '', voxel: m.v, mm: m.v.map((x, i) => +(x * sp[i]).toFixed(1)), structure: m.structure, sequence: m.seq, created: m.t })) }; }
 function renderMarks(host, V, draw) {
   const ul = $('#ms-marks', host); if (!ul) return; $('#ms-mk-n', host).textContent = `(${V.marks.length})`;
   const sp = spacing(V);
-  ul.innerHTML = V.marks.map((m, i) => `<li><a href="#" data-go="${i}">${i + 1}. ${esc(m.label)}</a> <small>${m.v.join(',')}${m.structure ? ` · ${esc(m.structure)}` : ''}</small> ${i ? `<small>· ${Math.hypot(...m.v.map((x, k) => (x - V.marks[i - 1].v[k]) * sp[k])).toFixed(1)} mm from ${i}</small>` : ''} <a href="#" data-rm="${i}">✕</a></li>`).join('');
+  ul.innerHTML = V.marks.map((m, i) => `<li><a href="#" data-go="${i}">${i + 1}. ${esc(m.label)}</a> <small>${m.v.join(',')}${m.structure ? ` · ${esc(m.structure)}` : ''}</small>${m.note ? ` <small class="ms-note">📝 ${esc(m.note)}</small>` : ''} <a href="#" data-ed="${i}" title="Edit note">✎</a> ${i ? `<small>· ${Math.hypot(...m.v.map((x, k) => (x - V.marks[i - 1].v[k]) * sp[k])).toFixed(1)} mm from ${i}</small>` : ''} <a href="#" data-rm="${i}">✕</a></li>`).join('');
   ul.querySelectorAll('[data-go]').forEach((a) => (a.onclick = (e) => { e.preventDefault(); V.pos = [...V.marks[+a.dataset.go].v]; info(host, V); draw(); }));
+  ul.querySelectorAll('[data-ed]').forEach((a) => (a.onclick = (e) => { e.preventDefault(); const m = V.marks[+a.dataset.ed], t = prompt('Floating note', m.note || ''); if (t !== null) { m.note = t; saveMarks(V); renderMarks(host, V, draw); draw(); } }));
   ul.querySelectorAll('[data-rm]').forEach((a) => (a.onclick = (e) => { e.preventDefault(); V.marks.splice(+a.dataset.rm, 1); saveMarks(V); renderMarks(host, V, draw); draw(); }));
 }
 
@@ -264,10 +270,12 @@ function overlayUI(host, V, draw) {
     const names = V.labelNames, present = V.idx.subjects[V.sub]._labels.present;
     el.innerHTML = `<label class="fine">Label opacity <input id="ms-op" type="range" min="0" max="100" value="${Math.round(V.ovOp * 100)}"></label>
       <p class="fine">${present.length} of ${names.length} structures present in this scan. Click a name to hide or show it; hover the image to name what is under the pointer.</p>
-      <ul class="ms-leg">${present.map((k) => { const c = labCol(k); return `<li data-k="${k}" class="${V.hide.has(k) ? 'off' : ''}"><i style="background:rgb(${c.join(',')})"></i>${esc(names[k - 1].replace(/_/g, ' '))}</li>`; }).join('')}</ul>
+      <p class="fine"><b>Organ explorer:</b> click a name to isolate it, jump to its centre and read its MRI notes; click the colour square to hide or show it.</p>
+      <ul class="ms-leg">${present.map((k) => { const c = labCol(k), st = V.lstat?.[k]; return `<li data-k="${k}" class="${V.hide.has(k) ? 'off' : ''} ${V.focusK === k ? 'on' : ''}"><i data-eye="${k}" style="background:rgb(${c.join(',')})"></i><span data-org="${k}">${esc(names[k - 1].replace(/_/g, ' '))}</span>${st ? `<small> ${st.ml >= 10 ? st.ml.toFixed(0) : st.ml >= 1 ? st.ml.toFixed(1) : st.ml.toFixed(2)} mL</small>` : ''}</li>`; }).join('')}</ul>
       <p class="btnrow"><button class="ghost-btn" id="ms-allon">All</button><button class="ghost-btn" id="ms-alloff">None</button></p>`;
-    el.querySelectorAll('[data-k]').forEach((li) => (li.onclick = () => { const k = +li.dataset.k; V.hide.has(k) ? V.hide.delete(k) : V.hide.add(k); li.classList.toggle('off'); draw(); }));
-    $('#ms-allon', host).onclick = () => { V.hide.clear(); overlayUI(host, V, draw); draw(); };
+    el.querySelectorAll('[data-eye]').forEach((i) => (i.onclick = (e) => { e.stopPropagation(); const k = +i.dataset.eye; V.hide.has(k) ? V.hide.delete(k) : V.hide.add(k); i.parentElement.classList.toggle('off'); draw(); }));
+    el.querySelectorAll('[data-org]').forEach((sp) => (sp.onclick = () => focusOrgan(host, V, draw, +sp.dataset.org)));
+    $('#ms-allon', host).onclick = () => { V.hide.clear(); V.focusK = null; overlayUI(host, V, draw); draw(); };
     $('#ms-alloff', host).onclick = () => { present.forEach((k) => V.hide.add(k)); overlayUI(host, V, draw); draw(); };
   } else if (V.fm) {
     el.innerHTML = `<label class="fine">Contrast <select id="ms-con">${V.fm.contrasts.map((c, i) => `<option value="${i}" ${i === V.con ? 'selected' : ''}>${esc(c)}</option>`).join('')}</select></label>
@@ -317,4 +325,43 @@ function inv4(m) { // Gauss-Jordan
     for (let r = 0; r < 4; r++) if (r !== c) { const f = a[r][c]; for (let k = 0; k < 8; k++) a[r][k] -= f * a[c][k]; }
   }
   return a.map((r) => r.slice(4));
+}
+
+// ------------------------------------------------------------------ organ explorer
+// per-label voxel count, centroid and bounding box (one pass over the label volume); volume in mL from voxel spacing
+function labelStats(V) {
+  const [X, Y, Z] = dims(V), sp = spacing(V), L = V.labels, st = {};
+  for (let z = 0; z < Z; z++) for (let y = 0; y < Y; y++) { const row = (z * Y + y) * X; for (let x = 0; x < X; x++) { const k = L[row + x]; if (!k) continue;
+    let s = st[k]; if (!s) s = st[k] = { n: 0, sx: 0, sy: 0, sz: 0, lo: [x, y, z], hi: [x, y, z] };
+    s.n++; s.sx += x; s.sy += y; s.sz += z; if (x < s.lo[0]) s.lo[0] = x; if (y < s.lo[1]) s.lo[1] = y; if (z < s.lo[2]) s.lo[2] = z; if (x > s.hi[0]) s.hi[0] = x; if (y > s.hi[1]) s.hi[1] = y; if (z > s.hi[2]) s.hi[2] = z; } }
+  const vml = (sp[0] * sp[1] * sp[2]) / 1000;
+  for (const s of Object.values(st)) { s.c = [Math.round(s.sx / s.n), Math.round(s.sy / s.n), Math.round(s.sz / s.n)]; s.ml = s.n * vml; s.ext = [0, 1, 2].map((i) => (s.hi[i] - s.lo[i] + 1) * sp[i]); }
+  return st;
+}
+function focusOrgan(host, V, draw, k) {
+  const present = V.idx.subjects[V.sub]._labels.present, st = V.lstat?.[k]; if (!st) return;
+  if (V.focusK === k) { V.focusK = null; V.hide.clear(); } else { V.focusK = k; V.hide = new Set(present.filter((x) => x !== k)); V.pos = [...st.c]; }
+  overlayUI(host, V, draw); draw();
+  if (!V.focusK) { info(host, V); return; }
+  const raw = V.labelNames[k - 1], stem = raw.replace(/_(left|right)$/, ''), name = raw.replace(/_/g, ' '), n = NOTES?.notes?.[`organ:${stem}`];
+  const qs = (arr) => (arr || []).map((x) => `<li><span class="ts-qt">“${esc(x.text)}”</span> <small class="ts-src">${esc(x.title)} · ${esc(x.licence || '')}</small></li>`).join('');
+  const sec = (kd, h) => (n?.quotes?.[kd]?.length ? `<details ${kd === 'mri' ? 'open' : ''}><summary><b>${h}</b> <small>${n.quotes[kd].length}</small></summary><ul class="ts-q">${qs(n.quotes[kd])}</ul></details>` : '');
+  V.organHtml = (`<div class="ms-organ"><h3>${esc(name)}</h3>
+    <p class="fine mono">${st.ml >= 1 ? st.ml.toFixed(1) : st.ml.toFixed(2)} mL · ${st.n.toLocaleString()} voxels · extent ${st.ext.map((v) => v.toFixed(0)).join(' × ')} mm (R-L × A-P × S-I) · centre voxel ${st.c.join(', ')}</p>
+    <p class="fine">Measured from this scan's label volume and voxel spacing (TotalSegmentator MRI labels): one person, not a normal range.</p>
+    ${sec('mri', 'How it looks on MRI')}${sec('findings', 'Findings and problems')}${sec('differential', 'Telling conditions apart')}
+    ${n && !Object.values(n.quotes).some((v) => v.length) ? '<p class="fine muted">No quoted MRI sentence for this structure in the local open texts.</p>' : ''}
+    <p class="fine">Quoted unchanged from StatPearls / NCBI Bookshelf / OpenStax (licence per quote). <a href="#" id="ms-org-off">Show all structures</a></p></div><hr>`);
+  info(host, V);
+}
+// floating note: a small box with wrapped text next to a marked point
+function callout(g, x, y, text, cw) {
+  g.font = '12px system-ui'; const maxW = 190, words = String(text).split(/\s+/), lines = []; let cur = '';
+  for (const w of words) { const t = cur ? `${cur} ${w}` : w; if (g.measureText(t).width > maxW && cur) { lines.push(cur); cur = w; } else cur = t; }
+  if (cur) lines.push(cur); lines.splice(5);
+  const w = Math.min(maxW, Math.max(...lines.map((l) => g.measureText(l).width))) + 12, h = lines.length * 15 + 8;
+  let bx = x + 14, by = y + 10; if (bx + w > cw - 4) bx = x - 14 - w;
+  g.strokeStyle = 'rgba(255,93,143,0.9)'; g.beginPath(); g.moveTo(x, y); g.lineTo(bx, by + 6); g.stroke();
+  g.fillStyle = 'rgba(8,10,24,0.88)'; g.fillRect(bx, by, w, h); g.strokeRect(bx, by, w, h);
+  g.fillStyle = '#fff'; lines.forEach((l, i) => g.fillText(l, bx + 6, by + 16 + i * 15));
 }
