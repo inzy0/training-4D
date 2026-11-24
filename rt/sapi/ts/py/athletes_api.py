@@ -935,6 +935,9 @@ def assign(b):
 
 def handle_get(path, q):
     a = lambda k, d="": q.get(k, [d])[0]  # noqa: E731
+    if path.startswith("/api/ath/bld/"):  # builder (anatomy_lab/builder_api.py)
+        from anatomy_lab import builder_api as BA
+        return BA.handle_get(path, q)
     if path.startswith("/api/ath/sci/"):  # sport science layer (anatomy_lab/sport_science.py)
         from anatomy_lab import sport_science as SS
         return SS.handle_get(path, q)
@@ -964,6 +967,9 @@ def handle_get(path, q):
 
 
 def handle_post(path, b):
+    if path.startswith("/api/ath/bld/"):
+        from anatomy_lab import builder_api as BA
+        return BA.handle_post(path, b)
     f = {"/api/ath/save": save_athlete, "/api/ath/archive": archive, "/api/ath/group": save_group, "/api/ath/session": log_session,
          "/api/ath/test": log_test, "/api/ath/injury": log_injury, "/api/ath/override": set_override, "/api/ath/assign": assign, "/api/ath/phase": move_phase,
          "/api/ath/members": members, "/api/ath/delete": delete_athlete, "/api/ath/restore": restore,

@@ -84,8 +84,8 @@ function tsCall(msg) {
   if (!TSW) {
     TSW = new Worker(new URL('./ts_worker.js', import.meta.url));
     TSW.onmessage = (e) => { const w = tsWait.get(e.data.id); if (w) { tsWait.delete(e.data.id); w(e.data); } };
-    TSW.__boot = (async () => { const [profile, athletes] = await Promise.all([kvGet('profile'), kvGet('athletes')]);
-      return new Promise((res) => { const id = ++tsSeq; tsWait.set(id, res); TSW.postMessage({ id, kind: 'boot', base: SAPI + 'ts/', state: { profile, athletes } }); }); })();
+    TSW.__boot = (async () => { const [profile, athletes, builder] = await Promise.all([kvGet('profile'), kvGet('athletes'), kvGet('builder')]);
+      return new Promise((res) => { const id = ++tsSeq; tsWait.set(id, res); TSW.postMessage({ id, kind: 'boot', base: SAPI + 'ts/', state: { profile, athletes, builder } }); }); })();
   }
   return TSW.__boot.then((b) => (b.ok ? new Promise((res) => { const id = ++tsSeq; tsWait.set(id, res); TSW.postMessage({ id, ...msg }); }) : b));
 }
@@ -96,7 +96,7 @@ async function tsRoute(url, method, init) {
   let body = {}; if (method !== 'GET' && init.body) { try { body = JSON.parse(init.body); } catch { body = {}; } }
   const r = await tsCall({ method, path, query, body });
   if (!r.ok) return json({ error: `Training engine (in-browser): ${r.error}` }, 500);
-  if (r.persist) { if (r.persist.profile) kvSet('profile', r.persist.profile); if (r.persist.athletes) kvSet('athletes', r.persist.athletes); }
+  if (r.persist) { if (r.persist.profile) kvSet('profile', r.persist.profile); if (r.persist.athletes) kvSet('athletes', r.persist.athletes); if (r.persist.builder) kvSet('builder', r.persist.builder); }
   return json(r.obj, r.code || 200);
 }
 
