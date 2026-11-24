@@ -12,7 +12,7 @@ async function boot(base, state) {
   const FS = py.FS, mk = (p) => { try { FS.mkdirTree(p); } catch (e) { /* exists */ } };
   ['/app/anatomy_lab', '/app/tools', '/app/data/anatomy_lab/training_system'].forEach(mk);
   const get = async (p) => { const r = await fetch(base + p); if (!r.ok) throw new Error(`${p}: ${r.status}`); return r; };
-  for (const [f, dir] of [['training_api.py', 'anatomy_lab'], ['athletes_api.py', 'anatomy_lab'], ['sport_science.py', 'anatomy_lab'], ['training_engine.py', 'tools']]) FS.writeFile(`/app/${dir}/${f}`, await (await get(`py/${f}`)).text());
+  for (const [f, dir] of [['training_api.py', 'anatomy_lab'], ['athletes_api.py', 'anatomy_lab'], ['sport_science.py', 'anatomy_lab'], ['training_divisions.py', 'anatomy_lab'], ['training_engine.py', 'tools']]) FS.writeFile(`/app/${dir}/${f}`, await (await get(`py/${f}`)).text());
   FS.writeFile('/app/anatomy_lab/__init__.py', ''); FS.writeFile('/app/tools/__init__.py', '');
   const man = await (await get('manifest.json')).json();
   const parts = await Promise.all(man.parts.map(async (p) => new Uint8Array(await (await get(p)).arrayBuffer())));

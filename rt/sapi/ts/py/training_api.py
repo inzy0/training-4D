@@ -226,6 +226,9 @@ def handle_get(path: str, q: dict):
     a = lambda k, d="": q.get(k, [d])[0]  # noqa: E731
     if not DB.exists():
         return 404, {"error": "Training System not built: .venv\\Scripts\\python.exe -m tools.training_system_build <workbook.xlsx>"}
+    if path.startswith("/api/ts/div/"):  # training divisions (anatomy_lab/training_divisions.py)
+        from anatomy_lab import training_divisions as TD
+        return TD.handle_get(path, q)
     if path == "/api/ts/table":
         f = json.loads(a("f") or "{}"); cols = json.loads(a("cols") or "null")
         return 200, table(a("t"), a("q")[:200], f, int(a("off", "0") or 0), int(a("lim", "50") or 50), cols, a("sort"))
