@@ -935,6 +935,9 @@ def assign(b):
 
 def handle_get(path, q):
     a = lambda k, d="": q.get(k, [d])[0]  # noqa: E731
+    if path.startswith("/api/ath/sci/"):  # sport science layer (anatomy_lab/sport_science.py)
+        from anatomy_lab import sport_science as SS
+        return SS.handle_get(path, q)
     if path == "/api/ath/list":
         return 200, athletes(a("archived") == "1")
     if path == "/api/ath/get":
